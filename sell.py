@@ -57,7 +57,7 @@ if hour>9 or (hour>8 and minute>25):
         if currentPrice < float(sell):
             statusfile = open("sellstatus.txt","w")
             print("Time to sell")
-            myemail.send_email("arunaveeramani@gmail.com","avena_aashik","kveeramani@gmail.com","Time to sell","Time to sell")
+            myemail.send_email("aruna","aruna","veera","Time to sell","Time to sell")
             statusfile.write("sell")
             statusfile.close()
     statusfile.close()
@@ -71,23 +71,23 @@ if status =="sell":
     if currentPrice < float(T4) and "S4" not in targetstatus:
         print("T4 reached")
         targetstatusfile.write("S4")
-        myemail.send_email("arunaveeramani@gmail.com","avena_aashik","kveeramani@gmail.com","T4 reached","T4 reached")
+        myemail.send_email("aruna","aruna","veera","T4 reached","T4 reached")
     elif currentPrice < float(T3) and "S3" not in targetstatus and "S4" not in targetstatus:
         print("T3 reached")
         targetstatusfile.write("S3")
-        myemail.send_email("arunaveeramani@gmail.com","avena_aashik","kveeramani@gmail.com","T3 reached","T3 reached")
+        myemail.send_email("aruna","aruna","veera","T3 reached","T3 reached")
     elif currentPrice < float(T2) and "S2" not in targetstatus and "S3" not in targetstatus and "S4" not in targetstatus:
         print("T2 reached")
         targetstatusfile.write("S2")
-        myemail.send_email("arunaveeramani@gmail.com","avena_aashik","kveeramani@gmail.com","T2 reached","T2 reached")
+        myemail.send_email("aruna","aruna","veera","T2 reached","T2 reached")
     elif currentPrice < float(T1) and "S1" not in targetstatus and "S2" not in targetstatus and "S3" not in targetstatus and "S4" not in targetstatus:
         print("T1 reached")
         targetstatusfile.write("S1")
-        myemail.send_email("arunaveeramani@gmail.com","avena_aashik","kveeramani@gmail.com","T1 reached","T1 reached")
+        myemail.send_email("aruna","aruna","veera","T1 reached","T1 reached")
     elif currentPrice > float(stop) and "stop" not in targetstatus:
         print("Stop Loss triggered")
         targetstatusfile.write("stop")
-        myemail.send_email("arunaveeramani@gmail.com","avena_aashik","kveeramani@gmail.com","Sell Stop Loss triggered","Sell Stop Loss triggered")
+        myemail.send_email("aruna","aruna","veera","Sell Stop Loss triggered","Sell Stop Loss triggered")
         statusfile = open("sellstatus.txt","w")
         statusfile.write("")
         statusfile.close()
