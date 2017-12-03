@@ -9,7 +9,7 @@ class Myemail:
         counter=0
         for line in file:
             line=line.strip()
-            print(line)
+            #print(line)
             if counter==0:
                 user=line
             if counter==1:
