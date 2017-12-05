@@ -7,8 +7,10 @@ output = json.loads(response.text)
 advance=output["advances"]
 decline=output["declines"]
 subject = "Advance: " + str(advance) + " Decline: "+ str(decline)
+message=output["latestData"]
+#print(message)
 myemail=Myemail()
-myemail.send_email("aruna","aruna","veera",subject,output)
+myemail.send_email("aruna","aruna","veera",subject,message)
 
 
 
