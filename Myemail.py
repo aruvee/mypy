@@ -6,7 +6,7 @@ class Myemail:
     def send_email(self,user, pwd, recipient, subject, body):
         import smtplib
         #Read the buy file and get the data
-        file = open("email.txt","r")
+        file = open("Myemail.ini","r")
         flag="false"
         counter=0
         for line in file:
