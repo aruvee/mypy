@@ -8,7 +8,7 @@ advance=output["advances"]
 decline=output["declines"]
 subject = "Advance: " + str(advance) + " Decline: "+ str(decline)
 message=output["latestData"]
-#print(message)
+print("Invoked the advanced decline")
 myemail=Myemail()
 myemail.send_email("aruna","aruna","veera",subject,message)
 
