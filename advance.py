@@ -35,6 +35,9 @@ else:
     advDifference = advance - advanceStore
     decDifference = advanceStore - advance
     if advDifference > 4 or decDifference > 4:
+        advanceFile = open("advance.txt", "w")
+        advanceFile.write(str(advance))
+        advanceFile.close()
         myemail = Myemail()
         message = "Advance: " + str(advance) + " Decline: " + str(decline)
         myemail.send_email("aruna", "aruna", "veera", "Trend Change", message)
