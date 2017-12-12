@@ -14,7 +14,7 @@ message = " "
 while counter < 50:
     message = message + output["data"][counter]["symbol"] + " " + output["data"][counter]["per"] + "\n"
     counter = counter + 1
-print(message)
+#print(message)
 
 myemail = Myemail()
 myemail.send_email("aruna", "aruna", "veera", subject, message)
