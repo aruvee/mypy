@@ -10,7 +10,7 @@ decline = output["declines"]
 subject = "Advance: " + str(advance) + " Decline: " + str(decline)
 
 counter = 0
-message = " "
+message = ""
 while counter < 50:
     message = message + output["data"][counter]["symbol"] + " " + output["data"][counter]["per"] + "\n"
     counter = counter + 1
