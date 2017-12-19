@@ -39,5 +39,10 @@ else:
         advanceFile.write(str(advance))
         advanceFile.close()
         myemail = Myemail()
-        message = "Advance: " + str(advance) + " Decline: " + str(decline)
-        myemail.send_email("aruna", "aruna", "veera", "Trend Change", message)
+        subject = "Trend Change --> " + "Advance: " + str(advance) + " Decline: " + str(decline)
+        counter = 0
+        message = ""
+        while counter < 50:
+            message = message + output["data"][counter]["symbol"] + " " + output["data"][counter]["per"] + "\n"
+            counter = counter + 1
+        myemail.send_email("aruna", "aruna", "veera", subject, message)
