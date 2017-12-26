@@ -40,6 +40,7 @@ today=datetime.now(pytz.timezone('Asia/Kolkata'))
 minute=today.minute
 hour=today.hour
 status=""
+subject = ""
 
 #Read the values from Target status and keep ready
 targetstatusfile = open("targetstatus.txt","r")
@@ -58,7 +59,8 @@ if hour>9 or (hour>8 and minute>25):
         if currentPrice > float(buy):
             statusfile = open("buystatus.txt","w")
             print("Time to buy")
-            myemail.send_email("aruna","aruna","veera","Time to buy","Time to buy")
+            subject = "Time to buy: " + str(currentPrice) + " " + str(buy)
+            myemail.send_email("aruna", "aruna", "veera", subject, "Time to buy")
             statusfile.write("buy")
     statusfile.close()
 
@@ -70,24 +72,29 @@ if status =="buy":
     targetstatusfile = open("targetstatus.txt","a")
     if currentPrice > float(T4) and "B4" not in targetstatus:
         print("T4 reached")
+        subject = "T4 reached: " + str(currentPrice) + " " + str(T4)
         targetstatusfile.write("B4")
-        myemail.send_email("aruna","aruna","veera","T4 reached","T4 reached")
+        myemail.send_email("aruna","aruna","veera", subject, "T4 reached")
     elif currentPrice > float(T3) and "B3" not in targetstatus and "B4" not in targetstatus:
         print("T3 reached")
         targetstatusfile.write("B3")
-        myemail.send_email("aruna","aruna","veera","T3 reached","T3 reached")
+        subject = "T3 reached: " + str(currentPrice) + " " + str(T3)
+        myemail.send_email("aruna","aruna","veera", subject,"T3 reached")
     elif currentPrice > float(T2) and "B2" not in targetstatus and "B3" not in targetstatus and "B4" not in targetstatus:
         print("T2 reached")
         targetstatusfile.write("B2")
-        myemail.send_email("aruna","aruna","veera","T2 reached","T2 reached")
+        subject = "T2 reached: " + str(currentPrice) + " " + str(T2)
+        myemail.send_email("aruna","aruna","veera", subject,"T2 reached")
     elif currentPrice > float(T1) and "B1" not in targetstatus and "B2" not in targetstatus and "B3" not in targetstatus and "B4" not in targetstatus:
         print("T1 reached")
         targetstatusfile.write("B1")
-        myemail.send_email("aruna","aruna","veera","T1 reached","T1 reached")
+        subject = "T1 reached: " + str(currentPrice) + " " + str(T1)
+        myemail.send_email("aruna","aruna","veera", subject,"T1 reached")
     elif currentPrice < float(stop) and "stop" not in targetstatus:
         print("Stop Loss triggered")
         targetstatusfile.write("stop")
-        myemail.send_email("aruna","aruna","veera","Buy Stop Loss triggered","Buy Stop Loss triggered")
+        subject = "Buy Stop Loss triggered: " + str(currentPrice) + " " + str(stop)
+        myemail.send_email("aruna","aruna","veera", subject,"Buy Stop Loss triggered")
         statusfile = open("buystatus.txt","w")
         statusfile.write("")
         statusfile.close()
