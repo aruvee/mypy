@@ -40,7 +40,7 @@ while counter < 50:
             points = points + 1
     counter = counter + 1
 
-subject = "Points: " + str(points)
+subject = "Change: " + str(points)
 
 myemail = Myemail()
 myemail.send_email("aruna", "aruna", "veera", subject, message)
