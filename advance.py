@@ -32,6 +32,7 @@ else:
     for line in advanceFile:
         advanceStore = int(line)
     advanceFile.close()
+    trend = "Trend Change"
     advDifference = advance - advanceStore
     decDifference = advanceStore - advance
     if advDifference > 4 or decDifference > 4:
@@ -39,7 +40,11 @@ else:
         advanceFile.write(str(advance))
         advanceFile.close()
         myemail = Myemail()
-        subject = "Trend Change --> " + "Advance: " + str(advance) + " Decline: " + str(decline)
+        if advDifference > 4:
+            trend = "Positive Trend"
+        else:
+            trend = "Negative Trend"
+        subject = trend + " --> " + "Advance: " + str(advance) + " Decline: " + str(decline)
         counter = 0
         message = ""
         while counter < 50:
