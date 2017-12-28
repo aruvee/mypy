@@ -48,7 +48,7 @@ if os.stat("points.txt").st_size == 0:
     myemail = Myemail()
     if points >= 3 or points <= -3:
         myemail.send_email("aruna", "aruna", "veera", subject, message)
-        file = open("negcont.txt", "w")
+        file = open("points.txt", "w")
         file.write(subject)
         file.close()
 
