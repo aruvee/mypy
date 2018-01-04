@@ -41,3 +41,5 @@ class Myemail:
                 server.close()
                 print("successfully sent the mail")
             except Exception as e: print(e)
+        else:
+            print(message)
