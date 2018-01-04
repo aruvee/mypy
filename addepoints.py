@@ -29,7 +29,7 @@ if os.stat("points.txt").st_size == 0:
         if adList.__contains__(symbol):
             message = message + symbol + " " + percent + "\n"
             if float(percent) < 0:
-                points = points + 1
+                points = points - 1
         counter = counter + 1
 
     counter = 0
@@ -39,7 +39,7 @@ if os.stat("points.txt").st_size == 0:
         if deList.__contains__(symbol):
             message = message + symbol + " " + percent + "\n"
             if float(percent) > 0:
-                points = points - 1
+                points = points + 1
         counter = counter + 1
 
     subject = "Points: " + str(points)
