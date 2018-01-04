@@ -16,6 +16,8 @@ class Index:
         for index in jsonList:
             if indexList.__contains__(index["shortName"]):
                 indexName = str(index["shortName"]).replace(" ","")
+                if indexName =="FTSE100":
+                    message = message + "\n"
                 message = message + indexName + ": " + index["regularMarketChangePercent"]["fmt"] + "\n"
         return message
 
