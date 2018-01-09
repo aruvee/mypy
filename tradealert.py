@@ -1,51 +1,54 @@
-import sqlite3
 from datetime import datetime
 from datetime import timedelta
-from stockutils import stockutils
+from stockutils import StockUtils
 from index import Index
+from tradedao import TradeDAO
 from dateutil import parser
+from Myemail import Myemail
 
-conn = sqlite3.connect("stock.db")
-stockutils = stockutils()
+stockutils = StockUtils()
 index = Index()
-
+tradedao = TradeDAO()
 now = datetime.now()
+myemail = Myemail()
 
-
-#conn.execute("INSERT INTO trade (type,symbol,buy,notify_price,notify_time) \
-#      VALUES ('stock', 'TCS', 2716, 2715.2, ? )",(now,))
-
-cursor = conn.execute("Select * from trade")
+# Get the rows from the Trade table
+cursor = tradedao.selectTrade()
 
 for row in cursor:
-    buy = row[2]
+    type = row[0]
+    symbol = row[1]
+    buyPrice = row[2]
+    # If the notify price is empty assign zero
     notifyPrice = row[3]
     if notifyPrice == "":
         notifyPrice = 0
-    previousChange = stockutils.getPercentage(buy,notifyPrice)
-    ltp = float(index.getStockPrice(row[1]))
-    currentChange = stockutils.getPercentage(buy, ltp)
-    change = abs(currentChange - previousChange)
-    print(change)
+    # If the notify time is empty assign previous day
     notifyTime = row[4]
-    print(notifyTime)
     if notifyTime == "":
-        notifyTime = datetime.now() - timedelta(minutes=2)
+        notifyTime = datetime.now() - timedelta(days=1)
     else:
         notifyTime = parser.parse(notifyTime)
+
+    ltp = index.getStockPrice(type, symbol)
+    print("LTP",ltp)
+    currentValue = stockutils.getPercentage(buyPrice, ltp)
+
+    if notifyPrice > 0:
+        notifyValue = stockutils.getPercentage(buyPrice, notifyPrice)
+        change = abs(currentValue - notifyValue)
+    else:
+        change = abs(currentValue)
+
+    print("Change",change)
+
     diff = now - notifyTime
-    #print(diff.m)
-    print(diff.days)
     print(diff.seconds)
-    if change > 0.5:
-        print("Send email")
-        conn.execute("UPDATE trade SET notify_price=?, notify_time=?", (ltp,now))
-    elif diff.seconds > 1800:
-        #Send email
-        print("Send email")
-        conn.execute("UPDATE trade SET notify_price=?, notify_time=?", (ltp, now))
-    #currentChange = stockutils.getPercentage(buy,notifyPrice)
 
-conn.commit()
+    if (change > 0.5) and (diff.seconds > 1800):
+        subject = symbol + " " + change + " " + ltp
+        message = "Symbol " + symbol + "\n" + "Buy " + buyPrice + "\n" + "LTP " + ltp + "\n"
+        message = message + "NotifyValue " + notifyValue + "\n" + "CurrentValue " + currentValue
+        myemail.send_email("aruna", "aruna", "veera", subject, message)
+        tradedao.updateTrade(symbol, ltp)
 
-print ("Opened database successfully")
