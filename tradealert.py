@@ -20,11 +20,11 @@ for row in cursor:
     buyPrice = row[2]
     # If the notify price is empty assign zero
     notifyPrice = row[3]
-    if notifyPrice == "":
+    if notifyPrice is None:
         notifyPrice = 0
     # If the notify time is empty assign previous day
     notifyTime = row[4]
-    if notifyTime == "":
+    if notifyTime is None:
         notifyTime = datetime.now() - timedelta(minutes=55)
     else:
         notifyTime = parser.parse(notifyTime)
