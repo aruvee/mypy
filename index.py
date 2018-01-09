@@ -1,4 +1,5 @@
 import mechanicalsoup
+from nsetools import Nse
 import json
 
 
@@ -20,4 +21,10 @@ class Index:
                     message = message + "\n"
                 message = message + indexName + ": " + index["regularMarketChangePercent"]["fmt"] + "\n"
         return message
+
+    def getStockPrice(self, stockName):
+        nse = Nse()
+        stockQuote = nse.get_quote(stockName)
+        return stockQuote['lastPrice']
+
 
