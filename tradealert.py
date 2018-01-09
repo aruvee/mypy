@@ -9,7 +9,6 @@ from Myemail import Myemail
 stockutils = StockUtils()
 index = Index()
 tradedao = TradeDAO()
-now = datetime.now()
 myemail = Myemail()
 
 # Get the rows from the Trade table
@@ -26,29 +25,30 @@ for row in cursor:
     # If the notify time is empty assign previous day
     notifyTime = row[4]
     if notifyTime == "":
-        notifyTime = datetime.now() - timedelta(days=1)
+        notifyTime = datetime.now() - timedelta(minutes=55)
     else:
         notifyTime = parser.parse(notifyTime)
 
     ltp = index.getStockPrice(type, symbol)
-    print("LTP",ltp)
+    #print("LTP", ltp)
     currentValue = stockutils.getPercentage(buyPrice, ltp)
-
+    notifyValue = 0
     if notifyPrice > 0:
         notifyValue = stockutils.getPercentage(buyPrice, notifyPrice)
         change = abs(currentValue - notifyValue)
     else:
         change = abs(currentValue)
 
-    print("Change",change)
+    change = round(change, 2)
 
-    diff = now - notifyTime
-    print(diff.seconds)
+    #print("Change", change)
 
-    if (change > 0.5) and (diff.seconds > 1800):
-        subject = symbol + " " + change + " " + ltp
-        message = "Symbol " + symbol + "\n" + "Buy " + buyPrice + "\n" + "LTP " + ltp + "\n"
-        message = message + "NotifyValue " + notifyValue + "\n" + "CurrentValue " + currentValue
+    diff = datetime.now() -notifyTime
+
+    if (change > 0.5) or (diff.seconds > 1800):
+        subject = symbol + " " + str(currentValue) + " " + str(ltp)
+        message = "Symbol " + symbol + "\n" + "Buy " + str(buyPrice) + "\n" + "LTP " + str(ltp) + "\n"
+        message = message + "NotifyValue " + str(notifyValue) + "\n" + "CurrentValue " + str(currentValue)
         myemail.send_email("aruna", "aruna", "veera", subject, message)
         tradedao.updateTrade(symbol, ltp)
 
