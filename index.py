@@ -24,8 +24,8 @@ class Index:
 
     def getStockPrice(self, stype, symbol):
         nse = Nse()
-        print("Symbol", symbol)
-        if stype =="stock":
+        symbol = str(symbol)
+        if stype == "stock":
             stockQuote = nse.get_quote(symbol)
         elif stype == "index":
             stockQuote = nse.get_index_quote(symbol)
