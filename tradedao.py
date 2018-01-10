@@ -6,8 +6,8 @@ class TradeDAO:
     conn = sqlite3.connect("stock.db")
     now = datetime.now()
 
-    def insertTrade(self, type, name, price):
-        self.conn.execute("INSERT INTO trade (type,symbol,buy) VALUES (?, ?, ? )", (type, name, price))
+    def insertTrade(self, stype, name, price):
+        self.conn.execute("INSERT INTO trade (type,symbol,buy) VALUES (?, ?, ? )", (stype, name, price))
         self.conn.commit()
 
     def selectTrade(self):

@@ -22,12 +22,12 @@ class Index:
                 message = message + indexName + ": " + index["regularMarketChangePercent"]["fmt"] + "\n"
         return message
 
-    def getStockPrice(self, type, symbol):
+    def getStockPrice(self, stype, symbol):
         nse = Nse()
-        print("Symbol",symbol)
-        if type =="stock":
+        print("Symbol", symbol)
+        if stype =="stock":
             stockQuote = nse.get_quote(symbol)
-        elif type == "index":
+        elif stype == "index":
             stockQuote = nse.get_index_quote(symbol)
         return stockQuote['lastPrice']
 

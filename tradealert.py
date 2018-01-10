@@ -15,7 +15,7 @@ myemail = Myemail()
 cursor = tradedao.selectTrade()
 
 for row in cursor:
-    type = row[0]
+    stype = row[0]
     symbol = row[1]
     buyPrice = row[2]
     # If the notify price is empty assign zero
@@ -29,7 +29,7 @@ for row in cursor:
     else:
         notifyTime = parser.parse(notifyTime)
 
-    ltp = index.getStockPrice(type, symbol)
+    ltp = index.getStockPrice(stype, symbol)
     #print("LTP", ltp)
     currentValue = stockutils.getPercentage(buyPrice, ltp)
     notifyValue = 0
