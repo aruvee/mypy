@@ -17,3 +17,7 @@ class TradeDAO:
     def updateTrade(self, name, ltp):
         self.conn.execute("UPDATE trade SET notify_price=?, notify_time=? where symbol=?", (ltp, self.now, name))
         self.conn.commit()
+
+    def delTrade(self):
+        self.conn.execute("DELETE from trade")
+        self.conn.commit()
