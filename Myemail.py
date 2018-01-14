@@ -1,8 +1,8 @@
 class Myemail:
-    def __init__(self):
-      print ("Calling parent constructor")
+
     def subject(message, current, reference):
         return message + " " + str(current) + "/" + str(reference)
+
     def send_email(self,user, pwd, recipient, subject, body):
         import smtplib
         #Read the buy file and get the data
