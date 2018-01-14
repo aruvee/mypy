@@ -1,13 +1,16 @@
-# #################  Job that runs on the Starting #########################################
+##################  Job that runs on the Starting #########################################
 # Start the web application
 @reboot nohup /home/smallmc/flask/bin/python /home/smallmc/flask/run.py &
-# Reset the Text Files at Start up
+
+################## Reset Section ##########################################################
+# Reset the files at the start of the vm
 @reboot python /home/smallmc/python/resetfile.py >> /home/smallmc/python/logfile.log 2>&1
 
+# Reset the Target file every now and then to see the price
+28 * * * * python /home/smallmc/python/resettargetstatus.py >> /home/smallmc/python/logfile.log 2>&1
 
-#################    Run the MCX. Enable when needed  ######################################
-#*/18 3-18 * * 1-5 python /home/smallmc/python/mcx.py >> /home/smallmc/python/logfile.log 2>&1
-
+# Reset the Points file
+28 * * * * python /home/smallmc/python/addepointsreset.py >> /home/smallmc/python/logfile.log 2>&1
 
 ###################   Nifty Buy Sell #########################################################
 # Run the Nifty price 3+5.5, 8.45 until 10+5.5
@@ -19,11 +22,9 @@
 # Run the Sell check from 8:35 but will not start until 9:30 due to code condition
 */5 3-9 * * 1-5 python /home/smallmc/python/sell.py >> /home/smallmc/python/logfile.log 2>&1
 
-# Reset the Target file every now and then to see the price
-28 * * * * python /home/smallmc/python/resettargetstatus.py >> /home/smallmc/python/logfile.log 2>&1
 
 ##################   Advance Decline numbers ##################################################
-# Get the hourly Advance and Decline number
+# Get the hourly Advance and Decline number 9:30, 12:30, 02:30, 04:30
 0 4,7,9,11 * * * python /home/smallmc/python/hourlyadde.py >> /home/smallmc/python/logfile.log 2>&1
 
 # Run the advance finder every 5 minutes
@@ -32,14 +33,20 @@
 # Daily at the EOD 3:31 PM get the advance and decline contribution stocks
 01 10 * * 1-5 python /home/smallmc/python/addedaily.py >> /home/smallmc/python/logfile.log 2>&1
 
+##################   Points Section ###########################################################
 # Run the points every 5 minutes
 */5 4-9 * * 1-5 python /home/smallmc/python/addepoints.py >> /home/smallmc/python/logfile.log 2>&1
 
-# Reset the Points file
-28 * * * * python /home/smallmc/python/addepointsreset.py >> /home/smallmc/python/logfile.log 2>&1
-
+##################   Gann Levels ###########################################################
 #At 8:45 populate the Gann levels
 15 3 * * 1-5 python /home/smallmc/python/Gann.py >> /home/smallmc/python/logfile.log 2>&1
 
+##################   Trade Alert ###########################################################
 # Trade set up
 */5 3-9 * * 1-5 python /home/smallmc/python/tradealert.py >> /home/smallmc/python/logfile.log 2>&1
+
+##################   Report Section ###########################################################
+*/5 2-11 * * 1-5 python /home/smallmc/python/report.py >> /home/smallmc/python/logfile.log 2>&1
+
+#################    Run the MCX. Enable when needed  ######################################
+#*/18 3-18 * * 1-5 python /home/smallmc/python/mcx.py >> /home/smallmc/python/logfile.log 2>&1
