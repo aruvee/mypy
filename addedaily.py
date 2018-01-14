@@ -1,11 +1,12 @@
 from Myemail import Myemail
 from Nifty50 import Nifty50
 
+# The file is used to populate the previous day Advance and Decline stocks to the respective files
 print("Invoked the Daily advanced decline")
 nifty50 = Nifty50()
 output = nifty50.getnifty50()
 
-file = open("poscont.txt","w")
+file = open("poscont.txt", "w")
 counter = 0
 message = ""
 while counter < 5:
@@ -15,7 +16,7 @@ while counter < 5:
 #print(message)
 file.close()
 
-file = open("negcont.txt","w")
+file = open("negcont.txt", "w")
 counter = 49
 #print("inside the neg")
 message = ""
