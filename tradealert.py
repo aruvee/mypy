@@ -45,7 +45,7 @@ for row in cursor:
 
     diff = datetime.now() -notifyTime
 
-    if (change > 0.5) or (diff.seconds > 1600):
+    if change > 0.5:
         subject = symbol + " " + str(currentValue) + " " + str(ltp)
         message = "Symbol " + symbol + "\n" + "Buy " + str(buyPrice) + "\n" + "LTP " + str(ltp) + "\n"
         message = message + "NotifyValue " + str(notifyValue) + "\n" + "CurrentValue " + str(currentValue)
