@@ -49,6 +49,7 @@ for row in cursor:
         subject = symbol + " " + str(currentValue) + " " + str(ltp)
         message = "Symbol " + symbol + "\n" + "Buy " + str(buyPrice) + "\n" + "LTP " + str(ltp) + "\n"
         message = message + "NotifyValue " + str(notifyValue) + "\n" + "CurrentValue " + str(currentValue)
-        myemail.send_email("aruna", "aruna", "veera", subject, message)
         tradedao.updateTrade(symbol, ltp)
+        myemail.send_email("aruna", "aruna", "veera", subject, message)
+
 
