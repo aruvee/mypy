@@ -7,7 +7,7 @@
 @reboot python /home/smallmc/python/resetfile.py >> /home/smallmc/python/logfile.log 2>&1
 
 # Reset the Target file every now and then to see the price
-28 * * * * python /home/smallmc/python/resettargetstatus.py >> /home/smallmc/python/logfile.log 2>&1
+28 4,6,8 * * * python /home/smallmc/python/resettargetstatus.py >> /home/smallmc/python/logfile.log 2>&1
 
 # Reset the Points file
 28 * * * * python /home/smallmc/python/addepointsreset.py >> /home/smallmc/python/logfile.log 2>&1
