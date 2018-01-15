@@ -22,6 +22,12 @@ if os.stat("points.txt").st_size == 0:
         deList.append(line.strip())
     file.close()
 
+    storedPoints = 0
+    file = open("pointsvalue.txt", "r")
+    for line in file:
+        storedPoints = int(line.strip())
+    file.close()
+
     counter = 0
     while counter < 50:
         symbol = output["data"][counter]["symbol"]
@@ -46,10 +52,13 @@ if os.stat("points.txt").st_size == 0:
     #print(subject)
 
     myemail = Myemail()
-    if points >= 3 or points <= -3:
+    if (points != storedPoints) and (points >= 3 or points <= -3):
         myemail.send_email("aruna", "aruna", "veera", subject, message)
         file = open("points.txt", "w")
         file.write(subject)
+        file.close()
+        file = open("pointsvalue.txt", "w")
+        file.write(str(points))
         file.close()
 
 
