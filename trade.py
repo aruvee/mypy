@@ -15,3 +15,5 @@ elif entry == "R":
         print(row[0])
         print(row[1])
         print(row[2])
+        print(row[3])
+        print(row[4])
