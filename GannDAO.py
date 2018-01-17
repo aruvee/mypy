@@ -10,6 +10,14 @@ class GannDAO:
         cursor = self.conn.execute("Select * from gann")
         return cursor
 
+    def insertGann(self, stype, name):
+        self.conn.execute("INSERT INTO gann (stype,symbol) VALUES (?, ? )", (stype, name))
+        self.conn.commit()
+
+    def delGann(self, symbol):
+        self.conn.execute("DELETE from gann where symbol = ? ", (symbol,))
+        self.conn.commit()
+
     def populateGann(self, gannList, status, points, name):
         self.conn.execute("UPDATE gann SET BT4=?, BT3=?, BT2=?, BT1=?, BA=?, BUYSL=?, "
                           "ST4=?, ST3=?, ST2=?, ST1=?, SB=?, SELLSL=?, "
