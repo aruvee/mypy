@@ -17,10 +17,10 @@
 #*/15 3-9 * * 1-5 python /home/smallmc/python/nifty.py >> /home/smallmc/python/logfile.log 2>&1
 
 # Run the Buy check from 8:35 but will not start until 9.30 due to code condition
-*/5 3-9 * * 1-5 python /home/smallmc/python/buy.py >> /home/smallmc/python/logfile.log 2>&1
+#*/5 3-9 * * 1-5 python /home/smallmc/python/buy.py >> /home/smallmc/python/logfile.log 2>&1
 
 # Run the Sell check from 8:35 but will not start until 9:30 due to code condition
-*/5 3-9 * * 1-5 python /home/smallmc/python/sell.py >> /home/smallmc/python/logfile.log 2>&1
+#*/5 3-9 * * 1-5 python /home/smallmc/python/sell.py >> /home/smallmc/python/logfile.log 2>&1
 
 
 ##################   Advance Decline numbers ##################################################
@@ -39,7 +39,7 @@
 
 ##################   Gann Levels ###########################################################
 # At 8:45 populate the Gann levels
-15 3 * * 1-5 python /home/smallmc/python/Gann.py >> /home/smallmc/python/logfile.log 2>&1
+#15 3 * * 1-5 python /home/smallmc/python/Gann.py >> /home/smallmc/python/logfile.log 2>&1
 15 3 * * 1-5 python /home/smallmc/python/Gannpop.py >> /home/smallmc/python/logfile.log 2>&1
 
 # Run the Gann Alert every 5 mins
