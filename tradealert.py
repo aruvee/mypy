@@ -46,7 +46,7 @@ for row in cursor:
     diff = datetime.now() -notifyTime
 
     if change > 0.5:
-        subject = symbol + " " + str(currentValue) + " " + str(ltp)
+        subject = "Trade Alert " + symbol + " " + str(currentValue) + " " + str(ltp)
         message = "Symbol " + symbol + "\n" + "BuyPrice " + str(buyPrice) + "\n" + "LTP " + str(ltp) + "\n"
         message = message + "NotifyPrice " + str(notifyPrice) + "\n" + "NotifyValue " + str(notifyValue) + "\n" + "CurrentValue " + str(currentValue)
         tradedao.updateTrade(symbol, ltp)
