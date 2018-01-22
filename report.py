@@ -2,7 +2,7 @@ from Myemail import Myemail
 from index import Index
 from reportdao import ReportDAO
 from stockutils import StockUtils
-
+import sqlite3
 
 index = Index()
 myemail = Myemail()
@@ -10,8 +10,9 @@ reportdao = ReportDAO()
 stockutils = StockUtils()
 message = ""
 gLlist = []
+conn = sqlite3.connect("stock.db")
 
-cursor = reportdao.selectReport()
+cursor = reportdao.selectReport(conn)
 for row in cursor:
     stype = row[0]
     symbol = row[1]
@@ -27,7 +28,7 @@ for row in cursor:
         else:
             value = index.getStockPrice(stype, symbol)
             message = message + symbol + " " + str(value) + "\n"
-        reportdao.updateReport(symbol)
+        reportdao.updateReport(conn, symbol)
 
 if gLlist.__len__() > 0:
     message = message + "\n" + index.gindex(gLlist)
@@ -35,18 +36,3 @@ if gLlist.__len__() > 0:
 if message.__len__() > 0:
     subject = "Index Report " + str(index.getStockPrice("index", "NIFTY 50"))
     myemail.send_email("Aruna", "Aruna", "Veera", subject, message)
-
-
-
-
-
-
-
-
-
-#nifty = nse.get_index_quote('NIFTY 50')
-#banknifty = nse.get_index_quote('NIFTY BANK')
-#niftyIT = nse.get_index_quote('NIFTY IT')
-#message="Banknifty: " + str(banknifty['lastPrice']) + "\nNiftyIT: " + str(niftyIT['lastPrice'])
-#message = message + "\n\n" + index.worldindex()
-#myemail.send_email("aruna","aruna","veera",nifty['lastPrice'],message)

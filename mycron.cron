@@ -38,8 +38,15 @@
 # Trade set up
 */5 3-9 * * 1-5 python /home/smallmc/python/tradealert.py >> /home/smallmc/python/logfile.log 2>&1
 
+##################   Watch Alert ###########################################################
+*/5 3-9 * * 1-5 python /home/smallmc/python/watchalert.py >> /home/smallmc/python/logfile.log 2>&1
+
+@reboot python /home/smallmc/python/watchpopa.py >> /home/smallmc/python/logfile.log 2>&1
+
+20 3 * * 1-5 python /home/smallmc/python/watchpopb.py >> /home/smallmc/python/logfile.log 2>&1
+
 ##################   Report Section ###########################################################
-*/30 2-11 * * 1-5 python /home/smallmc/python/report.py >> /home/smallmc/python/logfile.log 2>&1
+23,53 2-11 * * 1-5 python /home/smallmc/python/report.py >> /home/smallmc/python/logfile.log 2>&1
 
 # Daily at the EOD 3:35 PM get the Gann Report
 05 10 * * 1-5 python /home/smallmc/python/gannreport.py >> /home/smallmc/python/logfile.log 2>&1
