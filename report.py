@@ -33,7 +33,7 @@ if gLlist.__len__() > 0:
     message = message + "\n" + index.gindex(gLlist)
 
 if message.__len__() > 0:
-    subject = "Nifty " + str(index.getStockPrice("index", "NIFTY 50"))
+    subject = "Index Report " + str(index.getStockPrice("index", "NIFTY 50"))
     myemail.send_email("Aruna", "Aruna", "Veera", subject, message)
 
 

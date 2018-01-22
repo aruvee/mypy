@@ -12,17 +12,6 @@
 # Reset the Points file
 28 * * * * python /home/smallmc/python/addepointsreset.py >> /home/smallmc/python/logfile.log 2>&1
 
-###################   Nifty Buy Sell #########################################################
-# Run the Nifty price 3+5.5, 8.45 until 10+5.5
-#*/15 3-9 * * 1-5 python /home/smallmc/python/nifty.py >> /home/smallmc/python/logfile.log 2>&1
-
-# Run the Buy check from 8:35 but will not start until 9.30 due to code condition
-#*/5 3-9 * * 1-5 python /home/smallmc/python/buy.py >> /home/smallmc/python/logfile.log 2>&1
-
-# Run the Sell check from 8:35 but will not start until 9:30 due to code condition
-#*/5 3-9 * * 1-5 python /home/smallmc/python/sell.py >> /home/smallmc/python/logfile.log 2>&1
-
-
 ##################   Advance Decline numbers ##################################################
 # Get the hourly Advance and Decline number 9:30, 12:30, 02:30, 04:30
 0 4,7,9,11 * * * python /home/smallmc/python/hourlyadde.py >> /home/smallmc/python/logfile.log 2>&1
@@ -55,5 +44,16 @@
 # Daily at the EOD 3:35 PM get the Gann Report
 05 10 * * 1-5 python /home/smallmc/python/gannreport.py >> /home/smallmc/python/logfile.log 2>&1
 
-#################    Run the MCX. Enable when needed  ######################################
+##################   Commented Section ###########################################################
+####  Run the MCX. Enable when needed
 #*/18 3-18 * * 1-5 python /home/smallmc/python/mcx.py >> /home/smallmc/python/logfile.log 2>&1
+
+####  Nifty Buy Sell
+# Run the Nifty price 3+5.5, 8.45 until 10+5.5
+#*/15 3-9 * * 1-5 python /home/smallmc/python/nifty.py >> /home/smallmc/python/logfile.log 2>&1
+
+# Run the Buy check from 8:35 but will not start until 9.30 due to code condition
+#*/5 3-9 * * 1-5 python /home/smallmc/python/buy.py >> /home/smallmc/python/logfile.log 2>&1
+
+# Run the Sell check from 8:35 but will not start until 9:30 due to code condition
+#*/5 3-9 * * 1-5 python /home/smallmc/python/sell.py >> /home/smallmc/python/logfile.log 2>&1
