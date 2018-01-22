@@ -1,13 +1,13 @@
 from watchdao import WatchDAO
 watchDAO = WatchDAO()
-entry = input("Enter C/R/D -----> ")
+entry = raw_input("Enter C/R/D -----> ")
 
 if entry == "D":
     watchDAO.delWatch()
 elif entry == "C":
-    stype = input("Enter the Type of Symbol")
-    symbol = input("Enter the Symbol")
-    price = input("Enter the price")
+    stype = raw_input("Enter the Type of Symbol")
+    symbol = raw_input("Enter the Symbol")
+    price = raw_input("Enter the price")
     watchDAO.insertWatch(stype, symbol, price)
 elif entry == "R":
     cursor = watchDAO.selectWatch()
