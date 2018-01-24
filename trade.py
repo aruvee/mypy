@@ -3,7 +3,8 @@ tradeDAO = TradeDAO()
 entry = raw_input("Enter C/R/D -----> ")
 
 if entry == "D":
-    tradeDAO.delTrade()
+    symbol = raw_input("Enter the Symbol")
+    tradeDAO.delTrade(symbol)
 elif entry == "C":
     stype = raw_input("Enter the Type of Symbol")
     symbol = raw_input("Enter the Symbol")
