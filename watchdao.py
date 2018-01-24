@@ -27,6 +27,6 @@ class WatchDAO:
         self.conn.execute("UPDATE watch SET notify_price=?, buy=? where symbol=?", (notify_price, ltp, name))
         self.conn.commit()
 
-    def delWatch(self):
-        self.conn.execute("DELETE from watch")
+    def delWatch(self, name):
+        self.conn.execute("DELETE from watch where symbol=?", (name,))
         self.conn.commit()

@@ -3,7 +3,8 @@ watchDAO = WatchDAO()
 entry = raw_input("Enter C/R/D -----> ")
 
 if entry == "D":
-    watchDAO.delWatch()
+    symbol = raw_input("Enter the Symbol")
+    watchDAO.delWatch(symbol)
 elif entry == "C":
     stype = raw_input("Enter the Type of Symbol")
     symbol = raw_input("Enter the Symbol")
