@@ -23,7 +23,7 @@ hour = today.hour
 status = ""
 
 if empty:
-    if hour > 9 or (hour > 8 and minute > 25):
+    if hour > 9 or (hour > 8 and minute > 15):
         advanceFile = open("advance.txt", "w")
         advanceFile.write(str(advance))
         advanceFile.close()
