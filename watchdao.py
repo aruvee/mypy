@@ -11,7 +11,7 @@ class WatchDAO:
         self.conn.commit()
 
     def selectWatch(self):
-        cursor = self.conn.execute("Select * from watch")
+        cursor = self.conn.execute("Select * from watch  where buy >0")
         return cursor
 
     def selectWatchType(self, stype):
