@@ -1,3 +1,4 @@
+import sqlite3
 from datetime import datetime
 from datetime import timedelta
 from stockutils import StockUtils
@@ -9,10 +10,11 @@ from Myemail import Myemail
 stockutils = StockUtils()
 index = Index()
 watchdao = WatchDAO()
+conn = sqlite3.connect("stock.db")
 myemail = Myemail()
 
 # Get the rows from the Watch table
-cursor = watchdao.selectWatch()
+cursor = watchdao.selectWatch(conn)
 
 for row in cursor:
     stype = row[0]
@@ -49,7 +51,7 @@ for row in cursor:
         subject = "Watch Alert " + symbol + " " + str(currentValue) + " " + str(ltp)
         message = "Symbol " + symbol + "\n" + "BuyPrice " + str(buyPrice) + "\n" + "LTP " + str(ltp) + "\n"
         message = message + "NotifyPrice " + str(notifyPrice) + "\n" + "NotifyValue " + str(notifyValue) + "\n" + "CurrentValue " + str(currentValue)
-        watchdao.updateWatch(symbol, ltp)
+        watchdao.updateWatch(conn, symbol, ltp)
         myemail.send_email("aruna", "aruna", "veera", subject, message)
 
 

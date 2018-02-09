@@ -3,30 +3,30 @@ from datetime import datetime
 
 
 class WatchDAO:
-    conn = sqlite3.connect("stock.db")
+
     now = datetime.now()
 
-    def insertWatch(self, stype, name, price):
-        self.conn.execute("INSERT INTO watch (type,symbol,buy) VALUES (?, ?, ? )", (stype, name, price))
-        self.conn.commit()
+    def insertWatch(self, conn, stype, name, price):
+        conn.execute("INSERT INTO watch (type,symbol,buy) VALUES (?, ?, ? )", (stype, name, price))
+        conn.commit()
 
-    def selectWatch(self):
-        cursor = self.conn.execute("Select * from watch  where buy >0")
+    def selectWatch(self, conn):
+        cursor = conn.execute("Select * from watch  where buy >0")
         return cursor
 
-    def selectWatchType(self, stype):
-        cursor = self.conn.execute("Select * from watch where type=?", (stype,))
+    def selectWatchType(self, conn, stype):
+        cursor = conn.execute("Select * from watch where type=?", (stype,))
         return cursor
 
-    def updateWatch(self, name, ltp):
-        self.conn.execute("UPDATE watch SET notify_price=?, notify_time=? where symbol=?", (ltp, self.now, name))
-        self.conn.commit()
+    def updateWatch(self, conn, name, ltp):
+        conn.execute("UPDATE watch SET notify_price=?, notify_time=? where symbol=?", (ltp, self.now, name))
+        conn.commit()
 
-    def populateWatch(self, name, ltp):
+    def populateWatch(self, conn, name, ltp):
         notify_price = 0
-        self.conn.execute("UPDATE watch SET notify_price=?, buy=? where symbol=?", (notify_price, ltp, name))
-        self.conn.commit()
+        conn.execute("UPDATE watch SET notify_price=?, buy=? where symbol=?", (notify_price, ltp, name))
+        conn.commit()
 
-    def delWatch(self, name):
-        self.conn.execute("DELETE from watch where symbol=?", (name,))
-        self.conn.commit()
+    def delWatch(self, conn, name):
+        conn.execute("DELETE from watch where symbol=?", (name,))
+        conn.commit()

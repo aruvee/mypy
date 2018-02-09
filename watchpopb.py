@@ -1,9 +1,11 @@
 from watchdao import WatchDAO
 from index import Index
+import sqlite3
 
 watchdao = WatchDAO()
 index = Index()
-cursor = watchdao.selectWatchType("stock")
+conn = sqlite3.connect("stock.db")
+cursor = watchdao.selectWatchType(conn, "stock")
 
 for row in cursor:
     #get the price
@@ -11,4 +13,4 @@ for row in cursor:
     symbol = row[1]
     ltp = index.getStockPrice(stype, symbol)
     # populate the price
-    watchdao.populateWatch(symbol, ltp)
+    watchdao.populateWatch(conn, symbol, ltp)

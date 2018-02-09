@@ -15,9 +15,14 @@
 ##################   Advance Decline numbers ##################################################
 # Get the hourly Advance and Decline number 9:30, 12:30, 02:30, 04:30
 0 4,7,9,11 * * * python /home/smallmc/python/hourlyadde.py >> /home/smallmc/python/logfile.log 2>&1
+# Get the hourly Advance and Decline number 9:30, 10:30, 12:30, 02:30
+0 12,13,15,17 * * * python /home/smallmc/python/hourlyadde.py >> /home/smallmc/python/logfile.log 2>&1
 
 # Run the advance finder every 5 minutes
 */5 3-9 * * 1-5 python /home/smallmc/python/advance.py >> /home/smallmc/python/logfile.log 2>&1
+
+# Run the advance finder every 5 minutes
+*/5 10-18 * * 1-5 python /home/smallmc/python/advance.py >> /home/smallmc/python/logfile.log 2>&1
 
 # Daily at the EOD 3:31 PM get the advance and decline contribution stocks
 01 10 * * 1-5 python /home/smallmc/python/addedaily.py >> /home/smallmc/python/logfile.log 2>&1
@@ -31,25 +36,34 @@
 #15 3 * * 1-5 python /home/smallmc/python/Gann.py >> /home/smallmc/python/logfile.log 2>&1
 15 3 * * 1-5 python /home/smallmc/python/Gannpop.py >> /home/smallmc/python/logfile.log 2>&1
 
+30 10 * * 1-5 python /home/smallmc/python/Gannpop.py >> /home/smallmc/python/logfile.log 2>&1
+
 # Run the Gann Alert every 5 mins
 */5 3-9 * * 1-5 python /home/smallmc/python/gannalert.py >> /home/smallmc/python/logfile.log 2>&1
+
+*/5 10-17 * * 1-5 python /home/smallmc/python/gannalert.py >> /home/smallmc/python/logfile.log 2>&1
 
 ##################   Trade Alert ###########################################################
 # Trade set up
 */5 3-9 * * 1-5 python /home/smallmc/python/tradealert.py >> /home/smallmc/python/logfile.log 2>&1
 
+*/5 10-17 * * 1-5 python /home/smallmc/python/tradealert.py >> /home/smallmc/python/logfile.log 2>&1
+
 ##################   Watch Alert ###########################################################
-*/5 3-9 * * 1-5 python /home/smallmc/python/watchalert.py >> /home/smallmc/python/logfile.log 2>&1
+*/5 10-18 * * 1-5 python /home/smallmc/python/watchalert.py >> /home/smallmc/python/logfile.log 2>&1
+00 18 * * 1-5 python /home/smallmc/python/watchpopa.py >> /home/smallmc/python/logfile.log 2>&1
+30 18 * * 1-5 python /home/smallmc/python/watchpopb.py >> /home/smallmc/python/logfile.log 2>&1
 
-@reboot python /home/smallmc/python/watchpopa.py >> /home/smallmc/python/logfile.log 2>&1
-
-20 3 * * 1-5 python /home/smallmc/python/watchpopb.py >> /home/smallmc/python/logfile.log 2>&1
 
 ##################   Report Section ###########################################################
 23,53 2-11 * * 1-5 python /home/smallmc/python/report.py >> /home/smallmc/python/logfile.log 2>&1
 
+23,53 7-23 * * 1-5 python /home/smallmc/python/report.py >> /home/smallmc/python/logfile.log 2>&1
+
 # Daily at the EOD 3:35 PM get the Gann Report
 05 10 * * 1-5 python /home/smallmc/python/gannreport.py >> /home/smallmc/python/logfile.log 2>&1
+
+05 18 * * 1-5 python /home/smallmc/python/gannreport.py >> /home/smallmc/python/logfile.log 2>&1
 
 ##################   Commented Section ###########################################################
 ####  Run the MCX. Enable when needed
