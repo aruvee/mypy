@@ -20,7 +20,7 @@ def entersubmit():
         conn = sqlite3.connect("stock.db")
         tradeDAO.insertTrade(conn, sType, symbol, price)
     except Exception as e:
-        #print(e.args)
+        print(e.args)
         message = "Failure"
     return message
 
