@@ -2,13 +2,13 @@ from python import python
 from flask import request
 import sqlite3
 from python.index import Index
-from python.tradedao import TradeDAO
+from python.watchdao import WatchDAO
 
-@python.route('/tradesubmit', methods=['GET', 'POST'])
-def tradesubmit():
+@python.route('/watchsubmit', methods=['GET', 'POST'])
+def watchsubmit():
 
     message = "Success"
-    tradeDAO = TradeDAO()
+    watchdao = WatchDAO()
     index = Index()
 
     sType = request.form['sType']
@@ -18,22 +18,22 @@ def tradesubmit():
     try:
         tprice = index.getStockPrice(sType, symbol)
         conn = sqlite3.connect("stock.db")
-        tradeDAO.insertTrade(conn, sType, symbol, price)
+        watchdao.insertWatch(conn, sType, symbol, price)
     except Exception as e:
         print(e.args)
         message = "Failure"
     return message
 
-@python.route('/entertrade', methods=['GET', 'POST'])
-def entertrade():
+@python.route('/enterwatch', methods=['GET', 'POST'])
+def enterwatch():
     user = {'nickname': 'Starting Point'}  # fake user
     return '''
 <html>
   <head>
-    <title>Enter Trade</title>
+    <title>Enter Watch</title>
   </head>
   <body>
-  <form action="tradesubmit" method="post" name="tradesubmit">
+  <form action="watchsubmit" method="post" name="watchsubmit">
     <h1>Enter Trade</h1>
     <label for="sType">Type</label>
     <input type="text" name="sType" id="sType"/><br><br>
