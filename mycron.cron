@@ -19,7 +19,7 @@
 0 12,13,15,17 * * * python /home/smallmc/python/hourlyadde.py >> /home/smallmc/python/logfile.log 2>&1
 
 # Run the advance finder every 5 minutes
-*/5 3-9 * * 1-5 python /home/smallmc/python/advance.py >> /home/smallmc/python/logfile.log 2>&1
+*/5 12-18 * * 1-5 python /home/smallmc/python/advance.py >> /home/smallmc/python/logfile.log 2>&1
 
 # Run the advance finder every 5 minutes
 */5 10-18 * * 1-5 python /home/smallmc/python/advance.py >> /home/smallmc/python/logfile.log 2>&1
