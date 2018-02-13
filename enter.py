@@ -17,6 +17,14 @@ def enter():
     <h1>Enter Watch</h1>
     <p><input type="submit" value="Watch"></p>
    </form>
+   <form action="entergann" method="post" name="entergann">
+    <h1>Enter Gann</h1>
+    <p><input type="submit" value="Gann"></p>
+   </form>
+   <form action="entergannpop" method="post" name="entergannpop">
+    <h1>Gann POP</h1>
+    <p><input type="submit" value="Gann POP"></p>
+   </form>
   </body>
 </html>
 '''
