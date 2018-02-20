@@ -19,7 +19,7 @@ class Index:
                 indexName = str(index["shortName"]).replace(" ","")
                 if indexName =="FTSE100":
                     message = message + "\n"
-                message = message + indexName + ": " + index["regularMarketChangePercent"]["fmt"] + "\n"
+                message = message + indexName + ": " + index["regularMarketChangePercent"]["fmt"] + " " + index["regularMarketPrice"]["fmt"] + "\n"
         return message
 
     def gindex(self, indexList):
@@ -36,7 +36,7 @@ class Index:
                 indexName = str(index["shortName"]).replace(" ","")
                 if indexName =="FTSE100":
                     message = message + "\n"
-                message = message + indexName + ": " + index["regularMarketChangePercent"]["fmt"] + "\n"
+                message = message + indexName + ": " + index["regularMarketChangePercent"]["fmt"] + " " + index["regularMarketPrice"]["fmt"] + "\n"
         return message
 
     def getStockPrice(self, stype, symbol):
