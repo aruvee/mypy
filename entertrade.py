@@ -24,6 +24,39 @@ def tradesubmit():
         message = "Failure"
     return message
 
+@python.route('/deltrade', methods=['GET', 'POST'])
+def deltrade():
+
+    message = "Success"
+    tradeDAO = TradeDAO()
+
+    symbol = request.form['symbol']
+
+    try:
+        conn = sqlite3.connect("stock.db")
+        tradeDAO.delTrade(conn, symbol)
+    except Exception as e:
+        print(e.args)
+        message = "Failure"
+    return message
+
+@python.route('/gettrade', methods=['GET', 'POST'])
+def gettrade():
+
+    message = "Trade List" + "\n"
+    tradeDAO = TradeDAO()
+    index = Index()
+
+    try:
+        conn = sqlite3.connect("stock.db")
+        cursor = tradeDAO.selectTrade(conn)
+        for trade in cursor:
+            message = message + trade[1] + "\n"
+    except Exception as e:
+        print(e.args)
+        message = "Failure"
+    return message
+
 @python.route('/entertrade', methods=['GET', 'POST'])
 def entertrade():
     user = {'nickname': 'Starting Point'}  # fake user
@@ -42,6 +75,16 @@ def entertrade():
     <label for="price">Price</label>
     <input type="text" name="price" id="price"><br><br>
     <p><input type="submit" value="Trade"></p>
+   </form>
+   <form action="gettrade" method="post" name="gettrade">
+    <h1>GET Trade</h1>
+    <p><input type="submit" value="Get Trade"></p>
+   </form>
+   <form action="deltrade" method="post" name="deltrade">
+    <h1>Delete Trade</h1>
+    <label for="symbol">Symbol</label>
+    <input type="text" name="symbol" id="symbol"><br><br>
+    <p><input type="submit" value="Delete"></p>
    </form>
   </body>
 </html>

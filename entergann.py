@@ -24,6 +24,39 @@ def gannsubmit():
         message = "Failure"
     return message
 
+@python.route('/delgann', methods=['GET', 'POST'])
+def delgann():
+
+    message = "Success"
+    ganndao = GannDAO()
+
+    symbol = request.form['symbol']
+
+    try:
+        conn = sqlite3.connect("stock.db")
+        ganndao.delGann(conn, symbol)
+    except Exception as e:
+        print(e.args)
+        message = "Failure"
+    return message
+
+@python.route('/getgann', methods=['GET', 'POST'])
+def getgann():
+
+    message = "Watch List" + "\n"
+    ganndao = GannDAO()
+    index = Index()
+
+    try:
+        conn = sqlite3.connect("stock.db")
+        cursor = ganndao.selectGann(conn)
+        for trade in cursor:
+            message = message + trade[1] + "\n"
+    except Exception as e:
+        print(e.args)
+        message = "Failure"
+    return message
+
 @python.route('/entergann', methods=['GET', 'POST'])
 def entergann():
     user = {'nickname': 'Starting Point'}  # fake user
@@ -40,6 +73,16 @@ def entergann():
     <label for="symbol">Symbol</label>
     <input type="text" name="symbol" id="symbol"><br><br>
     <p><input type="submit" value="Gann"></p>
+   </form>
+   <form action="getgann" method="post" name="getgann">
+    <h1>GET Gann</h1>
+    <p><input type="submit" value="Get Gann"></p>
+   </form>
+   <form action="delgann" method="post" name="delgann">
+    <h1>Delete Gann</h1>
+    <label for="symbol">Symbol</label>
+    <input type="text" name="symbol" id="symbol"><br><br>
+    <p><input type="submit" value="Delete"></p>
    </form>
   </body>
 </html>
