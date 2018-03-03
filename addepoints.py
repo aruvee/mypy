@@ -1,64 +1,52 @@
 from Myemail import Myemail
 from Nifty50 import Nifty50
-import os
+import sqlite3
+from keyvaluedao import keyvaluedao
 
-if os.stat("points.txt").st_size == 0:
-    print("Invoked the Daily advanced decline")
-    nifty50 = Nifty50()
-    output = nifty50.getnifty50()
 
-    points = 0
-    message = ""
+print("Invoked the Daily advanced decline")
+nifty50 = Nifty50()
+output = nifty50.getnifty50()
+keyvaluedao = keyvaluedao()
 
-    adList = []
-    file = open("poscont.txt","r")
-    for line in file:
-        adList.append(line.strip())
-    file.close()
+points = 0
+message = ""
 
-    deList = []
-    file = open("negcont.txt","r")
-    for line in file:
-        deList.append(line.strip())
-    file.close()
+conn = sqlite3.connect("stock.db")
+adList = keyvaluedao.getValue(conn, "adv").split(",")
+deList = keyvaluedao.getValue(conn, "dec").split(",")
 
-    storedPoints = 0
-    file = open("pointsvalue.txt", "r")
-    for line in file:
-        storedPoints = int(line.strip())
-    file.close()
 
-    counter = 0
-    while counter < 50:
-        symbol = output["data"][counter]["symbol"]
-        percent = output["data"][counter]["per"]
-        if adList.__contains__(symbol):
-            message = message + symbol + " " + percent + "\n"
-            if float(percent) < 0:
-                points = points - 1
-        counter = counter + 1
+storedPoints = 0
+storedPoints = keyvaluedao.getValue(conn, "points")
 
-    counter = 0
-    while counter < 50:
-        symbol = output["data"][counter]["symbol"]
-        percent = output["data"][counter]["per"]
-        if deList.__contains__(symbol):
-            message = message + symbol + " " + percent + "\n"
-            if float(percent) > 0:
-                points = points + 1
-        counter = counter + 1
 
-    subject = "Points: " + str(points)
-    #print(subject)
+counter = 0
+while counter < 50:
+    symbol = output["data"][counter]["symbol"]
+    percent = output["data"][counter]["per"]
+    if adList.__contains__(symbol):
+        message = message + symbol + " " + percent + "\n"
+        if float(percent) < 0:
+            points = points - 1
+    counter = counter + 1
 
-    myemail = Myemail()
-    if (points != storedPoints) and (points >= 3 or points <= -3):
-        myemail.send_email("aruna", "aruna", "veera", subject, message)
-        file = open("points.txt", "w")
-        file.write(subject)
-        file.close()
-        file = open("pointsvalue.txt", "w")
-        file.write(str(points))
-        file.close()
+counter = 0
+while counter < 50:
+    symbol = output["data"][counter]["symbol"]
+    percent = output["data"][counter]["per"]
+    if deList.__contains__(symbol):
+        message = message + symbol + " " + percent + "\n"
+        if float(percent) > 0:
+            points = points + 1
+    counter = counter + 1
 
+subject = "Points: " + str(points)
+print(subject)
+
+myemail = Myemail()
+if (points != storedPoints) and (points >= 3 or points <= -3):
+    myemail.send_email("aruna", "aruna", "veera", subject, message)
+    conn = sqlite3.connect("stock.db")
+    keyvaluedao.updateValue(conn, "points", points)
 

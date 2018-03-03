@@ -1,36 +1,37 @@
 from Myemail import Myemail
 from Nifty50 import Nifty50
+import sqlite3
+from keyvaluedao import keyvaluedao
 
 # The file is used to populate the previous day Advance and Decline stocks to the respective files
 print("Invoked the Daily advanced decline")
 nifty50 = Nifty50()
 output = nifty50.getnifty50()
+keyvaluedao = keyvaluedao()
 
-file = open("poscont.txt", "w")
 counter = 0
-message = ""
+stocks = ""
 while counter < 5:
-    message = output["data"][counter]["symbol"] + "\n"
-    file.write(message)
+    stocks = stocks + output["data"][counter]["symbol"] + ","
     counter = counter + 1
-#print(message)
-file.close()
+#print(stocks)
 
-file = open("negcont.txt", "w")
+conn = sqlite3.connect("stock.db")
+keyvaluedao.updateValue(conn, "adv", stocks)
+
+
 counter = 49
-#print("inside the neg")
-message = ""
+stocks = ""
 while counter > 44:
-    #print("inside the counter")
-    message = output["data"][counter]["symbol"] + "\n"
-    file.write(message)
+    stocks = stocks + output["data"][counter]["symbol"] + ","
     counter = counter - 1
-#print(message)
-file.close()
+#print(stocks)
 
+conn = sqlite3.connect("stock.db")
+keyvaluedao.updateValue(conn, "dec", stocks)
 
-#myemail = Myemail()
-#myemail.send_email("aruna", "aruna", "veera", subject, message)
+conn = sqlite3.connect("stock.db")
+keyvaluedao.updateValue(conn, "points", 0)
 
 
 
