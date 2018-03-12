@@ -45,7 +45,7 @@ subject = "Points: " + str(points)
 print(subject)
 
 myemail = Myemail()
-if (points != storedPoints) and (points >= 3 or points <= -3):
+if (points != int(storedPoints)) and (points >= 3 or points <= -3):
     myemail.send_email("aruna", "aruna", "veera", subject, message)
     conn = sqlite3.connect("stock.db")
     keyvaluedao.updateValue(conn, "points", points)
