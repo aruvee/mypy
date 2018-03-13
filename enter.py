@@ -21,6 +21,10 @@ def enter():
     <h1>Enter Gann</h1>
     <p><input type="submit" value="Gann"></p>
    </form>
+   <form action="enterportfolio" method="post" name="enterportfolio">
+    <h1>Enter Portfolio</h1>
+    <p><input type="submit" value="Portfolio"></p>
+   </form>
    <form action="entergannpop" method="post" name="entergannpop">
     <h1>Gann POP</h1>
     <p><input type="submit" value="Gann POP"></p>

@@ -2,54 +2,55 @@ from python import python
 from flask import request
 import sqlite3
 from python.index import Index
-from python.watchdao import WatchDAO
+from python.portfoliodao import PortfolioDAO
 
-@python.route('/watchsubmit', methods=['GET', 'POST'])
-def watchsubmit():
+@python.route('/portfoliosubmit', methods=['GET', 'POST'])
+def portfoliosubmit():
 
     message = "Success"
-    watchdao = WatchDAO()
+    portfoliodao = PortfolioDAO()
     index = Index()
 
     sType = request.form['sType']
     symbol = request.form['symbol']
     price = request.form['price']
+    perct = request.form['perct']
 
     try:
         tprice = index.getStockPrice(sType, symbol)
         conn = sqlite3.connect("stock.db")
-        watchdao.insertWatch(conn, sType, symbol, price)
+        portfoliodao.insertPortfolio(conn, sType, symbol, price, perct)
     except Exception as e:
         print(e.args)
         message = "Failure"
     return message
 
-@python.route('/delwatch', methods=['GET', 'POST'])
-def delwatch():
+@python.route('/delportfolio', methods=['GET', 'POST'])
+def delportfolio():
 
     message = "Success"
-    watchdao = WatchDAO()
+    portfoliodao = PortfolioDAO()
 
     symbol = request.form['symbol']
 
     try:
         conn = sqlite3.connect("stock.db")
-        watchdao.delWatch(conn, symbol)
+        portfoliodao.delPortfolio(conn, symbol)
     except Exception as e:
         print(e.args)
         message = "Failure"
     return message
 
-@python.route('/getwatch', methods=['GET', 'POST'])
-def getwatch():
+@python.route('/getportfolio', methods=['GET', 'POST'])
+def getportfolio():
 
-    message = "Watch List" + "\n"
-    watchdao = WatchDAO()
+    message = "Portfolio List" + "\n"
+    portfoliodao = PortfolioDAO()
     index = Index()
 
     try:
         conn = sqlite3.connect("stock.db")
-        cursor = watchdao.selectWatch(conn)
+        cursor = portfoliodao.selectPortfolio(conn)
         for trade in cursor:
             message = message + trade[1] + "\n"
     except Exception as e:
@@ -57,31 +58,33 @@ def getwatch():
         message = "Failure"
     return message
 
-@python.route('/enterwatch', methods=['GET', 'POST'])
-def enterwatch():
+@python.route('/enterportfolio', methods=['GET', 'POST'])
+def enterportfolio():
     user = {'nickname': 'Starting Point'}  # fake user
     return '''
 <html>
   <head>
-    <title>Enter Watch</title>
+    <title>Enter Portfolio</title>
   </head>
   <body>
-  <form action="watchsubmit" method="post" name="watchsubmit">
-    <h1>Enter Watch</h1>
+  <form action="portfoliosubmit" method="post" name="portfoliosubmit">
+    <h1>Enter Portfolio</h1>
     <label for="sType">Type</label>
     <input type="text" name="sType" id="sType"/><br><br>
     <label for="symbol">Symbol</label>
     <input type="text" name="symbol" id="symbol"><br><br>
     <label for="price">Price</label>
     <input type="text" name="price" id="price"><br><br>
-    <p><input type="submit" value="Trade"></p>
+    <label for="perct">Perct</label>
+    <input type="text" name="perct" id="perct"><br><br>
+    <p><input type="submit" value="Portfolio"></p>
    </form>
-   <form action="getwatch" method="post" name="getwatch">
-    <h1>GET Watch</h1>
-    <p><input type="submit" value="Get Watch"></p>
+   <form action="getportfolio" method="post" name="getportfolio">
+    <h1>GET Portfolio</h1>
+    <p><input type="submit" value="Get Portfolio"></p>
    </form>
-   <form action="delwatch" method="post" name="delwatch">
-    <h1>Delete Watch</h1>
+   <form action="delportfolio" method="post" name="delportfolio">
+    <h1>Delete Portfolio</h1>
     <label for="symbol">Symbol</label>
     <input type="text" name="symbol" id="symbol"><br><br>
     <p><input type="submit" value="Delete"></p>

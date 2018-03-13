@@ -27,9 +27,11 @@
 # Daily at the EOD 3:31 PM get the advance and decline contribution stocks
 01 10 * * 1-5 python /home/smallmc/python/addedaily.py >> /home/smallmc/python/logfile.log 2>&1
 
+30 18 * * 1-5 python /home/smallmc/python/addedaily.py >> /home/smallmc/python/logfile.log 2>&1
+
 ##################   Points Section ###########################################################
 # Run the points every 5 minutes
-*/5 4-9 * * 1-5 python /home/smallmc/python/addepoints.py >> /home/smallmc/python/logfile.log 2>&1
+*/5 11-17 * * 1-5 python /home/smallmc/python/addepoints.py >> /home/smallmc/python/logfile.log 2>&1
 
 ##################   Gann Levels ###########################################################
 # At 8:45 populate the Gann levels
