@@ -26,6 +26,7 @@ for row in cursor:
     currentValue = stockutils.getPercentage(buyPrice, ltp)
 
     message = message + "Symbol " + symbol + "\n" + "BuyPrice " + str(buyPrice) + "\n" + "LTP " + str(ltp) + "\n"
-    myemail.send_email("aruna", "aruna", "veera", subject, message)
+    message = message + "\n\n"
+myemail.send_email("aruna", "aruna", "veera", subject, message)
 
 
