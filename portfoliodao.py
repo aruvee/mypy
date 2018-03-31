@@ -10,8 +10,11 @@ class PortfolioDAO:
         conn.execute("INSERT INTO portfolio (type,symbol,buy,perct) VALUES (?, ?, ?, ? )", (stype, name, price, perct))
         conn.commit()
 
-    def selectPortfolio(self, conn):
-        cursor = conn.execute("Select * from portfolio  where buy >0")
+    def selectPortfolio(self, conn, pname=""):
+        if pname == "":
+            cursor = conn.execute("Select * from portfolio  where buy >0")
+        else:
+            cursor = conn.execute("Select * from portfolio  where buy >0 and pname=?",(pname,))
         return cursor
 
     # def selectPortfoioType(self, conn, stype):
