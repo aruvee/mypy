@@ -3,6 +3,7 @@ from stockutils import StockUtils
 from index import Index
 from portfoliodao import PortfolioDAO
 from Myemail import Myemail
+import sys
 
 stockutils = StockUtils()
 index = Index()
@@ -10,11 +11,16 @@ portfoliodao = PortfolioDAO()
 conn = sqlite3.connect("stock.db")
 myemail = Myemail()
 
-subject = "Portfolio: Trading"
+try:
+    pname = sys.argv[1]
+except IndexError:
+    pname = ""
+
+subject = "Portfolio: " + pname
 message = ""
 
 # Get the rows from the Watch table
-cursor = portfoliodao.selectPortfolio(conn)
+cursor = portfoliodao.selectPortfolio(conn, pname)
 
 for row in cursor:
     stype = row[0]
