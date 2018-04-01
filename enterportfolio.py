@@ -15,11 +15,12 @@ def portfoliosubmit():
     symbol = request.form['symbol']
     price = request.form['price']
     perct = request.form['perct']
+    pname = request.form['pname']
 
     try:
         tprice = index.getStockPrice(sType, symbol)
         conn = sqlite3.connect("stock.db")
-        portfoliodao.insertPortfolio(conn, sType, symbol, price, perct)
+        portfoliodao.insertPortfolio(conn, sType, symbol, price, perct, pname)
     except Exception as e:
         print(e.args)
         message = "Failure"
@@ -77,6 +78,8 @@ def enterportfolio():
     <input type="text" name="price" id="price"><br><br>
     <label for="perct">Perct</label>
     <input type="text" name="perct" id="perct"><br><br>
+    <label for="pname">PNAME</label>
+    <input type="text" name="pname" id="pname"><br><br>
     <p><input type="submit" value="Portfolio"></p>
    </form>
    <form action="getportfolio" method="post" name="getportfolio">
