@@ -48,6 +48,8 @@ for row in cursor:
     diff = datetime.now() -notifyTime
 
     if change > 0.5 and change < 100:
+        if notifyPrice == 0:
+            notifyPrice = buyPrice
         if ltp > notifyPrice:
             subject = "Watch Alert +ve "
         else:
