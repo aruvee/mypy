@@ -57,6 +57,43 @@ def gettrade():
         message = "Failure"
     return message
 
+@python.route('/activate', methods=['GET', 'POST'])
+def activate():
+
+    message = "Success"
+    tradeDAO = TradeDAO()
+    index = Index()
+
+    sType = request.form['sType']
+    symbol = request.form['symbol']
+    change = request.form['change']
+
+    try:
+        change_price = index.getStockPrice(sType, symbol)
+        conn = sqlite3.connect("stock.db")
+        tradeDAO.activateTrade(conn, symbol, change, change_price, "Y")
+    except Exception as e:
+        print(e.args)
+        message = "Failure"
+    return message
+
+@python.route('/deactivate', methods=['GET', 'POST'])
+def deactivate():
+
+    message = "Success"
+    tradeDAO = TradeDAO()
+    index = Index()
+
+    symbol = request.form['symbol']
+
+    try:
+        conn = sqlite3.connect("stock.db")
+        tradeDAO.deactivateTrade(conn, symbol, "N")
+    except Exception as e:
+        print(e.args)
+        message = "Failure"
+    return message
+
 @python.route('/entertrade', methods=['GET', 'POST'])
 def entertrade():
     user = {'nickname': 'Starting Point'}  # fake user
@@ -85,6 +122,22 @@ def entertrade():
     <label for="symbol">Symbol</label>
     <input type="text" name="symbol" id="symbol"><br><br>
     <p><input type="submit" value="Delete"></p>
+   </form>
+   <form action="activate" method="post" name="activate">
+    <h1>Activate Trade</h1>
+    <label for="sType">Type</label>
+    <input type="text" name="sType" id="sType"/><br><br>
+    <label for="symbol">Symbol</label>
+    <input type="text" name="symbol" id="symbol"><br><br>
+    <label for="change">Change</label>
+    <input type="text" name="change" id="change"><br><br>
+    <p><input type="submit" value="Activate"></p>
+   </form>
+   <form action="deactivate" method="post" name="deactivate">
+    <h1>De-Activate Trade</h1>
+    <label for="symbol">Symbol</label>
+    <input type="text" name="symbol" id="symbol"><br><br>
+    <p><input type="submit" value="De-Activate"></p>
    </form>
   </body>
 </html>
