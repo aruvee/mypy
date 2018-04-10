@@ -3,6 +3,7 @@ from flask import request
 import sqlite3
 from python.index import Index
 from python.watchdao import WatchDAO
+from python.keyvaluedao import KeyvalueDAO
 
 @python.route('/watchsubmit', methods=['GET', 'POST'])
 def watchsubmit():
@@ -35,6 +36,22 @@ def delwatch():
     try:
         conn = sqlite3.connect("stock.db")
         watchdao.delWatch(conn, symbol)
+    except Exception as e:
+        print(e.args)
+        message = "Failure"
+    return message
+
+@python.route('/emailwatch', methods=['GET', 'POST'])
+def emailwatch():
+
+    message = "Success"
+    keyvaluedao = KeyvalueDAO()
+
+    email = request.form['email']
+
+    try:
+        conn = sqlite3.connect("stock.db")
+        keyvaluedao.updateValue(conn, "email", email)
     except Exception as e:
         print(e.args)
         message = "Failure"
@@ -85,6 +102,12 @@ def enterwatch():
     <label for="symbol">Symbol</label>
     <input type="text" name="symbol" id="symbol"><br><br>
     <p><input type="submit" value="Delete"></p>
+   </form>
+   <form action="emailwatch" method="post" name="emailwatch">
+    <h1>Email Watch</h1>
+    <label for="Email">Email</label>
+    <input type="text" name="email" id="email"><br><br>
+    <p><input type="submit" value="Submit"></p>
    </form>
   </body>
 </html>

@@ -1,13 +1,13 @@
 from Myemail import Myemail
 from Nifty50 import Nifty50
 import sqlite3
-from keyvaluedao import keyvaluedao
+from keyvaluedao import KeyvalueDAO
 
 
 print("Invoked the Daily advanced decline")
 nifty50 = Nifty50()
 output = nifty50.getnifty50()
-keyvaluedao = keyvaluedao()
+keyvaluedao = KeyvalueDAO()
 
 points = 0
 message = ""

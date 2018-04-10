@@ -4,6 +4,8 @@ class Myemail:
         return message + " " + str(current) + "/" + str(reference)
 
     def send_email(self,user, pwd, recipient, subject, body):
+        from keyvaluedao import KeyvalueDAO
+        import sqlite3
         import smtplib
         #Read the buy file and get the data
         file = open("Myemail.ini","r")
@@ -31,7 +33,13 @@ class Myemail:
         TEXT = body
         # Prepare actual message
         message = """From: %s\nTo: %s\nSubject: %s\n\n%s""" % (FROM, ", ".join(TO), SUBJECT, TEXT)
-        if flag=="true":
+
+        keyvaluedao = KeyvalueDAO()
+        conn = sqlite3.connect("stock.db")
+        dbflag = keyvaluedao.getValue(conn, "email")
+        #print(dbflag)
+
+        if flag == "true" and dbflag == "true":
             try:
                 server = smtplib.SMTP("smtp.gmail.com", 587)
                 server.ehlo()

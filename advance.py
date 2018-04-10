@@ -1,11 +1,11 @@
 from Myemail import Myemail
 from Nifty50 import Nifty50
-from keyvaluedao import keyvaluedao
+from keyvaluedao import KeyvalueDAO
 import sqlite3
 
 key = "advance"
 nifty50 = Nifty50()
-keyvaluedao = keyvaluedao()
+keyvaluedao = KeyvalueDAO()
 conn = sqlite3.connect("stock.db")
 output = nifty50.getnifty50()
 advance = output["advances"]

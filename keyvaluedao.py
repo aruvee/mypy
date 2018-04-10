@@ -1,4 +1,4 @@
-class keyvaluedao:
+class KeyvalueDAO:
 
     def getValue(self, conn, key):
         cursor = conn.execute("Select value from keyvalue  where key=?", (key,))
