@@ -48,10 +48,21 @@ def emailwatch():
     keyvaluedao = KeyvalueDAO()
 
     email = request.form['email']
+    trading_notify = request.form['trading_notify']
+    index_notify = request.form['index_notify']
+    advance_notify = request.form['advance_notify']
+    points_alert = request.form['points_alert']
+    trend_alert = request.form['trend_alert']
+
 
     try:
         conn = sqlite3.connect("stock.db")
         keyvaluedao.updateValue(conn, "email", email)
+        keyvaluedao.updateValue(conn, "trading_notify", trading_notify)
+        keyvaluedao.updateValue(conn, "index_notify", index_notify)
+        keyvaluedao.updateValue(conn, "advance_notify", advance_notify)
+        keyvaluedao.updateValue(conn, "points_alert", points_alert)
+        keyvaluedao.updateValue(conn, "trend_alert", trend_alert)
     except Exception as e:
         print(e.args)
         message = "Failure"
@@ -107,6 +118,16 @@ def enterwatch():
     <h1>Email Watch</h1>
     <label for="Email">Email</label>
     <input type="text" name="email" id="email"><br><br>
+    <label for="trading_notify">trading_notify</label>
+    <input type="text" name="trading_notify" id="trading_notify"><br><br>
+    <label for="index_notify">index_notify</label>
+    <input type="text" name="index_notify" id="index_notify"><br><br>
+    <label for="advance_notify">advance_notify</label>
+    <input type="text" name="advance_notify" id="advance_notify"><br><br>
+    <label for="points_alert">points_alert</label>
+    <input type="text" name="points_alert" id="points_alert"><br><br>
+    <label for="trend_alert">trend_alert</label>
+    <input type="text" name="trend_alert" id="trend_alert"><br><br>
     <p><input type="submit" value="Submit"></p>
    </form>
   </body>
