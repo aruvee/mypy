@@ -11,7 +11,7 @@ class TradeDAO:
         conn.commit()
 
     def selectTrade(self, conn):
-        cursor = conn.execute("Select * from trade")
+        cursor = conn.execute("Select * from trade where flag is null")
         return cursor
 
     def selectActiveTrade(self, conn):
