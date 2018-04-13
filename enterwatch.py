@@ -53,6 +53,7 @@ def emailwatch():
     advance_notify = request.form['advance_notify']
     points_alert = request.form['points_alert']
     trend_alert = request.form['trend_alert']
+    gann_alert = request.form['gann_alert']
 
 
     try:
@@ -63,6 +64,7 @@ def emailwatch():
         keyvaluedao.updateValue(conn, "advance_notify", advance_notify)
         keyvaluedao.updateValue(conn, "points_alert", points_alert)
         keyvaluedao.updateValue(conn, "trend_alert", trend_alert)
+        keyvaluedao.updateValue(conn, "gann_alert", gann_alert)
     except Exception as e:
         print(e.args)
         message = "Failure"
@@ -128,6 +130,8 @@ def enterwatch():
     <input type="text" name="points_alert" id="points_alert"><br><br>
     <label for="trend_alert">trend_alert</label>
     <input type="text" name="trend_alert" id="trend_alert"><br><br>
+    <label for="gann_alert">gann_alert</label>
+    <input type="text" name="gann_alert" id="gann_alert"><br><br>
     <p><input type="submit" value="Submit"></p>
    </form>
   </body>
