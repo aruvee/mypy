@@ -22,7 +22,7 @@ minute = today.minute
 hour = today.hour
 
 if flag == "true":
-    print("inside the gann alert")
+    #print("inside the gann alert")
     if hour > 9 or (hour > 8 and minute > 25):
         cursor = gannDao.selectGann(conn)
         for row in cursor:
