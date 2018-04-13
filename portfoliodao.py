@@ -7,7 +7,8 @@ class PortfolioDAO:
     now = datetime.now()
 
     def insertPortfolio(self, conn, stype, name, price, perct, pname):
-        conn.execute("INSERT INTO portfolio (type,symbol,buy,perct,pname) VALUES (?, ?, ?, ? ,?)", (stype, name, price, perct, pname))
+        now = datetime.now()
+        conn.execute("INSERT INTO portfolio (type,symbol,buy,perct,pname,buydate) VALUES (?, ?, ?, ? ,?,?)", (stype, name, price, perct, pname, now))
         conn.commit()
 
     def selectPortfolio(self, conn, pname=""):
