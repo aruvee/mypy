@@ -14,6 +14,10 @@ class TradeDAO:
         cursor = conn.execute("Select * from trade where flag is null")
         return cursor
 
+    def selectAllTrade(self, conn):
+        cursor = conn.execute("Select * from trade")
+        return cursor
+
     def selectActiveTrade(self, conn):
         cursor = conn.execute("Select * from trade where flag='Y'")
         return cursor

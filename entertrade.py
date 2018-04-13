@@ -49,7 +49,7 @@ def gettrade():
 
     try:
         conn = sqlite3.connect("stock.db")
-        cursor = tradeDAO.selectTrade(conn)
+        cursor = tradeDAO.selectAllTrade(conn)
         for trade in cursor:
             message = message + trade[1] + "\n"
     except Exception as e:
