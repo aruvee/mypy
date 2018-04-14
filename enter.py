@@ -13,6 +13,10 @@ def enter():
     <h1>Enter Trade</h1>
     <p><input type="submit" value="Trade"></p>
    </form>
+   <form action="enterchange" method="post" name="enterchange">
+    <h1>Enter Change</h1>
+    <p><input type="submit" value="Change"></p>
+   </form>
    <form action="enterwatch" method="post" name="enterwatch">
     <h1>Enter Watch</h1>
     <p><input type="submit" value="Watch"></p>
