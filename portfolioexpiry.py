@@ -29,7 +29,7 @@ for row in cursor:
     #2018 - 04 - 12    20: 16:05.596866
 
     delta = now - datetime.strptime(buydate,"%Y-%m-%d %H:%M:%S.%f")
-    expirydays = 0
+    expirydays = 100
 
     if pname == "aruna":
         expirydays = 30
