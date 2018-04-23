@@ -6,8 +6,8 @@ class TradeDAO:
 
     now = datetime.now()
 
-    def insertTrade(self, conn, stype, name, price):
-        conn.execute("INSERT INTO trade (type,symbol,buy) VALUES (?, ?, ? )", (stype, name, price))
+    def insertTrade(self, conn, stype, name, price, stoploss, sltype):
+        conn.execute("INSERT INTO trade (type,symbol,buy,stoploss,sltype) VALUES (?, ?, ?, ?, ? )", (stype, name, price, stoploss, sltype))
         conn.commit()
 
     def selectTrade(self, conn):
