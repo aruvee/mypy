@@ -55,16 +55,22 @@ def emailwatch():
     trend_alert = request.form['trend_alert']
     gann_alert = request.form['gann_alert']
 
-
     try:
         conn = sqlite3.connect("stock.db")
-        keyvaluedao.updateValue(conn, "email", email)
-        keyvaluedao.updateValue(conn, "trading_notify", trading_notify)
-        keyvaluedao.updateValue(conn, "index_notify", index_notify)
-        keyvaluedao.updateValue(conn, "advance_notify", advance_notify)
-        keyvaluedao.updateValue(conn, "points_alert", points_alert)
-        keyvaluedao.updateValue(conn, "trend_alert", trend_alert)
-        keyvaluedao.updateValue(conn, "gann_alert", gann_alert)
+        if email != "":
+            keyvaluedao.updateValue(conn, "email", email)
+        if trading_notify != "":
+            keyvaluedao.updateValue(conn, "trading_notify", trading_notify)
+        if index_notify != "":
+            keyvaluedao.updateValue(conn, "index_notify", index_notify)
+        if advance_notify != "":
+            keyvaluedao.updateValue(conn, "advance_notify", advance_notify)
+        if points_alert != "":
+            keyvaluedao.updateValue(conn, "points_alert", points_alert)
+        if trend_alert != "":
+            keyvaluedao.updateValue(conn, "trend_alert", trend_alert)
+        if gann_alert != "":
+            keyvaluedao.updateValue(conn, "gann_alert", gann_alert)
     except Exception as e:
         print(e.args)
         message = "Failure"
