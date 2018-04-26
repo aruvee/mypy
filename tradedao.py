@@ -6,8 +6,8 @@ class TradeDAO:
 
     now = datetime.now()
 
-    def insertTrade(self, conn, stype, name, price, stoploss, sltype):
-        conn.execute("INSERT INTO trade (type,symbol,buy,stoploss,sltype) VALUES (?, ?, ?, ?, ? )", (stype, name, price, stoploss, sltype))
+    def insertTrade(self, conn, stype, name, price, stoploss, sltype, costprice, otype, target, days):
+        conn.execute("INSERT INTO trade (type,symbol,buy,stoploss,sltype,costprice, otype, target, days) VALUES (?, ?, ?, ?, ?, ?, ?,?,? )", (stype, name, price, stoploss, sltype,costprice, otype, target, days))
         conn.commit()
 
     def selectTrade(self, conn):
@@ -28,6 +28,10 @@ class TradeDAO:
 
     def updateChangePrice(self, conn, name, ltp):
         conn.execute("UPDATE trade SET change_price=? where symbol=?", (ltp, name))
+        conn.commit()
+
+    def updateStoploss(self, conn, name, stoploss):
+        conn.execute("UPDATE trade SET stoploss=? where symbol=?", (stoploss, name))
         conn.commit()
 
     def activateTrade(self, conn, symbol, change, change_price, flag):

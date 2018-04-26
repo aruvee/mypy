@@ -24,16 +24,19 @@ for row in cursor:
 
     sendemail = False
 
-    ltp = index.getStockPrice(stype, symbol)
+    if stoploss != "":
+        ltp = index.getStockPrice(stype, symbol)
 
-    if sltype == "B" and float(ltp) < float(stoploss):
-        sendemail = True
-    elif sltype == "S" and float(ltp) > float(stoploss):
-        sendemail = True
+        if sltype == "B" and float(ltp) < float(stoploss):
+            sendemail = True
+        elif sltype == "S" and float(ltp) > float(stoploss):
+            sendemail = True
 
-    if sendemail:
-        subject = "Stop Loss " + symbol + " " + str(ltp)
-        message = "Stop Loss Triggered"
-        myemail.send_email("aruna", "aruna", "veera", subject, message)
+        if sendemail:
+            subject = "Stop Loss " + symbol + " " + str(ltp)
+            message = "Stop Loss Triggered"
+            myemail.send_email("aruna", "aruna", "veera", subject, message)
+
+
 
 

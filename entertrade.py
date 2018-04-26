@@ -16,11 +16,15 @@ def tradesubmit():
     price = request.form['price']
     stoploss = request.form['stoploss']
     sltype = request.form['sltype']
+    costprice = request.form['costprice']
+    otype = request.form['otype']
+    target = request.form['target']
+    days = request.form['days']
 
     try:
         tprice = index.getStockPrice(sType, symbol)
         conn = sqlite3.connect("stock.db")
-        tradeDAO.insertTrade(conn, sType, symbol, price, stoploss, sltype)
+        tradeDAO.insertTrade(conn, sType, symbol, price, stoploss, sltype, costprice, otype, target, days)
     except Exception as e:
         print(e.args)
         message = "Failure"
@@ -117,6 +121,14 @@ def entertrade():
     <input type="text" name="stoploss" id="stoploss"><br><br>
     <label for="sltype">SLtype</label>
     <input type="text" name="sltype" id="sltype"><br><br>
+    <label for="costprice">costprice</label>
+    <input type="text" name="costprice" id="costprice"><br><br>
+    <label for="otype">otype</label>
+    <input type="text" name="otype" id="otype"><br><br>
+    <label for="target">target</label>
+    <input type="text" name="target" id="target"><br><br>
+    <label for="days">days</label>
+    <input type="text" name="days" id="days"><br><br>
     <p><input type="submit" value="Trade"></p>
    </form>
    <form action="gettrade" method="post" name="gettrade">
