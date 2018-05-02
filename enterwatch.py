@@ -54,6 +54,7 @@ def emailwatch():
     points_alert = request.form['points_alert']
     trend_alert = request.form['trend_alert']
     gann_alert = request.form['gann_alert']
+    stoploss_alert = request.form['stoploss_alert']
 
     try:
         conn = sqlite3.connect("stock.db")
@@ -71,6 +72,8 @@ def emailwatch():
             keyvaluedao.updateValue(conn, "trend_alert", trend_alert)
         if gann_alert != "":
             keyvaluedao.updateValue(conn, "gann_alert", gann_alert)
+        if stoploss_alert != "":
+            keyvaluedao.updateValue(conn, "stoploss_alert", stoploss_alert)
     except Exception as e:
         print(e.args)
         message = "Failure"
@@ -138,6 +141,8 @@ def enterwatch():
     <input type="text" name="trend_alert" id="trend_alert"><br><br>
     <label for="gann_alert">gann_alert</label>
     <input type="text" name="gann_alert" id="gann_alert"><br><br>
+    <label for="stoploss_alert">stoploss_alert</label>
+    <input type="text" name="stoploss_alert" id="stoploss_alert"><br><br>
     <p><input type="submit" value="Submit"></p>
    </form>
   </body>
