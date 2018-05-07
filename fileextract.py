@@ -5,6 +5,7 @@ from zipfile import ZipFile
 import os.path
 
 pattern = Pattern()
+print("File Extract")
 
 directory = "data\\"
 exchange = "bse"
