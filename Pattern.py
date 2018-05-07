@@ -43,7 +43,7 @@ class Pattern:
         return filepath
 
     def getdatepart(self, exchange):
-        #today = datetime.now() - timedelta(days=1)
+
         today = datetime.now()
         if exchange == "bse":
             year = today.year - 2000
