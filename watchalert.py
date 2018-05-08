@@ -32,32 +32,33 @@ for row in cursor:
         notifyTime = parser.parse(notifyTime)
 
     ltp = index.getStockPrice(stype, symbol)
-    #print("LTP", ltp)
-    currentValue = stockutils.getPercentage(buyPrice, ltp)
-    notifyValue = 0
-    if notifyPrice > 0:
-        notifyValue = stockutils.getPercentage(buyPrice, notifyPrice)
-        change = abs(currentValue - notifyValue)
-    else:
-        change = abs(currentValue)
-
-    change = round(change, 2)
-
-    #print("Change", change)
-
-    diff = datetime.now() -notifyTime
-
-    if change > 0.5 and change < 100:
-        if notifyPrice == 0:
-            notifyPrice = buyPrice
-        if ltp > notifyPrice:
-            subject = "Watch Alert +ve "
+    if ltp > 0:
+        #print("LTP", ltp)
+        currentValue = stockutils.getPercentage(buyPrice, ltp)
+        notifyValue = 0
+        if notifyPrice > 0:
+            notifyValue = stockutils.getPercentage(buyPrice, notifyPrice)
+            change = abs(currentValue - notifyValue)
         else:
-            subject = "Watch Alert -ve "
-        subject = subject + symbol[:10] + " " + str(currentValue) + " " + str(ltp)
-        message = "Symbol " + symbol + "\n" + "BuyPrice " + str(buyPrice) + "\n" + "LTP " + str(ltp) + "\n"
-        message = message + "NotifyPrice " + str(notifyPrice) + "\n" + "NotifyValue " + str(notifyValue) + "\n" + "CurrentValue " + str(currentValue)
-        watchdao.updateWatch(conn, symbol, ltp)
-        myemail.send_email("aruna", "aruna", "veera", subject, message)
+            change = abs(currentValue)
+
+        change = round(change, 2)
+
+        #print("Change", change)
+
+        diff = datetime.now() -notifyTime
+
+        if change > 0.5 and change < 100:
+            if notifyPrice == 0:
+                notifyPrice = buyPrice
+            if ltp > notifyPrice:
+                subject = "Watch Alert +ve "
+            else:
+                subject = "Watch Alert -ve "
+            subject = subject + symbol[:10] + " " + str(currentValue) + " " + str(ltp)
+            message = "Symbol " + symbol + "\n" + "BuyPrice " + str(buyPrice) + "\n" + "LTP " + str(ltp) + "\n"
+            message = message + "NotifyPrice " + str(notifyPrice) + "\n" + "NotifyValue " + str(notifyValue) + "\n" + "CurrentValue " + str(currentValue)
+            watchdao.updateWatch(conn, symbol, ltp)
+            myemail.send_email("aruna", "aruna", "veera", subject, message)
 
 

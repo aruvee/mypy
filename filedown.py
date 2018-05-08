@@ -2,7 +2,7 @@ import requests
 from Pattern import Pattern
 
 pattern = Pattern()
-directory = "data\\"
+directory = "data/"
 print("file download")
 
 r = requests.get(pattern.getdownpath("bse"), stream=True)

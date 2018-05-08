@@ -1,5 +1,4 @@
 import zipfile
-from FOStocks import FOStocks
 from Pattern import Pattern
 from zipfile import ZipFile
 import os.path
@@ -7,7 +6,7 @@ import os.path
 pattern = Pattern()
 print("File Extract")
 
-directory = "data\\"
+directory = "data/"
 exchange = "bse"
 bsezip = directory + pattern.getzipfilepath(exchange)
 if os.path.exists(bsezip):
