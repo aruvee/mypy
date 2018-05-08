@@ -1,8 +1,8 @@
-from FOStocks import  FOStocks
+from Pattern import Pattern
 entries = []
 duplicate_entries = []
-fostocks = FOStocks()
-todaypath = fostocks.getbsetodaypath()
+pattern = Pattern()
+todaypath = pattern.getfilepath("bse", 0)
 with open(todaypath, 'r') as my_file:
     for line in my_file:
         columns = line.strip().split(',')
