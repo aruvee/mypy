@@ -5,7 +5,7 @@ from datetime import timedelta
 
 class Pattern:
 
-    fileseperator = "\\"
+    fileseperator = "/"
 
     def isholiday(self, previousday):
         holidayList = ['01052018', '15082018', '22082018', '13092018', '20092018', '02102018', '18102018', '07112018', '08112018', '23112018', '25122018']
