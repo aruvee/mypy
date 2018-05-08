@@ -5,6 +5,22 @@ from datetime import timedelta
 
 class Pattern:
 
+    def isholiday(self, previousday):
+        holidayList = ['01052018', '15082018', '22082018', '13092018', '20092018', '02102018', '18102018', '07112018', '08112018', '23112018', '25122018']
+        year = previousday.year
+        month = previousday.month
+        if month < 10:
+            month = "0" + str(month)
+        day = previousday.day
+        if day < 10:
+            day = "0" + str(day)
+        checkdate = str(day) + str(month) + str(year)
+        # print(checkdate)
+        if holidayList.__contains__(checkdate):
+            return True
+        else:
+            return False
+
     def getdownpath(self,exchange):
         bsepath = "https://www.bseindia.com/download/BhavCopy/Equity/"
         nsepath = "https://www.nseindia.com/archives/fo/mkt/"
@@ -42,18 +58,50 @@ class Pattern:
 
         return filepath
 
-    def getdatepart(self, exchange):
+    def getfilepath(self, exchange, count):
+        directory = "data\\"
+        bseprefix = "EQ"
+        nseprefix = "fo"
+        bsesuffix = ".CSV"
+        nsesuffix = ".csv"
 
-        today = datetime.now()
         if exchange == "bse":
-            year = today.year - 2000
+            filepath = directory + bseprefix + self.getdatepart(exchange, count) + bsesuffix
         else:
-            year = today.year
-        month = today.month
+            filepath = directory + nseprefix + self.getdatepart(exchange, count) + nsesuffix
+
+        return filepath
+
+    def getdatepart(self, exchange, count=0):
+        counter = 0
+        previousday = datetime.now()
+
+        while counter < count:
+            previousday = previousday - timedelta(days=1)
+            #print(previousday)
+            while self.isholiday(previousday):
+                previousday = previousday - timedelta(days=1)
+
+            daycount = 1
+            while previousday.weekday() > 4:
+                previousday = previousday - timedelta(days=1)
+                while self.isholiday(previousday):
+                    previousday = previousday - timedelta(days=1)
+            #print(previousday)
+            counter = counter + 1
+        if exchange == "bse":
+            year = previousday.year - 2000
+        else:
+            year = previousday.year
+        month = previousday.month
         if month < 10:
             month = "0" + str(month)
-        day = today.day
+        day = previousday.day
         if day < 10:
             day = "0" + str(day)
         datepart = str(day) + str(month) + str(year)
         return datepart
+
+    def getbsepandas(self, path):
+        dataframe= pandas.read_csv(path, index_col=1)
+        return dataframe
