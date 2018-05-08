@@ -59,7 +59,7 @@ class Pattern:
         return filepath
 
     def getfilepath(self, exchange, count):
-        directory = "data\\"
+        directory = "data/"
         bseprefix = "EQ"
         nseprefix = "fo"
         bsesuffix = ".CSV"
