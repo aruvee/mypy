@@ -5,7 +5,7 @@ import os.path
 
 pattern = Pattern()
 print("File Extract")
-
+entries = []
 directory = "data/"
 exchange = "bse"
 bsezip = directory + pattern.getzipfilepath(exchange)
@@ -18,10 +18,14 @@ if os.path.exists(bsezip):
             for line in f:
                 content = line.decode("ascii").strip()
                 content = content.replace(" ", "")
-                if "EQUITAS" not in content:
+                columns = content.split(',')
+                if columns[1] not in entries:
+                    entries.append(columns[1])
                     bsenewfile.write(content)
-                    #print(content)
+                    # print(content)
                     bsenewfile.write("\n")
+                else:
+                    print(columns[1])
     bsenewfile.close()
 
 
