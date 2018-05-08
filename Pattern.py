@@ -5,6 +5,8 @@ from datetime import timedelta
 
 class Pattern:
 
+    fileseperator = "\\"
+
     def isholiday(self, previousday):
         holidayList = ['01052018', '15082018', '22082018', '13092018', '20092018', '02102018', '18102018', '07112018', '08112018', '23112018', '25122018']
         year = previousday.year
@@ -59,7 +61,7 @@ class Pattern:
         return filepath
 
     def getfilepath(self, exchange, count):
-        directory = "data/"
+        directory = "data" + self.fileseperator
         bseprefix = "EQ"
         nseprefix = "fo"
         bsesuffix = ".CSV"
@@ -105,3 +107,15 @@ class Pattern:
     def getbsepandas(self, path):
         dataframe= pandas.read_csv(path, index_col=1)
         return dataframe
+
+    def getnsepandas(self, path):
+        dataframe = pandas.read_csv(path, index_col=1)
+        dataframe = dataframe.loc[dataframe['EXP_DATE'] == '31/05/2018']
+        return dataframe
+
+    def getfostocks(self):
+        stockList = []
+        file = open("data" + self.fileseperator + "fostocks.txt", "r")
+        for line in file:
+            stockList.append(line.strip())
+        return stockList
