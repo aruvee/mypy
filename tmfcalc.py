@@ -11,4 +11,4 @@ def calculate():
     total = 0
     for mylist in data:
         total = total + float(mylist["ratedProductUsage"]["chargeAmount"])
-    return total
+    return str(total)
