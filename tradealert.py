@@ -13,6 +13,8 @@ tradedao = TradeDAO()
 myemail = Myemail()
 conn = sqlite3.connect("stock.db")
 
+change_needed = 0.5
+
 # Get the rows from the Trade table
 cursor = tradedao.selectTrade(conn)
 
@@ -31,6 +33,10 @@ for row in cursor:
     else:
         notifyTime = parser.parse(notifyTime)
 
+    if stype == "stock":
+        change_needed = 1.0
+    else:
+        change_needed = 0.5
     ltp = index.getStockPrice(stype, symbol)
     #print("LTP", ltp)
     currentValue = stockutils.getPercentage(buyPrice, ltp)
@@ -47,7 +53,7 @@ for row in cursor:
 
     diff = datetime.now() -notifyTime
 
-    if change > 0.5:
+    if change > change_needed:
         subject = "Trade Alert " + symbol + " " + str(currentValue) + " " + str(ltp)
         message = "Symbol " + symbol + "\n" + "BuyPrice " + str(buyPrice) + "\n" + "LTP " + str(ltp) + "\n"
         message = message + "NotifyPrice " + str(notifyPrice) + "\n" + "NotifyValue " + str(notifyValue) + "\n" + "CurrentValue " + str(currentValue)
