@@ -57,7 +57,8 @@ def gettrade():
         conn = sqlite3.connect("stock.db")
         cursor = tradeDAO.selectAllTrade(conn)
         for trade in cursor:
-            message = message + trade[1] + "\n"
+            price = index.getStockPrice(trade[0], trade[1])
+            message = message + trade[1] + " " + str(price) + "\n"
     except Exception as e:
         print(e.args)
         message = "Failure"
