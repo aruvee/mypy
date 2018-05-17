@@ -52,13 +52,18 @@ def gettrade():
     message = "Trade List" + "\n"
     tradeDAO = TradeDAO()
     index = Index()
+    commexists = False
 
     try:
         conn = sqlite3.connect("stock.db")
         cursor = tradeDAO.selectAllTrade(conn)
         for trade in cursor:
+            if trade[0] == "comm":
+                commexists = True
             price = index.getStockPrice(trade[0], trade[1])
-            message = message + trade[1] + " " + str(price) + "\n"
+            message = message + "<p>" + trade[1] + " " + str(price) + "</p>"
+        if commexists:
+            message = message + "<p>" + " INR " + str(index.getStockPrice("curr", "INR=X")) + "</p>"
     except Exception as e:
         print(e.args)
         message = "Failure"
