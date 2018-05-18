@@ -51,7 +51,14 @@ def getgann():
         conn = sqlite3.connect("stock.db")
         cursor = ganndao.selectGann(conn)
         for trade in cursor:
-            message = message + trade[1] + "\n"
+            price = index.getStockPrice(trade[0], trade[1])
+            #price = 0
+            message = message + "<p>" + trade[1] + " " + str(trade[15]) + " " + str(price)
+            if trade[15] > 0:
+                message = message + " " + str(trade[5]) + " " + str(trade[4]) + " " + str(trade[3]) + " " + str(trade[2])
+            elif trade[15] < 0:
+                message = message + " " + str(trade[11]) + " " + str(trade[10]) + " " + str(trade[9]) + " " + str(trade[8])
+            message = message + "</p>"
     except Exception as e:
         print(e.args)
         message = "Failure"

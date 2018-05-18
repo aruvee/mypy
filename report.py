@@ -33,7 +33,7 @@ if flag == "true":
             else:
                 value = index.getStockPrice(stype, symbol)
                 message = message + symbol + " " + str(value) + "\n"
-            reportdao.updateReport(conn, symbol)
+            #reportdao.updateReport(conn, symbol)
 
     if gLlist.__len__() > 0:
         message = message + "\n" + index.gindex(gLlist)
