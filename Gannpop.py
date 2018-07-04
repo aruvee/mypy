@@ -22,5 +22,7 @@ for row in cursor:
     while counter < column:
         message = message + str(row[counter]) + "\n"
         counter = counter + 1
+        if counter == 8:
+            message = message + "\n"
     message = message + "\n" + "\n"
 myemail.send_email("Aruna", "Aruna", "Veera", subject, message)
