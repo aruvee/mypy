@@ -85,12 +85,19 @@ def getwatch():
     message = "Watch List" + "\n"
     watchdao = WatchDAO()
     index = Index()
+    message = message + "<table>"
 
     try:
         conn = sqlite3.connect("stock.db")
         cursor = watchdao.selectWatch(conn)
         for trade in cursor:
-            message = message + trade[1] + "\n"
+            type = trade[0]
+            inst = trade[1]
+            value = index.getStockPrice(type, inst)
+            message = message + "<tr><td>"
+            message = message + trade[1] + "</td><td>" + str(value) + "</td>"
+            message = message + "</tr>"
+        message = message + "</table>"
     except Exception as e:
         print(e.args)
         message = "Failure"
