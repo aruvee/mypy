@@ -101,7 +101,7 @@ def getwatch():
             change = round(percentage, 2)
             value = round(float(value), 1)
             message = message + "<tr><td>"
-            message = message + trade[1] + "</td><td>" + str(value) + "</td><td>" + str(change) + "</td>"
+            message = message + trade[1] + "</td><td>" + str(value) + "</td><td>&nbsp;&nbsp;</td><td>" + str(change) + "</td>"
             message = message + "</tr>"
         message = message + "</table>"
     except Exception as e:
