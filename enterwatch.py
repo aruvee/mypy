@@ -93,9 +93,14 @@ def getwatch():
         for trade in cursor:
             type = trade[0]
             inst = trade[1]
+            buyprice = trade[2]
             value = index.getStockPrice(type, inst)
+            buyprice = float(buyprice)
+            ltp = float(value)
+            percentage = ((ltp - buyprice) / buyprice) * 100
+            change = round(percentage, 2)
             message = message + "<tr><td>"
-            message = message + trade[1] + "</td><td>" + str(value) + "</td>"
+            message = message + trade[1] + "</td><td>" + str(value) + "</td><td>" + str(change) + "</td>"
             message = message + "</tr>"
         message = message + "</table>"
     except Exception as e:
