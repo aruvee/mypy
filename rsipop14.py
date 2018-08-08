@@ -40,3 +40,5 @@ for row in cursor:
     RSI = 100 - (100/(1+RS))
     rsidao.updateRsi14(conn, gavg, lavg, RS, RSI, symbol, date14)
     #print(gavg, lavg, RS, RSI, date14)
+
+conn.commit()
