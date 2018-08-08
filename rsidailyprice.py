@@ -29,4 +29,4 @@ for index, row in dataframe.iterrows():
         loss = prvClose - currClose
         gain = 0
     rsidao.insertRsi(conn, datetime.now().date(), row["INSTRUMENT"], index, row["CLOSE_PRICE"], gain, loss)
-
+conn.commit()
