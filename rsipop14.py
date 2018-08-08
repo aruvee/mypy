@@ -33,12 +33,10 @@ for row in cursor:
                 date14 = row24[0]
         else:
             count = 1
-    #print(gavg,lavg)
     gavg = gavg / 14
     lavg = lavg / 14
     RS = gavg / lavg
     RSI = 100 - (100/(1+RS))
     rsidao.updateRsi14(conn, gavg, lavg, RS, RSI, symbol, date14)
     #print(gavg, lavg, RS, RSI, date14)
-
 conn.commit()
