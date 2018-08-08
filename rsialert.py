@@ -11,10 +11,10 @@ rsidao = rsidao()
 myemail = Myemail()
 
 # Construct the temp input parameters
-today = datetime.strptime("03082018", "%d%m%Y").date()
+#today = datetime.strptime("03082018", "%d%m%Y").date()
 
 # Construct the input parameters
-#today = datetime.now().date()
+today = datetime.now().date()
 
 # Check RSI greater than 70
 subject = "RSI greater than 70"
