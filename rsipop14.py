@@ -35,6 +35,10 @@ for row in cursor:
             count = 1
     gavg = gavg / 14
     lavg = lavg / 14
+    if gavg == 0:
+        gavg = 0.001
+    if lavg == 0:
+        lavg = 0.001
     RS = gavg / lavg
     RSI = 100 - (100/(1+RS))
     rsidao.updateRsi14(conn, gavg, lavg, RS, RSI, symbol, date14)
