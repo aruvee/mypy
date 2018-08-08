@@ -9,7 +9,6 @@ class rsidao:
     def insertRsi(self, conn, sdate, stype, symbol, close, gain, loss):
         conn.execute("INSERT INTO rsi (sdate,stype,symbol,close, gain, loss) VALUES (?, ?, ?, ?, ?, ? )",
                      (sdate,stype, symbol, close, gain, loss))
-        conn.commit()
 
     def getcloseprice(self, conn, sdate, symbol):
         cursor = conn.execute("Select close from rsi where symbol=? and sdate=?", (symbol,sdate))
@@ -43,7 +42,6 @@ class rsidao:
     def updateRsi14(self, conn, gavg, lavg, rs, rsi, symbol, sdate):
         cursor = conn.execute("Update rsi set gavg=?, lavg= ?, rs=?, rsi=? where sdate=? and symbol=?",
                               (gavg, lavg, rs, rsi, sdate, symbol))
-        conn.commit()
 
     def updateRsi10(self, conn, gavg, lavg, rs, rsi, symbol, sdate):
         cursor = conn.execute("Update rsi set gavg=?, lavg= ?, rs=?, rsi=? where sdate=? and symbol=?",
