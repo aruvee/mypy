@@ -4,6 +4,7 @@ import sqlite3
 from python.index import Index
 from python.watchdao import WatchDAO
 from python.keyvaluedao import KeyvalueDAO
+from python.Stock import Stock
 
 @python.route('/watchsubmit', methods=['GET', 'POST'])
 def watchsubmit():
@@ -81,33 +82,56 @@ def emailwatch():
 
 @python.route('/getwatch', methods=['GET', 'POST'])
 def getwatch():
-
-    message = "Watch List" + "\n"
     watchdao = WatchDAO()
     index = Index()
-    message = message + "<table>"
+    conn = sqlite3.connect("stock.db")
+    cursor = watchdao.selectWatch(conn)
+    stockList = []
+    for trade in cursor:
+        # print(trade[1], trade[0])
+        stock = Stock(str(trade[1]))
+        stock.setType(str(trade[0]))
+        stockList.append(stock)
 
-    try:
-        conn = sqlite3.connect("stock.db")
-        cursor = watchdao.selectWatch(conn)
-        for trade in cursor:
-            type = trade[0]
-            inst = trade[1]
-            buyprice = trade[2]
-            value = index.getStockPrice(type, inst)
-            buyprice = float(buyprice)
-            ltp = float(value)
-            percentage = ((ltp - buyprice) / buyprice) * 100
-            change = round(percentage, 2)
-            value = round(float(value), 1)
-            message = message + "<tr><td>"
-            message = message + trade[1] + "</td><td>" + str(value) + "</td><td>&nbsp;&nbsp;</td><td>" + str(change) + "</td>"
-            message = message + "</tr>"
-        message = message + "</table>"
-    except Exception as e:
-        print(e.args)
-        message = "Failure"
+    newstockList = index.populateStocks(stockList)
+    message = "<table>"
+    for stock in newstockList:
+        message = message + "<tr><td>"
+        message = message + stock.getname() + "</td><td>" + str(stock.getPrice()) + "</td><td>&nbsp;&nbsp;</td><td>" + str(stock.getChange()) + "</td>"
+        message = message + "</tr>"
+    message = message + "</table>"
+
     return message
+
+
+# def getwatch():
+#
+#     message = "Watch List" + "\n"
+#     watchdao = WatchDAO()
+#     index = Index()
+#     message = message + "<table>"
+#
+#     try:
+#         conn = sqlite3.connect("stock.db")
+#         cursor = watchdao.selectWatch(conn)
+#         for trade in cursor:
+#             type = trade[0]
+#             inst = trade[1]
+#             buyprice = trade[2]
+#             value = index.getStockPrice(type, inst)
+#             buyprice = float(buyprice)
+#             ltp = float(value)
+#             percentage = ((ltp - buyprice) / buyprice) * 100
+#             change = round(percentage, 2)
+#             value = round(float(value), 1)
+#             message = message + "<tr><td>"
+#             message = message + trade[1] + "</td><td>" + str(value) + "</td><td>&nbsp;&nbsp;</td><td>" + str(change) + "</td>"
+#             message = message + "</tr>"
+#         message = message + "</table>"
+#     except Exception as e:
+#         print(e.args)
+#         message = "Failure"
+#     return message
 
 @python.route('/enterwatch', methods=['GET', 'POST'])
 def enterwatch():
