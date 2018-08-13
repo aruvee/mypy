@@ -2,6 +2,7 @@ import sqlite3
 from MyGann import MyGann
 from GannDAO import GannDAO
 from Myemail import Myemail
+from datetime import datetime
 
 gann = MyGann()
 myemail = Myemail()
@@ -14,7 +15,10 @@ for row in cursor:
     mylist = gann.getGannValues(stype, symbol)
     gannDao.populateGann(conn, mylist, "N", 0, symbol)
 cursor = gannDao.selectGann(conn)
-subject = "Gann Values"
+
+today = datetime.now().date()
+subject = "Gann Values (" + str(today) + ")"
+
 message = ""
 for row in cursor:
     column = len(row)
