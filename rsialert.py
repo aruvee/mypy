@@ -17,7 +17,7 @@ myemail = Myemail()
 today = datetime.now().date()
 
 # Check RSI greater than 70
-subject = "RSI greater than 70 " + str(today)
+subject = "RSI greater than 70 (" + str(today) + ")"
 message = ""
 cursor = rsidao.getrsigt(conn, today, 70.0)
 
@@ -27,7 +27,7 @@ for row in cursor:
 myemail.send_email("aruna", "aruna", "veera", subject, message)
 
 # Check RSI Less than 30
-subject = "RSI Less than 30 " + str(today)
+subject = "RSI Less than 30 (" + str(today) + ")"
 message = ""
 cursor = rsidao.getrsilt(conn, today, 30.0)
 
@@ -37,7 +37,7 @@ for row in cursor:
 myemail.send_email("aruna", "aruna", "veera", subject, message)
 
 # Check RSI greater than 65
-subject = "RSI greater than 65 " + str(today)
+subject = "RSI greater than 65 (" + str(today) + ")"
 message = ""
 cursor = rsidao.getrsigt(conn, today, 65.0, 70.0)
 
@@ -47,7 +47,7 @@ for row in cursor:
 myemail.send_email("aruna", "aruna", "veera", subject, message)
 
 # Check RSI Less than 35
-subject = "RSI Less than 35 " + str(today)
+subject = "RSI Less than 35 (" + str(today) + ")"
 message = ""
 cursor = rsidao.getrsilt(conn, today, 35.0, 30.0)
 
