@@ -1,6 +1,7 @@
 from Pattern import Pattern
 from Doji import Doji
 from Myemail import Myemail
+from datetime import datetime
 
 # Initialize the class
 pattern = Pattern()
@@ -8,7 +9,8 @@ Doji= Doji()
 lowperct = float(10)
 highperct = float(90)
 myemail = Myemail()
-subject = "Dragon Fly"
+today = datetime.now().date()
+subject = "Dragon Fly (" + str(today) + ")"
 message = ""
 
 

@@ -1,6 +1,7 @@
 from Pattern import Pattern
 from Doji import Doji
 from Myemail import Myemail
+from datetime import datetime
 
 # Initialize the class
 pattern = Pattern()
@@ -10,7 +11,8 @@ highperct = float(80)
 graveStoneList = []
 graveStoneListCo = []
 myemail = Myemail()
-subject = "Gravestone Watch"
+today = datetime.now().date()
+subject = "Gravestone Watch (" + str(today) + ")"
 message = ""
 
 # Construct the input parameters
