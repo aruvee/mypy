@@ -11,6 +11,10 @@ class PortfolioDAO:
         conn.execute("INSERT INTO portfolio (type,symbol,buy,perct,pname,buydate) VALUES (?, ?, ?, ? ,?,?)", (stype, name, price, perct, pname, now))
         conn.commit()
 
+    def updateFlag(self, conn, stype, name):
+        conn.execute("update portfolio set alertflag = 1 where type = ? and symbol = ?", (stype, name))
+
+
     def selectPortfolio(self, conn, pname=""):
         if pname == "":
             cursor = conn.execute("Select * from portfolio  where buy >0")
