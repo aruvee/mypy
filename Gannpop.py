@@ -14,6 +14,8 @@ for row in cursor:
     symbol = row[1]
     mylist = gann.getGannValues(stype, symbol)
     gannDao.populateGann(conn, mylist, "N", 0, symbol)
+conn.commit()
+
 cursor = gannDao.selectGann(conn)
 
 today = datetime.now().date()
@@ -30,3 +32,5 @@ for row in cursor:
             message = message + "\n"
     message = message + "\n" + "\n"
 myemail.send_email("Aruna", "Aruna", "Veera", subject, message)
+
+conn.close()

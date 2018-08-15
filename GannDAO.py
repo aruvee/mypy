@@ -24,7 +24,6 @@ class GannDAO:
                           "STATUS=?, POINTS=? where symbol=?", (gannList[0], gannList[1], gannList[2], gannList[3], gannList[4],
                                                                 gannList[5], gannList[6], gannList[7], gannList[8], gannList[9],
                                                                 gannList[10], gannList[11], status, points, name))
-        conn.commit()
 
     def updateStatus(self, conn, status, name):
         conn.execute("UPDATE gann SET STATUS=? where symbol=?", (status, name))
