@@ -26,6 +26,17 @@ for row in cursor:
 
 myemail.send_email("aruna", "aruna", "veera", subject, message)
 
+
+# Check RSI greater than 85
+subject = "RSI greater than 85 (" + str(today) + ")"
+message = ""
+cursor = rsidao.getrsigt(conn, today, 85.0)
+
+for row in cursor:
+    message = message + row[0] + "\n"
+
+myemail.send_email("aruna", "aruna", "veera", subject, message)
+
 # Check RSI Less than 30
 subject = "RSI Less than 30 (" + str(today) + ")"
 message = ""
