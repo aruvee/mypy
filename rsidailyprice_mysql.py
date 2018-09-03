@@ -21,6 +21,7 @@ prvdate = datetime.strptime(pdate, "%d%m%Y").date()
 for index, row in dataframe.iterrows():
     currClose = row["CLOSE_PRICE"]
     prvClose = rsidao.getcloseprice(cursor, prvdate, index)
+    prvClose = float(prvClose)
     if currClose > prvClose:
         gain = currClose - prvClose
         loss = 0
