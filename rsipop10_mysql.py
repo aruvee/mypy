@@ -32,8 +32,9 @@ for row in allstocks:
         else:
             prevgavg = float(gavg)
             prevlavg = float(lavg)
-            gavg = ((prevgavg * 13) + float(row10[4]) / 14)
-            lavg = ((prevlavg * 13) + float(row10[5]) / 14)
+            gavg = ((prevgavg * 13) + float(row10[4])) / 14
+            lavg = ((prevlavg * 13) + float(row10[5])) / 14
+            print(gavg,lavg)
             sdate = row10[0]
             if lavg == 0:
                 lavg = 0.1
