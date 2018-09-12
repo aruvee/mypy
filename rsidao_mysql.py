@@ -37,3 +37,15 @@ class rsidao_mysql:
         query = "Select * from (Select * from rsi where symbol=%s order by sdate desc limit 11) tbl order by sdate asc"
         cursor.execute(query, (symbol,))
         return cursor
+
+    def getrsigt(self, cursor, sdate, value, max=100):
+        query = "Select symbol from rsi where sdate=%s and rsi > %s and rsi < %s and stype='FUTSTK' order by rsi asc"
+        data = (sdate, value, max)
+        cursor.execute(query, data)
+        return cursor
+
+    def getrsilt(self, cursor, sdate, value, min=0):
+        query = "Select symbol from rsi where sdate=%s and rsi < %s and rsi > %s and stype='FUTSTK' order by rsi asc"
+        data = (sdate, value, min)
+        cursor.execute(query, data)
+        return cursor
