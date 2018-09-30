@@ -19,7 +19,7 @@ conn.commit()
 cursor = gannDao.selectGann(conn)
 
 today = datetime.now().date()
-subject = "Gann Values (" + str(today) + ")"
+subject = "Gann Values "
 
 message = ""
 for row in cursor:
