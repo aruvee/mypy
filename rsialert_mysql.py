@@ -15,8 +15,8 @@ conn = mysq.getConnection()
 cursor = conn.cursor()
 
 # Construct the input parameters
-#today = datetime.now().date()
-today = "2018-09-11"
+today = datetime.now().date()
+#today = "2018-09-11"
 
 # Check RSI greater than 70
 subject = "RSI greater than 70 (" + str(today) + ")"
