@@ -48,7 +48,12 @@ for row in cursor:
 
         diff = datetime.now() -notifyTime
 
-        if change > 0.5 and change < 100:
+        if stype == "stock":
+            changeAlert = 1.0
+        else:
+            changeAlert = 0.5
+
+        if change > changeAlert and change < 100:
             if notifyPrice == 0:
                 notifyPrice = buyPrice
             if ltp > notifyPrice:
