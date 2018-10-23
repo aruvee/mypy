@@ -19,12 +19,18 @@ class Myemail:
             if counter==1:
                 pwd=line
             if counter==2:
-                recipient=line
+                recipient1=line
             if counter==3:
                 flag=line
+            if counter==4:
+                recipient2=line
             counter=counter+1
         file.close()
         #flag="false"
+        if recipient == "report":
+            recipient = recipient2
+        else:
+            recipient = recipient1
         gmail_user = user
         gmail_pwd = pwd
         FROM = user
