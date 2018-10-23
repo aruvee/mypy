@@ -39,6 +39,6 @@ for row in allstocks:
         if counter == 8:
             message = message + "\n"
     message = message + "\n" + "\n"
-myemail.send_email("Aruna", "Aruna", "Veera", subject, message)
+myemail.send_email("Aruna", "Aruna", "report", subject, message)
 
 conn.close()
