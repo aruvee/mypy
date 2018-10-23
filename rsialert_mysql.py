@@ -27,7 +27,7 @@ stocks = cursor.fetchall()
 for row in stocks:
     message = message + row[0] + "\n"
 
-myemail.send_email("aruna", "aruna", "veera", subject, message)
+myemail.send_email("aruna", "aruna", "report", subject, message)
 
 
 # Check RSI Less than 30
