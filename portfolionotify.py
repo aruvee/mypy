@@ -33,6 +33,6 @@ for row in cursor:
 
     message = message + "Symbol " + symbol + "\n" + "BuyPrice " + str(buyPrice) + "\n" + "LTP " + str(ltp) + "\n"
     message = message + "\n\n"
-myemail.send_email("aruna", "aruna", "veera", subject, message)
+myemail.send_email("aruna", "aruna", "report", subject, message)
 
 

@@ -39,6 +39,6 @@ for row in cursor:
     if delta.days > expirydays:
         subject = "Expiry Alert " + symbol[:10] + " " + str(ltp)
         message = "Symbol " + symbol + "\n" + "BuyPrice " + str(buyPrice) + "\n" + "LTP " + str(ltp) + "\n"
-        myemail.send_email("aruna", "aruna", "veera", subject, message)
+        myemail.send_email("aruna", "aruna", "report", subject, message)
 
 

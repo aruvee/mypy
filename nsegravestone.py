@@ -49,4 +49,4 @@ for stockName in graveStoneListCo:
     counter = counter + 1
 
 if message != "":
-    myemail.send_email("Aruna", "Aruna", "Veera", subject, message)
+    myemail.send_email("Aruna", "Aruna", "report", subject, message)

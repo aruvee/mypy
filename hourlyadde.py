@@ -24,7 +24,7 @@ if flag == "true":
     #print(message)
 
     myemail = Myemail()
-    myemail.send_email("aruna", "aruna", "veera", subject, message)
+    myemail.send_email("aruna", "aruna", "report", subject, message)
 
 
 

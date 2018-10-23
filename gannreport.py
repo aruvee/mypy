@@ -17,6 +17,6 @@ for row in cursor:
     message = message + "\n"
 
 if message != "":
-    myemail.send_email("Aruna", "Aruna", "Veera", subject, message)
+    myemail.send_email("Aruna", "Aruna", "report", subject, message)
 
 

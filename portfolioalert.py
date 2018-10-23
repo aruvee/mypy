@@ -29,7 +29,7 @@ for row in cursor:
         if currentValue > perct:
             subject = "Target Alert " + symbol[:10] + " " + str(currentValue) + " " + str(ltp)
             message = "Symbol " + symbol + "\n" + "BuyPrice " + str(buyPrice) + "\n" + "LTP " + str(ltp) + "\n"
-            myemail.send_email("aruna", "aruna", "veera", subject, message)
+            myemail.send_email("aruna", "aruna", "report", subject, message)
             portfoliodao.updateFlag(conn, stype, symbol)
 conn.commit()
 conn.close()

@@ -24,4 +24,4 @@ for stockName in dojiList:
     message = message + stockName + "\n"
 
 if message != "":
-    myemail.send_email("Aruna", "Aruna", "Veera", subject, message)
+    myemail.send_email("Aruna", "Aruna", "report", subject, message)
