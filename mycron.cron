@@ -1,57 +1,87 @@
 ##################   Gann Levels ###########################################################
-# At 6 AM populate the Gann levels
-30 8 * * 1-5 python /home/smallmc/python/Gannpop.py >> /home/smallmc/python/logfile.log 2>&1
+# At 5 PM populate the Gann levels
+20 22 * * 1-5 python /home/ubuntu/python/Gannpop.py >> /home/ubuntu/python/logfile.log 2>&1
 # Run the Gann Alert every 5 mins
-*/5 10-18 * * 1-5 python /home/smallmc/python/gannalert.py >> /home/smallmc/python/logfile.log 2>&1
+*/15 9-15 * * 1-5 python /home/ubuntu/python/gannalert.py >> /home/ubuntu/python/logfile.log 2>&1
+
+20 19 * * 1-5 python /home/ubuntu/python/gannpop_mysql.py >> /home/ubuntu/python/logfile.log 2>&1
+*/2 9-15 * * 1-5 python /home/ubuntu/python/gannalert_mysql.py >> /home/ubuntu/python/logfile.log 2>&1
 
 ##################   Trade Alert ###########################################################
 # Trade set up
-*/5 10-23 * * 1-5 python /home/smallmc/python/tradealert.py >> /home/smallmc/python/logfile.log 2>&1
-*/5 0-2 * * 1-5 python /home/smallmc/python/tradealert.py >> /home/smallmc/python/logfile.log 2>&1
-*/20 11-23 * * 1-5 python /home/smallmc/python/tradenotify.py >> /home/smallmc/python/logfile.log 2>&1
-*/20 0-2 * * 1-5 python /home/smallmc/python/tradenotify.py >> /home/smallmc/python/logfile.log 2>&1
+*/5 9-23 * * 1-5 python /home/ubuntu/python/tradealert.py >> /home/ubuntu/python/logfile.log 2>&1
+*/45 9-16 * * 1-5 python /home/ubuntu/python/tradenotify.py >> /home/ubuntu/python/logfile.log 2>&1
+
 # Trade Change Notify
-*/3 10-23 * * 1-5 python /home/smallmc/python/tradechange.py >> /home/smallmc/python/logfile.log 2>&1
-*/3 0-2 * * 1-6 python /home/smallmc/python/tradechange.py >> /home/smallmc/python/logfile.log 2>&1
+*/3 9-23 * * 1-5 python /home/ubuntu/python/tradechange.py >> /home/ubuntu/python/logfile.log 2>&1
 
 # Change Alert Notify
-*/15 10-23 * * 1-5 python /home/smallmc/python/changealert.py >> /home/smallmc/python/logfile.log 2>&1
-*/15 0-2 * * 1-5 python /home/smallmc/python/changealert.py >> /home/smallmc/python/logfile.log 2>&1
+*/15 9-23 * * 1-5 python /home/ubuntu/python/changealert.py >> /home/ubuntu/python/logfile.log 2>&1
 
 # Stop Loss Notify
-*/15 10-23 * * 1-5 python /home/smallmc/python/stoplossalert.py >> /home/smallmc/python/logfile.log 2>&1
-*/15 0-2 * * 1-5 python /home/smallmc/python/stoplossalert.py >> /home/smallmc/python/logfile.log 2>&1
+*/15 9-23 * * 1-5 python /home/ubuntu/python/stoplossalert.py >> /home/ubuntu/python/logfile.log 2>&1
 
 # Stop Loss Populate
-30 8 * * 1-5 python python /home/smallmc/python/stoplosspop.py >> /home/smallmc/python/logfile.log 2>&1
+30 4 * * 1-5 python /home/ubuntu/python/stoplosspop.py >> /home/ubuntu/python/logfile.log 2>&1
 
 ##################   Watch Alert ###########################################################
-*/5 9-22 * * 1-5 python /home/smallmc/python/watchalert.py >> /home/smallmc/python/logfile.log 2>&1
-03 7 * * 1-5 python /home/smallmc/python/watchpopa.py >> /home/smallmc/python/logfile.log 2>&1
-38 7 * * 1-5 python /home/smallmc/python/watchpopb.py >> /home/smallmc/python/logfile.log 2>&1
+*/5 6-22 * * 1-5 python /home/ubuntu/python/watchalert.py >> /home/ubuntu/python/logfile.log 2>&1
+03 5 * * 1-5 python /home/ubuntu/python/watchpopa.py >> /home/ubuntu/python/logfile.log 2>&1
+38 5 * * 1-5 python /home/ubuntu/python/watchpopb.py >> /home/ubuntu/python/logfile.log 2>&1
 
 ##################   Report Section ###########################################################
-23,53 7-23 * * 1-5 python /home/smallmc/python/report.py >> /home/smallmc/python/logfile.log 2>&1
-23,53 0-1 * * 1-5 python /home/smallmc/python/report.py >> /home/smallmc/python/logfile.log 2>&1
+*/15 9-15 * * 1-5 python /home/ubuntu/python/report.py >> /home/ubuntu/python/logfile.log 2>&1
+30 3 * * 1-5 python /home/ubuntu/python/report.py >> /home/ubuntu/python/logfile.log 2>&1
+#30 21-23 * * 1-5 python /home/ubuntu/python/report.py >> /home/ubuntu/python/logfile.log 2>&1
 # Daily at the EOD 3:35 PM get the Gann Report
-05 18 * * 1-5 python /home/smallmc/python/gannreport.py >> /home/smallmc/python/logfile.log 2>&1
+#05 18 * * 1-5 python /home/ubuntu/python/gannreport.py >> /home/ubuntu/python/logfile.log 2>&1
 
 ##################   Advance Decline numbers ##################################################
 # Get the hourly Advance and Decline number 9:30, 10:30, 12:30, 02:30
-0 12,13,15,17 * * 1-5 python /home/smallmc/python/hourlyadde.py >> /home/smallmc/python/logfile.log 2>&1
+30 10,12,14,15 * * 1-5 python /home/ubuntu/python/hourlyadde.py >> /home/ubuntu/python/logfile.log 2>&1
 # Advance Trend alert
-*/5 12-18 * * 1-5 python /home/smallmc/python/advance.py >> /home/smallmc/python/logfile.log 2>&1
+*/5 9-16 * * 1-5 python /home/ubuntu/python/advance.py >> /home/ubuntu/python/logfile.log 2>&1
 
 ##################   Points Section ###########################################################
 # Get the adv dec at 4 PM daily and set the points to 0
-30 18 * * 1-5 python /home/smallmc/python/addedaily.py >> /home/smallmc/python/logfile.log 2>&1
+0 16 * * 1-5 python /home/ubuntu/python/addedaily.py >> /home/ubuntu/python/logfile.log 2>&1
 # Run every 15 mins
-*/15 10-18 * * 1-5 python /home/smallmc/python/addepoints.py >> /home/smallmc/python/logfile.log 2>&1
+*/15 9-16 * * 1-5 python /home/ubuntu/python/addepoints.py >> /home/ubuntu/python/logfile.log 2>&1
 
 ##################   Portfolio Alerts  ##################################################
-30 12,13,15,17 * * 1-5 python /home/smallmc/python/portfolioalert.py >> /home/smallmc/python/logfile.log 2>&1
-#0 12,13,15,17 * * 1-5 python /home/smallmc/python/portfolionotify.py >> /home/smallmc/python/logfile.log 2>&1
-0 15 * * 1-5 python /home/smallmc/python/portfolionotify.py aruna >> /home/smallmc/python/logfile.log 2>&1
-30 8 * * 1-5 python /home/smallmc/python/portfolionotify.py veera >> /home/smallmc/python/logfile.log 2>&1
-30 8 * * 1-5 python /home/smallmc/python/portfolionotify.py viru >> /home/smallmc/python/logfile.log 2>&1
-30 8 * * 1-5 python /home/smallmc/python/portfolioexpiry.py >> /home/smallmc/python/logfile.log 2>&1
+#30 12,13,15,17 * * 1-5 python /home/ubuntu/python/portfolioalert.py >> /home/ubuntu/python/logfile.log 2>&1
+
+25 6,12 * * 1-5 python /home/ubuntu/python/portfolioalert.py >> /home/ubuntu/python/logfile.log 2>&1
+
+#0 13 * * 1-5 python /home/ubuntu/python/portfolionotify.py aruna >> /home/ubuntu/python/logfile.log 2>&1
+30 6 * * 4 python /home/ubuntu/python/portfolionotify.py veera >> /home/ubuntu/python/logfile.log 2>&1
+30 6 * * 4 python /home/ubuntu/python/portfolionotify.py viru >> /home/ubuntu/python/logfile.log 2>&1
+30 6 * * 4 python /home/ubuntu/python/portfolioexpiry.py >> /home/ubuntu/python/logfile.log 2>&1
+
+#*/2 * * * * python /home/ubuntu/python/crontest.py >> /home/ubuntu/python/logfile.log 2>&1
+
+##################   Patterns  ##################################################
+0 19 * * 1-5 python /home/ubuntu/python/filedown.py >> /home/ubuntu/python/logfile.log 2>&1
+5 19 * * 1-5 python /home/ubuntu/python/fileextract.py >> /home/ubuntu/python/logfile.log 2>&1
+
+30 19 * * 1-5 python /home/ubuntu/python/bsehammer.py >> /home/ubuntu/python/logfile.log 2>&1
+31 19 * * 1-5 python /home/ubuntu/python/nsegravestonewatch.py >> /home/ubuntu/python/logfile.log 2>&1
+32 19 * * 1-5 python /home/ubuntu/python/nsehammer.py >> /home/ubuntu/python/logfile.log 2>&1
+33 19 * * 1-5 python /home/ubuntu/python/nselonglegged.py >> /home/ubuntu/python/logfile.log 2>&1
+34 19 * * 1-5 python /home/ubuntu/python/nsedragonfly.py >> /home/ubuntu/python/logfile.log 2>&1
+35 19 * * 1-5 python /home/ubuntu/python/nsegravestone.py >> /home/ubuntu/python/logfile.log 2>&1
+
+#####################  RSI #######################################################
+20 20 * * 1-5 python /home/ubuntu/python/rsidailyprice.py >> /home/ubuntu/python/logfile.log 2>&1
+#22 20 * * 1-5 python /home/ubuntu/python/rsipop14.py >> /home/ubuntu/python/logfile.log 2>&1
+#24 20 * * 1-5 python /home/ubuntu/python/rsipop10.py >> /home/ubuntu/python/logfile.log 2>&1
+#26 20 * * 1-5 python /home/ubuntu/python/rsialert.py >> /home/ubuntu/python/logfile.log 2>&1
+
+40 20 * * 1-5 python /home/ubuntu/python/rsidailyprice_mysql.py >> /home/ubuntu/python/logfile.log 2>&1
+42 20 * * 1-5 python /home/ubuntu/python/rsipop28.py >> /home/ubuntu/python/logfile.log 2>&1
+44 20 * * 1-5 python /home/ubuntu/python/rsipop10_mysql.py >> /home/ubuntu/python/logfile.log 2>&1
+46 20 * * 1-5 python /home/ubuntu/python/rsialert_mysql.py >> /home/ubuntu/python/logfile.log 2>&1
+
+####################   UTILS #####################################################
+00 23 * * * python /home/ubuntu/utils/logcopy.py
+05 23 * * * python /home/ubuntu/utils/lognew.py

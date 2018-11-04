@@ -12,7 +12,7 @@ keyvaluedao = KeyvalueDAO()
 conn = sqlite3.connect("stock.db")
 myemail = Myemail()
 
-subject = "Trading Notify"
+subject = "T Notify"
 message = ""
 
 flag = keyvaluedao.getValue(conn, "trading_notify")
