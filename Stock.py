@@ -1,3 +1,6 @@
+import json
+
+
 class Stock(object):
 
     type = ""
@@ -27,3 +30,7 @@ class Stock(object):
 
     def getChange(self):
         return self.change
+
+    # def toJSON(self):
+    #     return json.dumps(self, default=lambda o: o.__dict__,
+    #                       sort_keys=True, indent=4)

@@ -1,6 +1,7 @@
 import mechanicalsoup
 from nsetools import Nse
 import json
+from stockutils import StockUtils
 
 
 class Index:
@@ -125,4 +126,15 @@ class Index:
             for stock in stockList:
                 if stock.getType() == "stock":
                     stock.setPrice(nse.get_quote(stock.getname())['lastPrice'])
+
+        if typeList.__contains__("index"):
+            nse = Nse()
+            stockutils = StockUtils()
+            for stock in stockList:
+                if stock.getType() == "index":
+                    currPrice = nse.get_index_quote(stock.getname())['lastPrice']
+                    prevPrice = stock.getPrice()
+                    change = stockutils.getPercentage(prevPrice, currPrice)
+                    stock.setChange(change)
+                    stock.setPrice(currPrice)
         return stockList

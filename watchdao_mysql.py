@@ -15,4 +15,11 @@ class WatchDAO:
         data = (ltp,name)
         cursor.execute(query, data)
 
+    def getWatch(self, cursor, param):
+        query = "select * from watch where curtime() between stime and etime and tab = %s"
+        data = (param,)
+        cursor.execute(query, data)
+        return cursor
+
+
 
