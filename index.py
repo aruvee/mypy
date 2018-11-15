@@ -123,9 +123,15 @@ class Index:
 
         if typeList.__contains__("stock"):
             nse = Nse()
+            stockutils = StockUtils()
             for stock in stockList:
                 if stock.getType() == "stock":
-                    stock.setPrice(nse.get_quote(stock.getname())['lastPrice'])
+                    #stock.setPrice(nse.get_quote(stock.getname())['lastPrice'])
+                    currPrice = nse.get_index_quote(stock.getname())['lastPrice']
+                    prevPrice = stock.getPrice()
+                    change = stockutils.getPercentage(prevPrice, currPrice)
+                    stock.setChange(change)
+                    stock.setPrice(currPrice)
 
         if typeList.__contains__("index"):
             nse = Nse()
