@@ -13,3 +13,4 @@ from python import index
 from python import enterportfolio
 from python import enterchange
 from python import WatchRestService
+from python import PortfolioRestService

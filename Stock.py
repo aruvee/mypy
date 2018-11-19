@@ -6,6 +6,9 @@ class Stock(object):
     type = ""
     price = 0.0
     change = ""
+    buyPrice = 0.0
+    qty = 0
+    days = 0
 
     def __init__(self, name):
         self.name = name
@@ -30,6 +33,24 @@ class Stock(object):
 
     def getChange(self):
         return self.change
+
+    def setBuyPrice(self, buyPrice):
+        self.buyPrice = buyPrice
+
+    def setQty(self, qty):
+        self.qty = qty
+
+    def setDays(self, days):
+        self.days = days
+
+    def getBuyPrice(self):
+        return self.buyPrice
+
+    def getQty(self):
+        return self.qty
+
+    def getDays(self):
+        return self.days
 
     # def toJSON(self):
     #     return json.dumps(self, default=lambda o: o.__dict__,
