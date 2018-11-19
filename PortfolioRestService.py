@@ -1,9 +1,7 @@
 from python import python
 from flask import request
 from python.PortfolioService import PortfolioService
-import simplejson as json
-
-
+import json
 
 @python.route('/port', methods=['GET'])
 def getPortfolio():
