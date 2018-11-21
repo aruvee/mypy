@@ -16,3 +16,12 @@ class PortfolioDAO:
         cursor.execute(query)
         return cursor
 
+    def selectPortfolio(self, cursor):
+        query = "Select * from portfolio"
+        cursor.execute(query)
+        return cursor
+
+    def populatePortfolio(self, cursor, name, ltp):
+        query = "UPDATE portfolio SET sellprice=%s where symbol=%s"
+        data = (ltp,name)
+        cursor.execute(query, data)
