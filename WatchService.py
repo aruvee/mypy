@@ -27,3 +27,24 @@ class WatchService:
         conn.close()
         stockList = index.populateStocks(stockList)
         return stockList
+
+    def addStock(self, param):
+        mysq = Mysq()
+        index = Index()
+        watchdao = WatchDAO()
+        conn = mysq.getConnection()
+        cursor = conn.cursor()
+        currPrice = index.getStockPrice("stock", param)
+        watchdao.addStock(cursor, param, currPrice)
+        conn.commit()
+        conn.close()
+
+    def delStock(self, param):
+        mysq = Mysq()
+        index = Index()
+        watchdao = WatchDAO()
+        conn = mysq.getConnection()
+        cursor = conn.cursor()
+        watchdao.delStock(cursor, param)
+        conn.commit()
+        conn.close()

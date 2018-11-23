@@ -21,5 +21,18 @@ class WatchDAO:
         cursor.execute(query, data)
         return cursor
 
+    def addStock(self, cursor, symbol, price):
+        query = "insert into watch values(%s,%s,%s,%s,%s,%s)"
+        data = ("stock", symbol, "stoc", price, "00:00:00", "23:00:00")
+        cursor.execute(query, data)
+        return cursor
+
+    def delStock(self, cursor, symbol):
+        query = "delete from watch where name = %s"
+        data = (symbol,)
+        cursor.execute(query, data)
+        return cursor
+
+
 
 
