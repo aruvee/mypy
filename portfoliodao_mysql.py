@@ -32,6 +32,14 @@ class PortfolioDAO:
         cursor.execute(query)
         return cursor
 
+    def getProfitP(self, cursor):
+        query = "select symbol, sum(qty), sum((sell-buy))/sum(buy)*100 as profitpct from " \
+                "(select symbol, qty, (qty*buyprice) as buy, (qty*sellprice) as sell from portfolio " \
+                "where datediff(now(),sdate) < 365) as shortterm " \
+                "group by symbol having profitpct > 10"
+        cursor.execute(query)
+        return cursor
+
     def populatePortfolio(self, cursor, name, ltp):
         query = "UPDATE portfolio SET sellprice=%s where symbol=%s"
         data = (ltp,name)

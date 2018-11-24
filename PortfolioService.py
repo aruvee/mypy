@@ -47,7 +47,29 @@ class PortfolioService:
             stock.setQty(int(pstock[1]))
             stock.setPrice(float(pstock[2]))
             for ltstock in ltstocks:
-                print(ltstock[0])
+                #print(ltstock[0])
+                if ltstock[0] == pstock[0]:
+                    stock.setNotes(" Long Term Available")
+            stockList.append(stock)
+        cursor.close()
+        conn.close()
+        return stockList
+
+    def getProfitP(self):
+        mysq = Mysq()
+        stockList = []
+        portfolioDAO = PortfolioDAO()
+        conn = mysq.getConnection()
+        cursor = conn.cursor()
+        allstocks = portfolioDAO.getProfitP(cursor)
+        allstocks = allstocks.fetchall()
+        ltstocks = portfolioDAO.getLong(cursor)
+        ltstocks = ltstocks.fetchall()
+        for pstock in allstocks:
+            stock = Stock(str(pstock[0]))
+            stock.setQty(int(pstock[1]))
+            stock.setPrice(float(pstock[2]))
+            for ltstock in ltstocks:
                 if ltstock[0] == pstock[0]:
                     stock.setNotes(" Long Term Available")
             stockList.append(stock)

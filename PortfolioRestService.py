@@ -23,3 +23,10 @@ def getPortfolioProfitK():
     stocklist = portfolioService.getProfitK()
     jsonObject = json.dumps(stocklist, default=lambda o: o.__dict__, sort_keys=True, indent=4)
     return jsonObject
+
+@python.route('/port/profitp', methods=['GET'])
+def getPortfolioProfitP():
+    portfolioService = PortfolioService()
+    stocklist = portfolioService.getProfitP()
+    jsonObject = json.dumps(stocklist, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+    return jsonObject
