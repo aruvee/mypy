@@ -16,3 +16,10 @@ def getPortfolioShort():
     stocklist = portfolioService.getPortfolio("short")
     jsonObject = json.dumps(stocklist, default=lambda o: o.__dict__, sort_keys=True, indent=4)
     return jsonObject
+
+@python.route('/port/profitk', methods=['GET'])
+def getPortfolioProfitK():
+    portfolioService = PortfolioService()
+    stocklist = portfolioService.getProfitK()
+    jsonObject = json.dumps(stocklist, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+    return jsonObject
