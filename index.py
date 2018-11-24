@@ -121,6 +121,23 @@ class Index:
                         stock.setPrice(index["regularMarketPrice"]["raw"])
                         stock.setChange(index["regularMarketChangePercent"]["fmt"])
 
+        if typeList.__contains__("comm"):
+            browser = mechanicalsoup.StatefulBrowser()
+            url = "https://query1.finance.yahoo.com/v7/finance/quote?formatted=true&crumb=fZr0Clh1CLV&lang=en-IN&region=IN&symbols=CL=F%2CGC=F%2CINR=X%2C&fields=symbol%2ClongName%2CregularMarketPrice%2CregularMarketChange%2CregularMarketChangePercent%2CregularMarketVolume%2CaverageDailyVolume3Month%2CregularMarketDayRange%2CregularMarketDayLow%2CregularMarketDayHigh%2CfiftyTwoWeekRange%2CfiftyTwoWeekLow%2CfiftyTwoWeekHigh%2Csparkline%2CmessageBoardId%2CshortName%2CmarketCap%2CunderlyingSymbol%2CunderlyingExchangeSymbol%2CheadSymbolAsString%2Cuuid%2CregularMarketOpen&corsDomain=in.finance.yahoo.com"
+            response = browser.open(url, headers={'User-Agent': 'Mozilla/5.0'})
+            output = json.loads(response.text)
+            jsonList = output["quoteResponse"]["result"]
+            # print(jsonList)
+
+            ltp = 0
+            for stock in stockList:
+                for index in jsonList:
+                    # print(index["shortName"])
+                    if stock.getname() == index["symbol"]:
+                        stock.setPrice(index["regularMarketPrice"]["raw"])
+                        stock.setChange(index["regularMarketChangePercent"]["fmt"])
+
+
         if typeList.__contains__("stock"):
             nse = Nse()
             stockutils = StockUtils()
