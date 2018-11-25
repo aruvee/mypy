@@ -49,7 +49,7 @@ class PortfolioService:
             for ltstock in ltstocks:
                 #print(ltstock[0])
                 if ltstock[0] == pstock[0]:
-                    stock.setNotes(" Long Term Available")
+                    stock.setNotes(" Long Term Available for " + str(ltstock[1]))
             stockList.append(stock)
         cursor.close()
         conn.close()
@@ -71,7 +71,7 @@ class PortfolioService:
             stock.setPrice(float(pstock[2]))
             for ltstock in ltstocks:
                 if ltstock[0] == pstock[0]:
-                    stock.setNotes(" Long Term Available")
+                    stock.setNotes(" Long Term Available " + str(ltstock[1]))
             stockList.append(stock)
         cursor.close()
         conn.close()
