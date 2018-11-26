@@ -76,3 +76,12 @@ class PortfolioService:
         cursor.close()
         conn.close()
         return stockList
+
+    def addPortfolio(self, sdate, symbol, qty, buyprice, sellprice):
+        mysq = Mysq()
+        portfolioDAO = PortfolioDAO()
+        conn = mysq.getConnection()
+        cursor = conn.cursor()
+        portfolioDAO.addPortfolio(cursor, sdate, symbol, qty, buyprice, sellprice)
+        conn.commit()
+        conn.close()

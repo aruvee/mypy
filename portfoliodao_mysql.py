@@ -44,3 +44,9 @@ class PortfolioDAO:
         query = "UPDATE portfolio SET sellprice=%s where symbol=%s"
         data = (ltp,name)
         cursor.execute(query, data)
+
+    def addPortfolio(self, cursor, sdate, symbol, qty, buyprice, sellprice):
+        query = "insert into portfolio values(%s,%s,%s,%s,%s)"
+        data = (sdate, symbol, qty, buyprice, sellprice)
+        cursor.execute(query, data)
+        return cursor

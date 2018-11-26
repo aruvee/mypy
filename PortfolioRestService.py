@@ -30,3 +30,12 @@ def getPortfolioProfitP():
     stocklist = portfolioService.getProfitP()
     jsonObject = json.dumps(stocklist, default=lambda o: o.__dict__, sort_keys=True, indent=4)
     return jsonObject
+
+@python.route('/port/add', methods=['POST'])
+def addPortfolio():
+    data = request.data
+    dataDict = json.loads(data)
+    portfolioService = PortfolioService()
+    portfolioService.addPortfolio(dataDict['sdate'], dataDict['symbol'], dataDict['qty'], dataDict['buyprice'], dataDict['sellprice'])
+    return "Success"
+
