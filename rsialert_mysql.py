@@ -29,11 +29,33 @@ for row in stocks:
 
 myemail.send_email("aruna", "aruna", "report", subject, message)
 
+# Check RSI greater than 65
+subject = "RSI greater than 65 (" + str(today) + ")"
+message = ""
+cursor = rsidao.getrsigt(cursor, today, 65.0, 70.0)
+stocks = cursor.fetchall()
+
+for row in stocks:
+    message = message + row[0] + "\n"
+
+myemail.send_email("aruna", "aruna", "report", subject, message)
+
 
 # Check RSI Less than 30
 subject = "RSI Less than 30 (" + str(today) + ")"
 message = ""
 cursor = rsidao.getrsilt(cursor, today, 30.0)
+stocks = cursor.fetchall()
+
+for row in stocks:
+    message = message + row[0] + "\n"
+
+myemail.send_email("aruna", "aruna", "report", subject, message)
+
+# Check RSI Less than 35
+subject = "RSI Less than 35 (" + str(today) + ")"
+message = ""
+cursor = rsidao.getrsilt(cursor, today, 35.0, 30.0)
 stocks = cursor.fetchall()
 
 for row in stocks:
