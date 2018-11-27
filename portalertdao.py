@@ -11,3 +11,13 @@ class PortAlertDAO:
         data = (tdate, symbol, buyprice, percent, tdate, buyprice, percent)
         cursor.execute(query, data)
         return cursor
+
+    def selectPortAlert(self, cursor):
+        query = "Select * from portalert"
+        cursor.execute(query)
+        return cursor
+
+    def updateFlag(self, cursor, name):
+        query = "update portalert set alertflag = 1 where symbol = %s"
+        data = (name,)
+        cursor.execute(query, data)

@@ -4,22 +4,27 @@ from index import Index
 from portfoliodao import PortfolioDAO
 from Myemail import Myemail
 from datetime import datetime
+from Mysq import Mysq
+from portalertdao import PortAlertDAO
 
+mysq = Mysq()
+index = Index()
 stockutils = StockUtils()
 index = Index()
-portfoliodao = PortfolioDAO()
-conn = sqlite3.connect("stock.db")
 myemail = Myemail()
+portalertDAO = PortAlertDAO()
 
-# Get the rows from the Watch table
-cursor = portfoliodao.selectPortfolio(conn)
+conn = mysq.getConnection()
+cursor = conn.cursor()
+allstocks = portalertDAO.selectPortAlert(cursor)
+allstocks = allstocks.fetchall()
 
-for row in cursor:
-    stype = row[0]
-    symbol = row[1]
-    buyPrice = row[2]
-    perct = row[3]
-    alertflag = row[6]
+for wstock in allstocks:
+    stype = "stock"
+    symbol = str(wstock[1])
+    buyPrice = float(wstock[2])
+    perct = int(wstock[3])
+    alertflag = int(wstock[5])
 
     weekday = datetime.today().weekday()
 
@@ -30,9 +35,11 @@ for row in cursor:
             subject = "Target Alert " + symbol[:10] + " " + str(currentValue) + " " + str(ltp)
             message = "Symbol " + symbol + "\n" + "BuyPrice " + str(buyPrice) + "\n" + "LTP " + str(ltp) + "\n"
             myemail.send_email("aruna", "aruna", "report", subject, message)
-            portfoliodao.updateFlag(conn, stype, symbol)
+            portalertDAO.updateFlag(cursor, symbol)
 conn.commit()
 conn.close()
+
+
 
 
 
