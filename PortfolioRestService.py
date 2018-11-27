@@ -36,6 +36,7 @@ def addPortfolio():
     data = request.data
     dataDict = json.loads(data)
     portfolioService = PortfolioService()
-    portfolioService.addPortfolio(dataDict['sdate'], dataDict['symbol'], dataDict['qty'], dataDict['buyprice'], dataDict['sellprice'])
+    portfolioService.addPortfolio(dataDict['sdate'], dataDict['symbol'], dataDict['qty'],
+                                  dataDict['buyprice'], dataDict['sellprice'], dataDict['percent'])
     return "Success"
 

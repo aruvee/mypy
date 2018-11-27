@@ -2,6 +2,7 @@ from datetime import datetime
 from Mysq import Mysq
 from portfoliodao_mysql import PortfolioDAO
 from Stock import Stock
+from portalertdao import PortAlertDAO
 
 class PortfolioService:
 
@@ -77,11 +78,14 @@ class PortfolioService:
         conn.close()
         return stockList
 
-    def addPortfolio(self, sdate, symbol, qty, buyprice, sellprice):
+    def addPortfolio(self, sdate, symbol, qty, buyprice, sellprice, percent):
         mysq = Mysq()
         portfolioDAO = PortfolioDAO()
         conn = mysq.getConnection()
         cursor = conn.cursor()
         portfolioDAO.addPortfolio(cursor, sdate, symbol, qty, buyprice, sellprice)
+        if percent != "":
+            portalertDAO = PortAlertDAO()
+            portalertDAO.addPortAlert(cursor, sdate, symbol, buyprice, percent)
         conn.commit()
         conn.close()
