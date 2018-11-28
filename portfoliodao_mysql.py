@@ -32,6 +32,14 @@ class PortfolioDAO:
         cursor.execute(query)
         return cursor
 
+    def getLossK(self, cursor):
+        query = "select symbol, sum(qty), sum((buy-sell)) as loss from " \
+                "(select symbol, qty, (qty*buyprice) as buy, (qty*sellprice) as sell from portfolio " \
+                "where datediff(now(),sdate) > 300 and datediff(now(),sdate) <365) as shortterm " \
+                "group by symbol having loss > 1000"
+        cursor.execute(query)
+        return cursor
+
     def getProfitP(self, cursor):
         query = "select symbol, sum(qty), sum((sell-buy))/sum(buy)*100 as profitpct from " \
                 "(select symbol, qty, (qty*buyprice) as buy, (qty*sellprice) as sell from portfolio " \
