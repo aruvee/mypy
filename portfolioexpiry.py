@@ -1,40 +1,34 @@
-import sqlite3
 from stockutils import StockUtils
 from index import Index
-from portfoliodao import PortfolioDAO
 from Myemail import Myemail
 from datetime import datetime
-from datetime import  date
+from Mysq import Mysq
+from portalertdao import PortAlertDAO
 
+mysq = Mysq()
+index = Index()
 stockutils = StockUtils()
 index = Index()
-portfoliodao = PortfolioDAO()
-conn = sqlite3.connect("stock.db")
 myemail = Myemail()
+portalertDAO = PortAlertDAO()
 
-# Get the rows from the Watch table
-cursor = portfoliodao.selectPortfolio(conn)
+conn = mysq.getConnection()
+cursor = conn.cursor()
+allstocks = portalertDAO.selectPortAlert(cursor)
+allstocks = allstocks.fetchall()
 
-for row in cursor:
-    stype = row[0]
-    symbol = row[1]
-    buyPrice = row[2]
-    perct = row[3]
-    pname = row[4]
-    buydate = row[5]
+for wstock in allstocks:
+    stype = "stock"
+    symbol = str(wstock[1])
+    buyPrice = float(wstock[2])
+    perct = int(wstock[3])
+    buydate = str(wstock[0])
 
     ltp = index.getStockPrice(stype, symbol)
     now = datetime.now()
 
-    #2018 - 04 - 12    20: 16:05.596866
-
-    delta = now - datetime.strptime(buydate,"%Y-%m-%d %H:%M:%S.%f")
-    expirydays = 100
-
-    if pname == "aruna":
-        expirydays = 30
-    elif pname == "viru":
-        expirydays = 90
+    delta = now - datetime.strptime(buydate ,"%Y-%m-%d")
+    expirydays = 90
 
     if delta.days > expirydays:
         subject = "Expiry Alert " + symbol[:10] + " " + str(ltp)
