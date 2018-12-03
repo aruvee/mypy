@@ -8,13 +8,13 @@ stockList = []
 portfolioDAO = PortfolioDAO()
 conn = mysq.getConnection()
 cursor = conn.cursor()
-allstocks = portfolioDAO.selectPortfolio(cursor)
+allstocks = portfolioDAO.getUniqStocks(cursor)
 allstocks = allstocks.fetchall()
 for pstock in allstocks:
     try:
-        symbol = pstock[1]
+        symbol = pstock[0]
         ltp = index.getStockPrice("stock", symbol)
-        #print(ltp)
+        #print(symbol + str(ltp))
         # populate the price
         portfolioDAO.populatePortfolio(cursor, symbol, ltp)
     except Exception:

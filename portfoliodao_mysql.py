@@ -24,6 +24,11 @@ class PortfolioDAO:
         cursor.execute(query)
         return cursor
 
+    def getUniqStocks(self, cursor):
+        query = "Select distinct symbol from portfolio"
+        cursor.execute(query)
+        return cursor
+
     def getProfitK(self, cursor):
         query = "select symbol, sum(qty), sum((sell-buy)) as profit from " \
                 "(select symbol, qty, (qty*buyprice) as buy, (qty*sellprice) as sell from portfolio " \
