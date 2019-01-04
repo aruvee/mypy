@@ -114,6 +114,7 @@ class PortfolioService:
         conn.close()
 
     def delPortfolio(self, symbol, qty, percent, sellPrice):
+        qty = int(qty)
         mysq = Mysq()
         portfolioDAO = PortfolioDAO()
         conn = mysq.getConnection()
