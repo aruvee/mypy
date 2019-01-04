@@ -31,7 +31,12 @@ for wstock in allstocks:
     if alertflag == 0 or (alertflag == 1 and weekday == 2):
         ltp = index.getStockPrice(stype, symbol)
         currentValue = stockutils.getPercentage(buyPrice, ltp)
-        if currentValue > perct:
+        if perct > 0 and currentValue > perct:
+            subject = "Target Alert " + symbol[:10] + " " + str(currentValue) + " " + str(ltp)
+            message = "Symbol " + symbol + "\n" + "BuyPrice " + str(buyPrice) + "\n" + "LTP " + str(ltp) + "\n"
+            myemail.send_email("aruna", "aruna", "report", subject, message)
+            portalertDAO.updateFlag(cursor, symbol)
+        if perct < 0 and currentValue < perct:
             subject = "Target Alert " + symbol[:10] + " " + str(currentValue) + " " + str(ltp)
             message = "Symbol " + symbol + "\n" + "BuyPrice " + str(buyPrice) + "\n" + "LTP " + str(ltp) + "\n"
             myemail.send_email("aruna", "aruna", "report", subject, message)

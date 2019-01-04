@@ -63,3 +63,22 @@ class PortfolioDAO:
         data = (sdate, symbol, qty, buyprice, sellprice)
         cursor.execute(query, data)
         return cursor
+
+    def delPortfolio(self, cursor, sdate, symbol):
+        query = "delete from portfolio where symbol = %s and sdate = %s"
+        data = (symbol, sdate)
+        cursor.execute(query,data)
+        return cursor
+
+    def updatePortfolio(self, cursor, sdate, symbol, qty):
+        query = "update portfolio set qty = %s where symbol = %s and sdate = %s"
+        data = (qty, symbol, sdate)
+        cursor.execute(query,data)
+        return cursor
+
+    def getPortfolio(self, cursor, symbol):
+        query = "Select * from portfolio where symbol = %s order by sdate asc"
+        data = (symbol,)
+        cursor.execute(query, data)
+        return cursor
+

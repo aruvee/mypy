@@ -112,3 +112,25 @@ class PortfolioService:
             portalertDAO.addPortAlert(cursor, sdate, symbol, buyprice, percent)
         conn.commit()
         conn.close()
+
+    def delPortfolio(self, symbol, qty, percent, sellPrice):
+        mysq = Mysq()
+        portfolioDAO = PortfolioDAO()
+        conn = mysq.getConnection()
+        cursor = conn.cursor()
+        buyTran = portfolioDAO.getPortfolio(cursor, symbol)
+        buyTran = buyTran.fetchall()
+        for tran in buyTran:
+            buyQty = int(tran[2])
+            sdate = tran[0]
+            if qty >= buyQty:
+                portfolioDAO.delPortfolio(cursor, sdate, symbol)
+                qty = qty - buyQty
+            else:
+                buyQty = buyQty - qty
+                portfolioDAO.updatePortfolio(cursor,sdate,symbol,buyQty)
+        if percent != "":
+            portalertDAO = PortAlertDAO()
+            portalertDAO.addPortAlert(cursor, sdate, symbol, sellPrice, percent)
+        conn.commit()
+        conn.close()

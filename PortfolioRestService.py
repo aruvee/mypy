@@ -47,3 +47,10 @@ def addPortfolio():
                                   dataDict['buyprice'], dataDict['sellprice'], dataDict['percent'])
     return "Success"
 
+@python.route('/port/del', methods=['POST'])
+def delPortfolio():
+    data = request.data
+    dataDict = json.loads(data)
+    portfolioService = PortfolioService()
+    portfolioService.delPortfolio(dataDict['symbol'], dataDict['qty'], dataDict['percent'],dataDict['sellprice'])
+    return "Success"
