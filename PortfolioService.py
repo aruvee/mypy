@@ -79,6 +79,27 @@ class PortfolioService:
         conn.close()
         return stockList
 
+    def getLossPer(self, lpercent):
+        lpercent = 0 - int(lpercent)
+        mysq = Mysq()
+        stockList = []
+        portfolioDAO = PortfolioDAO()
+        conn = mysq.getConnection()
+        cursor = conn.cursor()
+        #print(lpercent)
+        allstocks = portfolioDAO.getLossPer(cursor, 200, lpercent)
+        allstocks = allstocks.fetchall()
+        #print(allstocks)
+        for pstock in allstocks:
+            #print(pstock)
+            stock = Stock(str(pstock[0]))
+            stock.setQty(int(pstock[1]))
+            stock.setPrice(float(pstock[2]))
+            stockList.append(stock)
+        cursor.close()
+        conn.close()
+        return stockList
+
     def getProfitP(self):
         mysq = Mysq()
         stockList = []

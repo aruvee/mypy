@@ -53,6 +53,14 @@ class PortfolioDAO:
         cursor.execute(query)
         return cursor
 
+    def getLossPer(self, cursor, datedif, lossperc):
+        query = "Select symbol, qty, ((qty*buyprice - qty*sellprice)/(qty*buyprice)*100) as lossamt " \
+                "from portfolio where datediff(now(),sdate) < %s and " \
+                "((qty*buyprice - qty*sellprice)/(qty*buyprice)*100) < %s"
+        data = (datedif, lossperc)
+        cursor.execute(query, data)
+        return cursor
+
     def populatePortfolio(self, cursor, name, ltp):
         query = "UPDATE portfolio SET sellprice=%s where symbol=%s"
         data = (ltp,name)
