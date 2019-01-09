@@ -54,9 +54,9 @@ class PortfolioDAO:
         return cursor
 
     def getLossPer(self, cursor, datedif, lossperc):
-        query = "Select symbol, qty, ((qty*buyprice - qty*sellprice)/(qty*buyprice)*100) as lossamt " \
+        query = "Select symbol, qty, (sellprice - buyprice)/buyprice*100 as lossamt " \
                 "from portfolio where datediff(now(),sdate) < %s and " \
-                "((qty*buyprice - qty*sellprice)/(qty*buyprice)*100) < %s"
+                "(sellprice - buyprice)/buyprice*100 < %s"
         data = (datedif, lossperc)
         cursor.execute(query, data)
         return cursor
