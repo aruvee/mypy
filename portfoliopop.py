@@ -18,7 +18,7 @@ for pstock in allstocks:
         # populate the price
         portfolioDAO.populatePortfolio(cursor, symbol, ltp)
     except Exception:
-        portfolioDAO.populatePortfolio(cursor, symbol, 100)
+        portfolioDAO.populatePortfolioE(cursor, symbol)
         print(symbol)
 conn.commit()
 conn.close()
