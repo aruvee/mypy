@@ -51,7 +51,7 @@ class Myemail:
                 server.ehlo()
                 server.starttls()
                 server.login(gmail_user, gmail_pwd)
-                server.sendmail(FROM, TO, message)
+                server.sendmail(FROM, TO, subject + message)
                 server.close()
                 print("successfully sent the mail")
             except Exception as e: print(e)
