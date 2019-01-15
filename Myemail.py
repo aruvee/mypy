@@ -36,7 +36,7 @@ class Myemail:
         FROM = user
         TO = recipient if type(recipient) is list else [recipient]
         SUBJECT = subject
-        TEXT = body
+        TEXT = subject + body
         # Prepare actual message
         message = """From: %s\nTo: %s\nSubject: %s\n\n%s""" % (FROM, ", ".join(TO), SUBJECT, TEXT)
 
@@ -51,7 +51,7 @@ class Myemail:
                 server.ehlo()
                 server.starttls()
                 server.login(gmail_user, gmail_pwd)
-                server.sendmail(FROM, TO, subject + message)
+                server.sendmail(FROM, TO, message)
                 server.close()
                 print("successfully sent the mail")
             except Exception as e: print(e)
