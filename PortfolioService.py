@@ -70,7 +70,7 @@ class PortfolioService:
         for pstock in allstocks:
             stock = Stock(str(pstock[0]))
             stock.setQty(int(pstock[1]))
-            stock.setProfit(float(pstock[2]))
+            stock.setProfit(0 - float(pstock[2]))
             for ltstock in ltstocks:
                 #print(ltstock[0])
                 if ltstock[0] == pstock[0]:
