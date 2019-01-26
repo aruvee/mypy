@@ -60,6 +60,45 @@ class Pattern:
 
         return filepath
 
+
+    def getdownpathport(self, exchange):
+        nseprefix = "https://nseindia.com/content/historical/EQUITIES/YYYY/MMM/cmDDMMMYYYYbhav.csv.zip"
+        nseprefix= nseprefix.replace("DD", self.getDD())
+        nseprefix= nseprefix.replace("MMM", self.getMMM())
+        nseprefix = nseprefix.replace("YYYY", self.getYYYY())
+        return nseprefix
+
+    def getzipfilepathport(self, exchange):
+        filename = "cmDDMMMYYYYbhav.csv.zip"
+        filename = filename.replace("DD", self.getDD())
+        filename = filename.replace("MMM", self.getMMM())
+        filename = filename.replace("YYYY", self.getYYYY())
+        return filename
+
+    def getcsvfilepathport(self, exchange):
+        filename = "cmDDMMMYYYYbhav.csv"
+        filename = filename.replace("DD", self.getDD())
+        filename = filename.replace("MMM", self.getMMM())
+        filename = filename.replace("YYYY", self.getYYYY())
+        return filename
+
+    def getfilepathport(self, exchange):
+        directory = "data" + self.fileseperator
+        directory = directory + self.getcsvfilepathport("nse")
+        return directory
+
+    def getDD(self):
+        currentday = datetime.now()
+        return str(currentday.day)
+
+    def getMMM(self):
+        currentday = datetime.now()
+        return currentday.strftime("%b").upper()
+
+    def getYYYY(self):
+        currentday = datetime.now()
+        return str(currentday.year)
+
     def getfilepath(self, exchange, count):
         directory = "data" + self.fileseperator
         bseprefix = "EQ"

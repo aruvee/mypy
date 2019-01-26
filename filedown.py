@@ -16,3 +16,9 @@ if r.status_code == 200:
     with open(directory + pattern.getzipfilepath("nse"), 'wb') as fd:
         for chunk in r.iter_content(chunk_size=128):
             fd.write(chunk)
+
+r = requests.get(pattern.getdownpathport("nse"), stream=True)
+if r.status_code == 200:
+    with open(directory + pattern.getzipfilepathport("nse"), 'wb') as fd:
+        for chunk in r.iter_content(chunk_size=128):
+            fd.write(chunk)

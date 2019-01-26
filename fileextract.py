@@ -44,3 +44,19 @@ if os.path.exists(nsezip):
                 #print(content)
                 nsenewfile.write("\n")
     nsenewfile.close()
+
+exchange = "port"
+portzip = directory + pattern.getzipfilepathport(exchange)
+content = ""
+if os.path.exists(portzip):
+    print("port exists")
+    portnewfile = open(directory + pattern.getcsvfilepathport(exchange), "w")
+    with zipfile.ZipFile(portzip) as z:
+        with z.open(pattern.getcsvfilepathport(exchange)) as f:
+            for line in f:
+                content = line.decode("ascii").strip()
+                content = content.replace(" ", "")
+                portnewfile.write(content)
+                #print(content)
+                portnewfile.write("\n")
+    portnewfile.close()
