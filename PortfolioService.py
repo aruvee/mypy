@@ -23,7 +23,7 @@ class PortfolioService:
             stock.setQty(int(pstock[1]))
             stock.setBuyPrice(round(float(pstock[2]), 2))
             stock.setPrice(float(pstock[3]))
-            stock.setProfit((stock.getPrice()-stock.getBuyPrice())*stock.qty)
+            stock.setProfit(int((stock.getPrice()-stock.getBuyPrice())*stock.qty))
             if type == "short":
                 stock.setDays(pstock[4])
             else:
