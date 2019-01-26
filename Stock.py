@@ -10,6 +10,7 @@ class Stock(object):
     qty = 0
     days = 0
     notes = ""
+    profit = 0.0
 
     def __init__(self, name):
         self.name = name
@@ -35,6 +36,9 @@ class Stock(object):
     def getChange(self):
         return self.change
 
+    def getProfit(self):
+        return self.profit
+
     def setBuyPrice(self, buyPrice):
         self.buyPrice = buyPrice
 
@@ -58,6 +62,9 @@ class Stock(object):
 
     def setNotes(self, notes):
         self.notes = notes
+
+    def setProfit(self, profit):
+        self.profit = profit
 
     # def toJSON(self):
     #     return json.dumps(self, default=lambda o: o.__dict__,
