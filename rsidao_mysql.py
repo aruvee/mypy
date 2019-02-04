@@ -44,14 +44,19 @@ class rsidao_mysql:
         cursor.execute(query, (symbol,))
         return cursor
 
-    def get12ema(self, cursor, symbol):
-        query = "Select * from rsi where symbol=%s order by sdate asc limit 12"
+    def get26ema(self, cursor, symbol):
+        query = "Select * from rsi where symbol=%s order by sdate asc limit 26"
         cursor.execute(query, (symbol,))
         return cursor
 
     def update12ema(self, cursor, ema12, symbol, sdate):
         update12ema = "Update rsi set ema12=%s where sdate=%s and symbol=%s"
         data = (ema12, sdate, symbol)
+        cursor.execute(update12ema, data)
+
+    def update26ema(self, cursor, ema26, symbol, sdate):
+        update12ema = "Update rsi set ema26=%s where sdate=%s and symbol=%s"
+        data = (ema26, sdate, symbol)
         cursor.execute(update12ema, data)
 
     def getrsigt(self, cursor, sdate, value, max=100):
