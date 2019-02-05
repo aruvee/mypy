@@ -55,9 +55,14 @@ class rsidao_mysql:
         cursor.execute(update12ema, data)
 
     def update26ema(self, cursor, ema26, symbol, sdate):
-        update12ema = "Update rsi set ema26=%s where sdate=%s and symbol=%s"
+        update26ema = "Update rsi set ema26=%s where sdate=%s and symbol=%s"
         data = (ema26, sdate, symbol)
-        cursor.execute(update12ema, data)
+        cursor.execute(update26ema, data)
+
+    def updatemacd(self, cursor, macd, symbol, sdate):
+        updatemacd = "Update rsi set macd=%s where sdate=%s and symbol=%s"
+        data = (macd, sdate, symbol)
+        cursor.execute(updatemacd, data)
 
     def getrsigt(self, cursor, sdate, value, max=100):
         query = "Select symbol from rsi where sdate=%s and rsi > %s and rsi < %s and stype='FUTSTK' order by rsi asc"
