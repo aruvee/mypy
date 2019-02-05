@@ -28,14 +28,14 @@ for row in allstocks:
         counter = counter + 1
         if counter <= 34:
             if newrow[13] is not None:
-                macdsignal = float(newrow[11])
+                macdsignal = float(newrow[13])
         else:
             #print(".")
-            macd = float(newrow[12])
+            macd = float(newrow[13])
             sdate = newrow[0]
             op1 = 2/10.0
             op2 = 1 - op1
             macdsignal = (macd * op1) + (macdsignal * op2)
             #print(symbol, ema26)
-            rsidao.update26ema(cursor, macdsignal, symbol, sdate)
+            rsidao.updatesignal(cursor, macdsignal, symbol, sdate)
 conn.commit()
