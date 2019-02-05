@@ -31,7 +31,7 @@ for row in allstocks:
                 macdsignal = float(newrow[13])
         else:
             #print(".")
-            macd = float(newrow[13])
+            macd = float(newrow[12])
             sdate = newrow[0]
             op1 = 2/10.0
             op2 = 1 - op1
