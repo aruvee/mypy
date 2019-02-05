@@ -20,18 +20,22 @@ allstocks = stocks.fetchall()
 
 for row in allstocks:
     symbol = row[0]
-    newcursor = rsidao.getrsilimit(cursor, str(symbol),34)
+    newcursor = rsidao.getrsi(cursor, str(symbol))
     newallstocks = newcursor.fetchall()
     counter = 0
-    total = 0.0
+    macdsignal = 0.0
     for newrow in newallstocks:
         counter = counter + 1
-        if counter >= 26:
+        if counter <= 34:
+            if newrow[13] is not None:
+                macdsignal = float(newrow[11])
+        else:
             #print(".")
-            total = total + float(newrow[12])
-        if counter == 34:
-            avg = total / 9.0
-            avg = round(avg,4)
+            macd = float(newrow[12])
             sdate = newrow[0]
-            rsidao.updatesignal(cursor, avg, symbol, sdate)
+            op1 = 2/10.0
+            op2 = 1 - op1
+            macdsignal = (macd * op1) + (macdsignal * op2)
+            #print(symbol, ema26)
+            rsidao.update26ema(cursor, macdsignal, symbol, sdate)
 conn.commit()
