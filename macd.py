@@ -13,7 +13,8 @@ conn = mysq.getConnection()
 cursor = conn.cursor()
 
 # Construct the input parameters
-today = datetime.now().date()
+#today = datetime.now().date()
+today = "2019-02-01"
 stocks = rsidao.getrsistocks(cursor, today)
 allstocks = stocks.fetchall()
 
@@ -26,6 +27,7 @@ for row in allstocks:
     for newrow in newallstocks:
         counter = counter + 1
         if counter >= 26:
+            print(".")
             macd = float(newrow[11]) - float(newrow[12])
             sdate = newrow[0]
             rsidao.updatemacd(cursor, macd, symbol, sdate)
