@@ -89,7 +89,10 @@ class Pattern:
 
     def getDD(self):
         currentday = datetime.now()
-        return str(currentday.day)
+        day = currentday.day
+        if day < 10:
+            day = "0" + str(day)
+        return str(day)
 
     def getMMM(self):
         currentday = datetime.now()
@@ -149,7 +152,7 @@ class Pattern:
 
     def getnsepandas(self, path):
         dataframe = pandas.read_csv(path, index_col=1)
-        dataframe = dataframe.loc[dataframe['EXP_DATE'] == '31/05/2018']
+        dataframe = dataframe.loc[dataframe['EXP_DATE'] == '28/02/2019']
         return dataframe
 
     def getfostocks(self):
