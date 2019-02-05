@@ -27,7 +27,7 @@ for row in allstocks:
     for newrow in newallstocks:
         counter = counter + 1
         if counter >= 26:
-            print(".")
+            #print(".")
             macd = float(newrow[10]) - float(newrow[11])
             sdate = newrow[0]
             rsidao.updatemacd(cursor, macd, symbol, sdate)
