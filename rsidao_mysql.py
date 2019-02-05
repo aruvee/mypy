@@ -28,6 +28,11 @@ class rsidao_mysql:
         cursor.execute(query, (symbol,))
         return cursor
 
+    def getrsilimit(self, cursor, symbol, limitby):
+        query = "Select * from rsi where symbol=%s limit %s"
+        cursor.execute(query, (symbol,limitby))
+        return cursor
+
 
     def getrsi38(self, cursor, symbol):
         query = "Select * from rsi where symbol=%s order by sdate desc limit 38"
@@ -63,6 +68,11 @@ class rsidao_mysql:
         updatemacd = "Update rsi set macd=%s where sdate=%s and symbol=%s"
         data = (macd, sdate, symbol)
         cursor.execute(updatemacd, data)
+
+    def updatesignal(self, cursor, signal, symbol, sdate):
+        updatesignal = "Update rsi set macdsignal=%s where sdate=%s and symbol=%s"
+        data = (signal, sdate, symbol)
+        cursor.execute(updatesignal, data)
 
     def getrsigt(self, cursor, sdate, value, max=100):
         query = "Select symbol from rsi where sdate=%s and rsi > %s and rsi < %s and stype='FUTSTK' order by rsi asc"
