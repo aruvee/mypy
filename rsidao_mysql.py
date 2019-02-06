@@ -33,6 +33,11 @@ class rsidao_mysql:
         cursor.execute(query, (symbol,limitby))
         return cursor
 
+    def getrsilastlimit(self, cursor, symbol, limitby):
+        query = "select * from (Select * from rsi where symbol=%s order by sdate desc limit %s) tbl order by sdate asc"
+        cursor.execute(query, (symbol, limitby))
+        return cursor
+
 
     def getrsi38(self, cursor, symbol):
         query = "Select * from rsi where symbol=%s order by sdate desc limit 38"
