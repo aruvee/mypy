@@ -15,6 +15,8 @@ stocks = rsidao.getrsistocks(cursor, today)
 allstocks = stocks.fetchall()
 message1 = ""
 message2 = ""
+message3 = ""
+message4 = ""
 
 for row in allstocks:
     symbol = row[0]
@@ -36,11 +38,24 @@ for row in allstocks:
             message1 = message1 + row[0] + "\n"
         if MACD1 > MACDSignal1 and MACD2 < MACDSignal2:
             message2 = message2 + row[0] + "\n"
+        if MACD1 < 0 and MACD2 > 0:
+            message3 = message3 + row[0] + "\n"
+        if MACD1 > 0 and MACD2 < 0:
+            message4 = message4 + row[0] + "\n"
+
 
 if message1 != "":
-    subject = "MACD Crossover above"
+    subject = "MACD Crossover above Signal"
     myemail.send_email("aruna", "aruna", "report", subject, message1)
 
 if message2 != "":
-    subject = "MACD Crossover below"
+    subject = "MACD Crossover below Signal"
     myemail.send_email("aruna", "aruna", "report", subject, message2)
+
+if message3 != "":
+    subject = "MACD Crossover above Zero"
+    myemail.send_email("aruna", "aruna", "report", subject, message3)
+
+if message4 != "":
+    subject = "MACD Crossover Below Zero"
+    myemail.send_email("aruna", "aruna", "report", subject, message4)
