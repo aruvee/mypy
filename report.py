@@ -3,7 +3,15 @@ from index import Index
 from reportdao import ReportDAO
 from stockutils import StockUtils
 import sqlite3
-from keyvaluedao import KeyvalueDAO
+from Mysq import Mysq
+from keyvaluedao_mysql import KeyvalueDAO
+import sys
+
+
+try:
+    interval = int(sys.argv[1])
+except IndexError:
+    interval = 20
 
 index = Index()
 myemail = Myemail()
@@ -14,9 +22,14 @@ message = ""
 gLlist = []
 conn = sqlite3.connect("stock.db")
 
-flag = keyvaluedao.getValue(conn, "index_notify")
+mysq = Mysq()
+mysqlconn = mysq.getConnection()
+cursor = mysqlconn.cursor()
+flag = keyvaluedao.getValue(cursor, "report")
+flag = int(flag)
 
-if flag == "true":
+if flag == interval:
+    print("inside")
     cursor = reportdao.selectReport(conn)
     for row in cursor:
         stype = row[0]
