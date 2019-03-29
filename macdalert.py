@@ -19,7 +19,7 @@ macdbesdao = macdbesdao()
 macdbezdao = macdbezdao()
 
 
-#today = "2019-02-01"
+#today = "2019-03-28"
 today = datetime.now().date()
 stocks = rsidao.getrsistocks(cursor, today)
 allstocks = stocks.fetchall()
@@ -41,10 +41,10 @@ for row in allstocks:
             if counter == 1:
                 MACD1 = float(newrow[12])
                 MACDSignal1 = float(newrow[13])
-                price = float(newrow[3])
             else:
                 MACD2 = float(newrow[12])
                 MACDSignal2 = float(newrow[13])
+                price = float(newrow[3])
         if MACD1 < MACDSignal1 and MACD2 > MACDSignal2:
             message1 = message1 + row[0] + "\n"
             macdabsdao.insert(cursor, today, row[0], price)
