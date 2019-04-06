@@ -17,3 +17,13 @@ class macdabsdao:
         query = "update macdabs set " + daynum + " =%s where stock=%s"
         data = (price, symbol)
         cursor.execute(query, data)
+
+    def selectArchive(self, cursor):
+        query = "Select * from macdabs where day5 is not null"
+        cursor.execute(query)
+        return cursor
+
+    def delete(self, cursor):
+        query = "delete from macdabs where day5 is not null"
+        cursor.execute(query)
+        return cursor

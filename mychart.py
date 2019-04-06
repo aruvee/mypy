@@ -12,6 +12,9 @@ from rsidao_mysql import rsidao_mysql
 datear = []
 rsiar = []
 
+datear1 = []
+rsiar1 = []
+
 mysq = Mysq()
 rsidao = rsidao_mysql()
 conn = mysq.getConnection()
@@ -23,5 +26,16 @@ for row in data:
     datear.append(row[0])
     rsiar.append(row[9])
 
-plt.plot(datear,rsiar)
+plt.plot(datear, rsiar, 'k--', label='TCS', linewidth=2)
+#plt.text(datear, rsiar, 'TCS')
+#plt.show()
+
+cursor = rsidao.getrsi10(cursor,"INFY")
+data = cursor.fetchall()
+
+for row in data:
+    datear1.append(row[0])
+    rsiar1.append(row[9])
+
+plt.plot(datear1,rsiar1,label='TCS', linewidth=2)
 plt.show()
