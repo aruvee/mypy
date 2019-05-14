@@ -1,6 +1,6 @@
 from python import python
 from flask import request
-from python.PortfolioService import PortfolioService
+from KeyValueService import KeyValueService
 import json
 
 @python.route('/port', methods=['GET'])
@@ -61,4 +61,12 @@ def delPortfolio():
     dataDict = json.loads(data)
     portfolioService = PortfolioService()
     portfolioService.delPortfolio(dataDict['symbol'], dataDict['qty'], dataDict['percent'],dataDict['sellprice'])
+    return "Success"
+
+@python.route('/port/keyupdate', methods=['POST'])
+def keyUpdate():
+    data = request.data
+    dataDict = json.loads(data)
+    keyService = KeyValueService()
+    keyService.updateKeyValue(dataDict['key'],dataDict['value'])
     return "Success"

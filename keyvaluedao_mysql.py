@@ -10,7 +10,15 @@ class KeyvalueDAO:
             retValue = row[0]
         return retValue
 
+    def updateValue(self, cursor, key, myvalue):
+        query = "UPDATE keyvalue SET value=%s where keyname=%s"
+        data = (myvalue, key)
+        cursor.execute(query, data)
+
     # def updateValue(self, conn, key, value):
     #     conn.execute("UPDATE keyvalue SET value=? where key=?", (value, key))
     #     conn.commit()
+
+
+
 

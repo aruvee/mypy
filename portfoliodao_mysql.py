@@ -7,7 +7,7 @@ class PortfolioDAO:
 
     def getLong(self, cursor):
         #query = "select symbol,qty,buyprice,sellprice from portfolio where datediff(now(),sdate) > 365"
-        query = "select symbol, sum(qty), sum(invst)/sum(qty),sellprice from " \
+        query = "select symbol, sum(qty), sum(invst)/sum(qty), avg(sellprice) from " \
                 "(select symbol, qty, (qty * buyprice) as invst,sellprice from portfolio " \
                 "where datediff(now(),sdate) > 365) as longterm group by symbol"
         cursor.execute(query)
