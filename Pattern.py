@@ -63,23 +63,25 @@ class Pattern:
 
     def getdownpathport(self, exchange):
         nseprefix = "https://nseindia.com/content/historical/EQUITIES/YYYY/MMM/cmDDMMMYYYYbhav.csv.zip"
-        nseprefix= nseprefix.replace("DD", self.getDD())
-        nseprefix= nseprefix.replace("MMM", self.getMMM())
         nseprefix = nseprefix.replace("YYYY", self.getYYYY())
+        nseprefix = nseprefix.replace("MMM", self.getMMM())
+        nseprefix = nseprefix.replace("DD", self.getDD())
         return nseprefix
 
     def getzipfilepathport(self, exchange):
         filename = "cmDDMMMYYYYbhav.csv.zip"
-        filename = filename.replace("DD", self.getDD())
-        filename = filename.replace("MMM", self.getMMM())
         filename = filename.replace("YYYY", self.getYYYY())
+        filename = filename.replace("MMM", self.getMMM())
+        filename = filename.replace("DD", self.getDD())
         return filename
 
     def getcsvfilepathport(self, exchange):
         filename = "cmDDMMMYYYYbhav.csv"
-        filename = filename.replace("DD", self.getDD())
-        filename = filename.replace("MMM", self.getMMM())
         filename = filename.replace("YYYY", self.getYYYY())
+        filename = filename.replace("MMM", self.getMMM())
+        filename = filename.replace("DD", self.getDD())
+
+
         return filename
 
     def getfilepathport(self, exchange):
@@ -152,7 +154,7 @@ class Pattern:
 
     def getnsepandas(self, path):
         dataframe = pandas.read_csv(path, index_col=1)
-        dataframe = dataframe.loc[dataframe['EXP_DATE'] == '28/02/2019']
+        dataframe = dataframe.loc[dataframe['EXP_DATE'] == '30/05/2019']
         return dataframe
 
     def getfostocks(self):
