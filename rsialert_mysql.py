@@ -63,3 +63,30 @@ for row in stocks:
 
 myemail.send_email("aruna", "aruna", "report", subject, message)
 
+# Check for RSI moving from less than 30 to Greater than 30.
+maxDict = {}
+maxDate = rsidao.getMaxDate(cursor)
+#print(maxDate)
+cursor = rsidao.getAllrsi(cursor, maxDate)
+stocks = cursor.fetchall()
+for row in stocks:
+    maxDict[row[0]] = row[1]
+
+maxDateMinus1 = rsidao.getMaxMinus1(cursor, maxDate)
+cursor = rsidao.getAllrsi(cursor, maxDateMinus1)
+stocks = cursor.fetchall()
+
+subject = "RSI Crossing Above 30 (" + str(today) + ")"
+message = ""
+for row in stocks:
+    if row[1] < 30 and maxDict[row[0]] > 30:
+        message = message + row[0] + "\n"
+myemail.send_email("aruna", "aruna", "report", subject, message)
+
+
+subject = "RSI Crossing Below 70 (" + str(today) + ")"
+message = ""
+for row in stocks:
+    if row[1] > 70 and maxDict[row[0]] < 70:
+        message = message + row[0] + "\n"
+myemail.send_email("aruna", "aruna", "report", subject, message)

@@ -90,3 +90,21 @@ class rsidao_mysql:
         data = (sdate, value, min)
         cursor.execute(query, data)
         return cursor
+
+    def getMaxDate(self, cursor):
+        cursor.execute("select max(sdate) from rsi")
+        maxDate = '2000-01-01'
+        for row in cursor:
+            maxDate = row[0]
+        return maxDate
+
+    def getMaxMinus1(self, cursor, maxDate):
+        cursor.execute("select max(sdate) from rsi where sdate != %s", (maxDate,))
+        maxDateMinus1 = '2000-01-01'
+        for row in cursor:
+            maxDateMinus1 = row[0]
+        return maxDateMinus1
+
+    def getAllrsi(self, cursor, onDate):
+        cursor.execute("select symbol, rsi from rsi where sdate = %s", (onDate,))
+        return cursor
