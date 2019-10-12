@@ -28,3 +28,4 @@ class Nifty50:
         data = json.load(open('nifty50.json'))
         bankvalue = data["advances"]
         return  bankvalue
+
