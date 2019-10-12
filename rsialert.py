@@ -66,3 +66,5 @@ for row in cursor:
     message = message + row[0] + "\n"
 
 myemail.send_email("aruna", "aruna", "veera", subject, message)
+
+# new
