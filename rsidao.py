@@ -47,3 +47,6 @@ class rsidao:
         cursor = conn.execute("Update rsi set gavg=?, lavg= ?, rs=?, rsi=? where sdate=? and symbol=?",
                               (gavg, lavg, rs, rsi, sdate, symbol))
         #conn.commit()
+
+
+#new
