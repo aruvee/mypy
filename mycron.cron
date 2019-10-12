@@ -9,79 +9,79 @@
 
 ##################   Trade Alert ###########################################################
 # Trade set up
-*/5 9-23 * * 1-5 python /home/ubuntu/python/tradealert.py >> /home/ubuntu/python/logfile.log 2>&1
-*/45 9-16 * * 1-5 python /home/ubuntu/python/tradenotify.py >> /home/ubuntu/python/logfile.log 2>&1
+*/5 9-23 * * 1-5 python /home/ec2-user/python/tradealert.py >> /home/ec2-user/python/logfile.log 2>&1
+*/45 9-16 * * 1-5 python /home/ec2-user/python/tradenotify.py >> /home/ec2-user/python/logfile.log 2>&1
 
 # Trade Change Notify
-*/3 9-23 * * 1-5 python /home/ubuntu/python/tradechange.py >> /home/ubuntu/python/logfile.log 2>&1
+*/3 9-23 * * 1-5 python /home/ec2-user/python/tradechange.py >> /home/ec2-user/python/logfile.log 2>&1
 
 # Change Alert Notify
-*/15 9-23 * * 1-5 python /home/ubuntu/python/changealert.py >> /home/ubuntu/python/logfile.log 2>&1
+*/15 9-23 * * 1-5 python /home/ec2-user/python/changealert.py >> /home/ec2-user/python/logfile.log 2>&1
 
 # Stop Loss Notify
-*/15 9-23 * * 1-5 python /home/ubuntu/python/stoplossalert.py >> /home/ubuntu/python/logfile.log 2>&1
+*/15 9-23 * * 1-5 python /home/ec2-user/python/stoplossalert.py >> /home/ec2-user/python/logfile.log 2>&1
 
 # Stop Loss Populate
-30 4 * * 1-5 python /home/ubuntu/python/stoplosspop.py >> /home/ubuntu/python/logfile.log 2>&1
+30 4 * * 1-5 python /home/ec2-user/python/stoplosspop.py >> /home/ec2-user/python/logfile.log 2>&1
 
 ##################   Watch Alert ###########################################################
-*/5 6-22 * * 1-5 python /home/ubuntu/python/watchalert.py >> /home/ubuntu/python/logfile.log 2>&1
-03 5 * * 1-5 python /home/ubuntu/python/watchpopa.py >> /home/ubuntu/python/logfile.log 2>&1
-38 5 * * 1-5 python /home/ubuntu/python/watchpopb.py >> /home/ubuntu/python/logfile.log 2>&1
+*/5 6-22 * * 1-5 python /home/ec2-user/python/watchalert.py >> /home/ec2-user/python/logfile.log 2>&1
+03 5 * * 1-5 python /home/ec2-user/python/watchpopa.py >> /home/ec2-user/python/logfile.log 2>&1
+38 5 * * 1-5 python /home/ec2-user/python/watchpopb.py >> /home/ec2-user/python/logfile.log 2>&1
 
 ##################   Report Section ###########################################################
-*/15 9-15 * * 1-5 python /home/ubuntu/python/report.py >> /home/ubuntu/python/logfile.log 2>&1
-30 3 * * 1-5 python /home/ubuntu/python/report.py >> /home/ubuntu/python/logfile.log 2>&1
-#30 21-23 * * 1-5 python /home/ubuntu/python/report.py >> /home/ubuntu/python/logfile.log 2>&1
+*/15 9-15 * * 1-5 python /home/ec2-user/python/report.py >> /home/ec2-user/python/logfile.log 2>&1
+30 3 * * 1-5 python /home/ec2-user/python/report.py >> /home/ec2-user/python/logfile.log 2>&1
+#30 21-23 * * 1-5 python /home/ec2-user/python/report.py >> /home/ec2-user/python/logfile.log 2>&1
 # Daily at the EOD 3:35 PM get the Gann Report
-#05 18 * * 1-5 python /home/ubuntu/python/gannreport.py >> /home/ubuntu/python/logfile.log 2>&1
+#05 18 * * 1-5 python /home/ec2-user/python/gannreport.py >> /home/ec2-user/python/logfile.log 2>&1
 
 ##################   Advance Decline numbers ##################################################
 # Get the hourly Advance and Decline number 9:30, 10:30, 12:30, 02:30
-30 10,12,14,15 * * 1-5 python /home/ubuntu/python/hourlyadde.py >> /home/ubuntu/python/logfile.log 2>&1
+30 10,12,14,15 * * 1-5 python /home/ec2-user/python/hourlyadde.py >> /home/ec2-user/python/logfile.log 2>&1
 # Advance Trend alert
-*/5 9-16 * * 1-5 python /home/ubuntu/python/advance.py >> /home/ubuntu/python/logfile.log 2>&1
+*/5 9-16 * * 1-5 python /home/ec2-user/python/advance.py >> /home/ec2-user/python/logfile.log 2>&1
 
 ##################   Points Section ###########################################################
 # Get the adv dec at 4 PM daily and set the points to 0
-0 16 * * 1-5 python /home/ubuntu/python/addedaily.py >> /home/ubuntu/python/logfile.log 2>&1
+0 16 * * 1-5 python /home/ec2-user/python/addedaily.py >> /home/ec2-user/python/logfile.log 2>&1
 # Run every 15 mins
-*/15 9-16 * * 1-5 python /home/ubuntu/python/addepoints.py >> /home/ubuntu/python/logfile.log 2>&1
+*/15 9-16 * * 1-5 python /home/ec2-user/python/addepoints.py >> /home/ec2-user/python/logfile.log 2>&1
 
 ##################   Portfolio Alerts  ##################################################
-#30 12,13,15,17 * * 1-5 python /home/ubuntu/python/portfolioalert.py >> /home/ubuntu/python/logfile.log 2>&1
+#30 12,13,15,17 * * 1-5 python /home/ec2-user/python/portfolioalert.py >> /home/ec2-user/python/logfile.log 2>&1
 
-25 6,12 * * 1-5 python /home/ubuntu/python/portfolioalert.py >> /home/ubuntu/python/logfile.log 2>&1
+25 6,12 * * 1-5 python /home/ec2-user/python/portfolioalert.py >> /home/ec2-user/python/logfile.log 2>&1
 
-#0 13 * * 1-5 python /home/ubuntu/python/portfolionotify.py aruna >> /home/ubuntu/python/logfile.log 2>&1
-30 6 * * 4 python /home/ubuntu/python/portfolionotify.py veera >> /home/ubuntu/python/logfile.log 2>&1
-30 6 * * 4 python /home/ubuntu/python/portfolionotify.py viru >> /home/ubuntu/python/logfile.log 2>&1
-30 6 * * 4 python /home/ubuntu/python/portfolioexpiry.py >> /home/ubuntu/python/logfile.log 2>&1
+#0 13 * * 1-5 python /home/ec2-user/python/portfolionotify.py aruna >> /home/ec2-user/python/logfile.log 2>&1
+30 6 * * 4 python /home/ec2-user/python/portfolionotify.py veera >> /home/ec2-user/python/logfile.log 2>&1
+30 6 * * 4 python /home/ec2-user/python/portfolionotify.py viru >> /home/ec2-user/python/logfile.log 2>&1
+30 6 * * 4 python /home/ec2-user/python/portfolioexpiry.py >> /home/ec2-user/python/logfile.log 2>&1
 
-#*/2 * * * * python /home/ubuntu/python/crontest.py >> /home/ubuntu/python/logfile.log 2>&1
+#*/2 * * * * python /home/ec2-user/python/crontest.py >> /home/ec2-user/python/logfile.log 2>&1
 
 ##################   Patterns  ##################################################
-0 19 * * 1-5 python /home/ubuntu/python/filedown.py >> /home/ubuntu/python/logfile.log 2>&1
-5 19 * * 1-5 python /home/ubuntu/python/fileextract.py >> /home/ubuntu/python/logfile.log 2>&1
+0 19 * * 1-5 python /home/ec2-user/python/filedown.py >> /home/ec2-user/python/logfile.log 2>&1
+5 19 * * 1-5 python /home/ec2-user/python/fileextract.py >> /home/ec2-user/python/logfile.log 2>&1
 
-30 19 * * 1-5 python /home/ubuntu/python/bsehammer.py >> /home/ubuntu/python/logfile.log 2>&1
-31 19 * * 1-5 python /home/ubuntu/python/nsegravestonewatch.py >> /home/ubuntu/python/logfile.log 2>&1
-32 19 * * 1-5 python /home/ubuntu/python/nsehammer.py >> /home/ubuntu/python/logfile.log 2>&1
-33 19 * * 1-5 python /home/ubuntu/python/nselonglegged.py >> /home/ubuntu/python/logfile.log 2>&1
-34 19 * * 1-5 python /home/ubuntu/python/nsedragonfly.py >> /home/ubuntu/python/logfile.log 2>&1
-35 19 * * 1-5 python /home/ubuntu/python/nsegravestone.py >> /home/ubuntu/python/logfile.log 2>&1
+30 19 * * 1-5 python /home/ec2-user/python/bsehammer.py >> /home/ec2-user/python/logfile.log 2>&1
+31 19 * * 1-5 python /home/ec2-user/python/nsegravestonewatch.py >> /home/ec2-user/python/logfile.log 2>&1
+32 19 * * 1-5 python /home/ec2-user/python/nsehammer.py >> /home/ec2-user/python/logfile.log 2>&1
+33 19 * * 1-5 python /home/ec2-user/python/nselonglegged.py >> /home/ec2-user/python/logfile.log 2>&1
+34 19 * * 1-5 python /home/ec2-user/python/nsedragonfly.py >> /home/ec2-user/python/logfile.log 2>&1
+35 19 * * 1-5 python /home/ec2-user/python/nsegravestone.py >> /home/ec2-user/python/logfile.log 2>&1
 
 #####################  RSI #######################################################
-20 20 * * 1-5 python /home/ubuntu/python/rsidailyprice.py >> /home/ubuntu/python/logfile.log 2>&1
-#22 20 * * 1-5 python /home/ubuntu/python/rsipop14.py >> /home/ubuntu/python/logfile.log 2>&1
-#24 20 * * 1-5 python /home/ubuntu/python/rsipop10.py >> /home/ubuntu/python/logfile.log 2>&1
-#26 20 * * 1-5 python /home/ubuntu/python/rsialert.py >> /home/ubuntu/python/logfile.log 2>&1
+20 20 * * 1-5 python /home/ec2-user/python/rsidailyprice.py >> /home/ec2-user/python/logfile.log 2>&1
+#22 20 * * 1-5 python /home/ec2-user/python/rsipop14.py >> /home/ec2-user/python/logfile.log 2>&1
+#24 20 * * 1-5 python /home/ec2-user/python/rsipop10.py >> /home/ec2-user/python/logfile.log 2>&1
+#26 20 * * 1-5 python /home/ec2-user/python/rsialert.py >> /home/ec2-user/python/logfile.log 2>&1
 
-40 20 * * 1-5 python /home/ubuntu/python/rsidailyprice_mysql.py >> /home/ubuntu/python/logfile.log 2>&1
-42 20 * * 1-5 python /home/ubuntu/python/rsipop28.py >> /home/ubuntu/python/logfile.log 2>&1
-44 20 * * 1-5 python /home/ubuntu/python/rsipop10_mysql.py >> /home/ubuntu/python/logfile.log 2>&1
-46 20 * * 1-5 python /home/ubuntu/python/rsialert_mysql.py >> /home/ubuntu/python/logfile.log 2>&1
+40 20 * * 1-5 python /home/ec2-user/python/rsidailyprice_mysql.py >> /home/ec2-user/python/logfile.log 2>&1
+42 20 * * 1-5 python /home/ec2-user/python/rsipop28.py >> /home/ec2-user/python/logfile.log 2>&1
+44 20 * * 1-5 python /home/ec2-user/python/rsipop10_mysql.py >> /home/ec2-user/python/logfile.log 2>&1
+46 20 * * 1-5 python /home/ec2-user/python/rsialert_mysql.py >> /home/ec2-user/python/logfile.log 2>&1
 
 ####################   UTILS #####################################################
-00 23 * * * python /home/ubuntu/utils/logcopy.py
-05 23 * * * python /home/ubuntu/utils/lognew.py
+00 23 * * * python /home/ec2-user/utils/logcopy.py
+05 23 * * * python /home/ec2-user/utils/lognew.py
