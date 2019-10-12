@@ -8,7 +8,7 @@ class Pattern:
     fileseperator = "/"
 
     def isholiday(self, previousday):
-        holidayList = ['01052018', '15082018', '22082018', '13092018', '20092018', '02102018', '18102018', '07112018', '08112018', '23112018', '25122018']
+        holidayList = ['08102019','28102019','12112019', '25122019']
         year = previousday.year
         month = previousday.month
         if month < 10:
@@ -154,7 +154,7 @@ class Pattern:
 
     def getnsepandas(self, path):
         dataframe = pandas.read_csv(path, index_col=1)
-        dataframe = dataframe.loc[dataframe['EXP_DATE'] == '30/05/2019']
+        dataframe = dataframe.loc[dataframe['EXP_DATE'] == '31/10/2019']
         return dataframe
 
     def getfostocks(self):
