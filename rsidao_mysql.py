@@ -13,6 +13,7 @@ class rsidao_mysql:
     def getcloseprice(self, cursor, sdate, symbol):
         query = "Select close from rsi where symbol=%s and sdate=%s"
         cursor.execute(query, (symbol, sdate))
+        price = 0
         for row in cursor:
             price = row[0]
         return price
@@ -44,6 +45,12 @@ class rsidao_mysql:
         cursor.execute(query, (symbol,))
         return cursor
 
+
+    def getrsi381(self, cursor, symbol,sdate):
+        query = "Select * from rsi where symbol=%s and sdate < %s order by sdate desc limit 38"
+        cursor.execute(query, (symbol,sdate))
+        return cursor
+
     def updateRsi28(self, cursor, gavg, lavg, rs, rsi, symbol, sdate):
         update_rsi28 = "Update rsi set gavg=%s, lavg= %s, rs=%s, rsi=%s where sdate=%s and symbol=%s"
         data = (gavg, lavg, rs, rsi, sdate, symbol)
@@ -52,6 +59,11 @@ class rsidao_mysql:
     def getrsi10(self, cursor, symbol):
         query = "Select * from (Select * from rsi where symbol=%s order by sdate desc limit 11) tbl order by sdate asc"
         cursor.execute(query, (symbol,))
+        return cursor
+
+    def getrsi101(self, cursor, symbol, sdate):
+        query = "Select * from (Select * from rsi where symbol=%s and sdate < %s order by sdate desc limit 11) tbl order by sdate asc"
+        cursor.execute(query, (symbol, sdate))
         return cursor
 
     def get26ema(self, cursor, symbol):
