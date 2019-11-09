@@ -154,6 +154,7 @@ class PortfolioService:
                 portfolioDAO.updatePortfolio(cursor,sdate,symbol,buyQty)
         if percent != "":
             portalertDAO = PortAlertDAO()
-            portalertDAO.addPortAlert(cursor, sdate, symbol, sellPrice, percent)
+            now = datetime.date(datetime.now())
+            portalertDAO.addPortAlert(cursor, now, symbol, sellPrice, percent)
         conn.commit()
         conn.close()
