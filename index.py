@@ -1,5 +1,6 @@
 import mechanicalsoup
-from nsetools import Nse
+#from nsetools import Nse
+from mynsetools import Nse
 import json
 from stockutils import StockUtils
 
