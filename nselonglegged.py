@@ -2,6 +2,8 @@ from Pattern import Pattern
 from Doji import Doji
 from Myemail import Myemail
 from datetime import datetime
+from Mysq import Mysq
+from daoplongleg import daoplongleg
 
 # Initialize the class
 pattern = Pattern()
@@ -12,6 +14,10 @@ myemail = Myemail()
 today = datetime.now().date()
 subject = "Longlegged DOJI (" + str(today) + ")"
 message = ""
+mysq = Mysq()
+conn = mysq.getConnection()
+cursor = conn.cursor()
+daoplongleg = daoplongleg()
 
 
 # Construct the input parameters
@@ -32,6 +38,7 @@ for stockName in dojiList:
     check = Doji.getCondition(stockName, prevDataFrame, highValue, lowValue, perctincr)
     if check:
         message = message + stockName + "\n"
+        daoplongleg.insert(cursor, today, stockName, highValue)
 
 if message != "":
     myemail.send_email("Aruna", "Aruna", "report", subject, message)
