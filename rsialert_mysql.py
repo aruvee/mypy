@@ -3,6 +3,7 @@ from datetime import datetime
 from Mysq import Mysq
 from rsidao_mysql import rsidao_mysql
 from Myemail import Myemail
+from keyvaluedao_mysql import KeyvalueDAO
 
 
 # Initialize the class
@@ -10,9 +11,16 @@ pattern = Pattern()
 mysq = Mysq()
 rsidao = rsidao_mysql()
 myemail = Myemail()
+keyvaluedao = KeyvalueDAO()
+
 
 conn = mysq.getConnection()
 cursor = conn.cursor()
+
+
+flag = keyvaluedao.getValue(cursor, "rsi")
+flag = int(flag)
+
 
 # Construct the input parameters
 today = datetime.now().date()
@@ -30,15 +38,16 @@ for row in stocks:
 myemail.send_email("aruna", "aruna", "report", subject, message)
 
 # Check RSI greater than 65
-subject = "RSI greater than 65 (" + str(today) + ")"
-message = ""
-cursor = rsidao.getrsigt(cursor, today, 65.0, 70.0)
-stocks = cursor.fetchall()
+if flag == 1:
+    subject = "RSI greater than 65 (" + str(today) + ")"
+    message = ""
+    cursor = rsidao.getrsigt(cursor, today, 65.0, 70.0)
+    stocks = cursor.fetchall()
 
-for row in stocks:
-    message = message + row[0] + "\n"
+    for row in stocks:
+        message = message + row[0] + "\n"
 
-myemail.send_email("aruna", "aruna", "report", subject, message)
+    myemail.send_email("aruna", "aruna", "report", subject, message)
 
 
 # Check RSI Less than 30
@@ -52,16 +61,18 @@ for row in stocks:
 
 myemail.send_email("aruna", "aruna", "report", subject, message)
 
+
 # Check RSI Less than 35
-subject = "RSI Less than 35 (" + str(today) + ")"
-message = ""
-cursor = rsidao.getrsilt(cursor, today, 35.0, 30.0)
-stocks = cursor.fetchall()
+if flag == 1:
+    subject = "RSI Less than 35 (" + str(today) + ")"
+    message = ""
+    cursor = rsidao.getrsilt(cursor, today, 35.0, 30.0)
+    stocks = cursor.fetchall()
 
-for row in stocks:
-    message = message + row[0] + "\n"
+    for row in stocks:
+        message = message + row[0] + "\n"
 
-myemail.send_email("aruna", "aruna", "report", subject, message)
+    myemail.send_email("aruna", "aruna", "report", subject, message)
 
 # Check for RSI moving from less than 30 to Greater than 30.
 maxDict = {}
