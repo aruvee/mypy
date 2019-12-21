@@ -6,12 +6,19 @@ from macdabsdao import macdabsdao
 from macdabzdao import macdabzdao
 from macdbesdao import macdbesdao
 from macdbezdao import macdbezdao
+from keyvaluedao_mysql import KeyvalueDAO
+
 
 mysq = Mysq()
 rsidao = rsidao_mysql()
 myemail = Myemail()
 conn = mysq.getConnection()
 cursor = conn.cursor()
+
+keyvaluedao = KeyvalueDAO()
+flag = keyvaluedao.getValue(cursor, "macd")
+flag = int(flag)
+
 
 macdabsdao = macdabsdao()
 macdabzdao = macdabzdao()
@@ -61,18 +68,20 @@ for row in allstocks:
 conn.commit()
 conn.close()
 
-if message1 != "":
-    subject = "MACD Crossover above Signal"
-    myemail.send_email("aruna", "aruna", "report", subject, message1)
+if flag == 1:
+    print("inside")
+    if message1 != "":
+        subject = "MACD Crossover above Signal"
+        myemail.send_email("aruna", "aruna", "report", subject, message1)
 
-if message2 != "":
-    subject = "MACD Crossover below Signal"
-    myemail.send_email("aruna", "aruna", "report", subject, message2)
+    if message2 != "":
+        subject = "MACD Crossover below Signal"
+        myemail.send_email("aruna", "aruna", "report", subject, message2)
 
-if message3 != "":
-    subject = "MACD Crossover above Zero"
-    myemail.send_email("aruna", "aruna", "report", subject, message3)
+    if message3 != "":
+        subject = "MACD Crossover above Zero"
+        myemail.send_email("aruna", "aruna", "report", subject, message3)
 
-if message4 != "":
-    subject = "MACD Crossover Below Zero"
-    myemail.send_email("aruna", "aruna", "report", subject, message4)
+    if message4 != "":
+        subject = "MACD Crossover Below Zero"
+        myemail.send_email("aruna", "aruna", "report", subject, message4)
