@@ -106,7 +106,7 @@ class Index:
     def getYStockPrice(self, stock):
         browser = mechanicalsoup.StatefulBrowser()
         stock = stock + ".NS"
-        url = "https://query2.finance.yahoo.com/v7/finance/quote?formatted=true&crumb=E2u%2FvE2Zq40&lang=en-IN&region=IN&symbols=stock&fields=regularMarketPrice&corsDomain=in.finance.yahoo.com"
+        url = "https://query2.finance.yahoo.com/v7/finance/quote?formatted=true&crumb=E2u%2FvE2Zq40&lang=en-IN&region=IN&symbols=stock&fields=regularMarketPrice%2CregularMarketChangePercent&corsDomain=in.finance.yahoo.com"
         url = url.replace("stock",stock)
         #print(url)
         response = browser.open(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -117,6 +117,22 @@ class Index:
         for index in jsonList:
             if stock == index["symbol"]:
                 ltp = index["regularMarketPrice"]["raw"]
+        return ltp
+
+    def getYChange(self, stock):
+        browser = mechanicalsoup.StatefulBrowser()
+        stock = stock + ".NS"
+        url = "https://query2.finance.yahoo.com/v7/finance/quote?formatted=true&crumb=E2u%2FvE2Zq40&lang=en-IN&region=IN&symbols=stock&fields=regularMarketPrice%2CregularMarketChangePercent&corsDomain=in.finance.yahoo.com"
+        url = url.replace("stock",stock)
+        #print(url)
+        response = browser.open(url, headers={'User-Agent': 'Mozilla/5.0'})
+        output = json.loads(response.text)
+        jsonList = output["quoteResponse"]["result"]
+
+        ltp = 0
+        for index in jsonList:
+            if stock == index["symbol"]:
+                ltp = index["regularMarketChangePercent"]["fmt"]
         return ltp
 
     def populateStocks(self, stockList):
@@ -166,6 +182,8 @@ class Index:
                     #stock.setPrice(nse.get_quote(stock.getname())['lastPrice'])
                     currPrice = self.getYStockPrice(stock.getname())
                     stock.setPrice(currPrice)
+                    change = self.getYChange(stock.getname())
+                    stock.setChange(change)
 
         if typeList.__contains__("index"):
             nse = Nse()
