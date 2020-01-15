@@ -46,11 +46,13 @@ class Index:
         ltp = 0
         symbol = str(symbol)
         if stype == "stock":
-            stockQuote = nse.get_quote(symbol)
-            ltp = stockQuote['lastPrice']
+            #stockQuote = nse.get_quote(symbol)
+            #ltp = stockQuote['lastPrice']
+            ltp = self.getYStockPrice(symbol)
         elif stype == "index":
-            stockQuote = nse.get_index_quote(symbol)
-            ltp = stockQuote['lastPrice']
+            #stockQuote = nse.get_index_quote(symbol)
+            #ltp = stockQuote['lastPrice']
+            ltp = self.getGindexPrice(symbol)
         elif stype == "gindex":
             ltp = self.getGindexPrice(symbol)
         elif stype == "comm":
@@ -91,6 +93,22 @@ class Index:
     def getCurrPrice(self, stock):
         browser = mechanicalsoup.StatefulBrowser()
         url = "https://query1.finance.yahoo.com/v7/finance/quote?formatted=true&crumb=fZr0Clh1CLV&lang=en-IN&region=IN&symbols=INR=X&fields=symbol%2ClongName%2CregularMarketPrice%2CregularMarketChange%2CregularMarketChangePercent%2CregularMarketVolume%2CaverageDailyVolume3Month%2CregularMarketDayRange%2CregularMarketDayLow%2CregularMarketDayHigh%2CfiftyTwoWeekRange%2CfiftyTwoWeekLow%2CfiftyTwoWeekHigh%2Csparkline%2CmessageBoardId%2CshortName%2CmarketCap%2CunderlyingSymbol%2CunderlyingExchangeSymbol%2CheadSymbolAsString%2Cuuid%2CregularMarketOpen&corsDomain=in.finance.yahoo.com"
+        response = browser.open(url, headers={'User-Agent': 'Mozilla/5.0'})
+        output = json.loads(response.text)
+        jsonList = output["quoteResponse"]["result"]
+
+        ltp = 0
+        for index in jsonList:
+            if stock == index["symbol"]:
+                ltp = index["regularMarketPrice"]["raw"]
+        return ltp
+
+    def getYStockPrice(self, stock):
+        browser = mechanicalsoup.StatefulBrowser()
+        stock = stock + ".NS"
+        url = "https://query2.finance.yahoo.com/v7/finance/quote?formatted=true&crumb=E2u%2FvE2Zq40&lang=en-IN&region=IN&symbols=stock&fields=regularMarketPrice&corsDomain=in.finance.yahoo.com"
+        url = url.replace("stock",stock)
+        #print(url)
         response = browser.open(url, headers={'User-Agent': 'Mozilla/5.0'})
         output = json.loads(response.text)
         jsonList = output["quoteResponse"]["result"]
