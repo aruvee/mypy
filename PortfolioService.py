@@ -3,6 +3,7 @@ from Mysq import Mysq
 from portfoliodao_mysql import PortfolioDAO
 from Stock import Stock
 from portalertdao import PortAlertDAO
+from patterndao import PatternDao
 
 class PortfolioService:
 
@@ -132,6 +133,15 @@ class PortfolioService:
         if percent != "":
             portalertDAO = PortAlertDAO()
             portalertDAO.addPortAlert(cursor, sdate, symbol, buyprice, percent)
+        conn.commit()
+        conn.close()
+
+    def addPattern(self, sdate, symbol, buyprice, target, type):
+        mysq = Mysq()
+        patterndao = PatternDao()
+        conn = mysq.getConnection()
+        cursor = conn.cursor()
+        patterndao.insert(cursor,sdate,symbol,buyprice,target,type)
         conn.commit()
         conn.close()
 
