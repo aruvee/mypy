@@ -9,4 +9,12 @@ class PatternDao:
         data = (fdate, symbol, day0, target, type)
         cursor.execute(query, data)
 
+    def update(self, cursor, symbol, price, daynum):
+        query = "update pattern set " + daynum + " =%s where stock=%s"
+        data = (price, symbol)
+        cursor.execute(query, data)
 
+    def select(self, cursor):
+        query = "Select * from pattern"
+        cursor.execute(query)
+        return cursor
