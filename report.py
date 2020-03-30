@@ -40,8 +40,12 @@ if flag == interval:
             stockName = stock[1]
 
     if stockName != "":
-        print(stockName)
-        subject = stockName +" Price " + str(index.getStockPrice("stock", stockName))
+        #print(stockName)
+        if stockName == "NIFTY BANK":
+            identity = "index"
+        else:
+            identity = "stock"
+        subject = stockName +" Price " + str(index.getStockPrice(identity, stockName))
         myemail.send_email("Aruna", "Aruna", "Veera", subject, message)
     else:
         cursor = reportdao.selectReport(conn)
