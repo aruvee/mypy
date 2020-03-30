@@ -41,7 +41,7 @@ if flag == interval:
 
     if stockName != "":
         #print(stockName)
-        if stockName == "NIFTY BANK":
+        if stockName == "NIFTY BANK" or stockName.__contains__("S&P 500"):
             identity = "index"
         else:
             identity = "stock"
