@@ -28,8 +28,8 @@ class WatchDAO:
         return cursor
 
     def delStock(self, cursor, symbol):
-        query = "delete from watch where name = %s"
-        data = (symbol,)
+        query = "delete from watch where name = %s and tab = %s"
+        data = (symbol,"stoc")
         cursor.execute(query, data)
         return cursor
 
